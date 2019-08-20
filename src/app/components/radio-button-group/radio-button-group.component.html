@@ -1,0 +1,44 @@
+<fieldset
+  class="slds-form-element"
+  [ngClass]="{'slds-has-error': req && hasError}">
+  <legend
+    class="slds-form-element__legend slds-form-element__label"
+    [title]="label"
+    >
+    <abbr
+      *ngIf="req"
+      class="slds-required"
+      title="Required"
+      >* </abbr>
+      {{ label }}
+  </legend>
+  <div class="slds-form-element__control">
+    <ul class="slds-radio_button-group">
+      <li
+        *ngFor="let option of options; index as num"
+        class="slds-button slds-radio_button"
+        >
+        <input
+          type="radio"
+          name="radio"
+          [disabled]="dis"
+          [id]="num"
+        />
+        <label
+          class="slds-radio_button__label"
+          [for]="num"
+          [title]="option"
+          (click)="makeSelection(option)"
+          >
+          <span class="slds-radio_faux">{{ option }}</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div
+    *ngIf="req && hasError"
+    class="slds-form-element__help"
+    title="This field is required"
+    >This field is required
+  </div>
+</fieldset>

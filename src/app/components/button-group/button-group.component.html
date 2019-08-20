@@ -1,0 +1,22 @@
+<ul class="slds-button-group-list">
+    <li *ngFor="let button of outerButtons">
+      <app-button
+        [content]="button['content']"
+        [type]="button['type']"
+        >
+      </app-button>
+    </li>
+    <span
+      *ngIf="overflow"
+      class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last"
+      >
+      <button
+        class="slds-button slds-button_icon slds-button_icon-border-filled"
+        title="Show More"
+        >
+        <svg class="slds-button__icon">
+          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+        </svg>
+      </button>
+    </span>
+  </ul>

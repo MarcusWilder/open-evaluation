@@ -1,0 +1,17 @@
+<button
+  class="slds-button"
+  [ngClass]="variation"
+  [disabled]="dis"
+  [title]="content"
+  >
+  <svg
+    *ngIf="symbol"
+    class="slds-button__icon"
+    [ngClass]="{'slds-button__icon_left': !hasIBod}"
+    >
+    <use [attr.xlink:href]="symbol"></use>
+  </svg>
+  <span *ngIf="!hasIBod">
+    <strong>{{ content }}</strong>
+  </span>
+</button>

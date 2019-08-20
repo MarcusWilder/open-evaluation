@@ -1,0 +1,30 @@
+<div
+  class="slds-form-element"
+  [ngClass]="{'slds-has-error': req && hasError}">
+  <label
+    class="slds-form-element__label"
+    [title]="label"
+    >
+    <abbr
+      *ngIf="req"
+      class="slds-required"
+      title="Required"
+      >* </abbr>
+    <strong>{{ label }}</strong>
+  </label>
+  <div class="slds-form-element__control">
+    <input
+      class="slds-input"
+      [disabled]="dis"
+      [(ngModel)]="ent"
+      [placeholder]="placeholder"
+      [title]="ent ? ent : placeholder"
+      (focusout)="makeEntry()"/>
+  </div>
+  <div
+    *ngIf="req && hasError"
+    class="slds-form-element__help"
+    title="This field is required"
+    >This field is required
+  </div>
+</div>

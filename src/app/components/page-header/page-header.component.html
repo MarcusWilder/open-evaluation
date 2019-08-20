@@ -1,0 +1,40 @@
+<div class="slds-page-header">
+    <div class="slds-page-header__row">
+      <div class="slds-page-header__col-title">
+        <div class="slds-media">
+          <div
+            *ngIf="graphic"
+            class="slds-media__figure"
+            >
+            <span
+              class="slds-icon_container"
+              [ngClass]="iconClass"
+              >
+              <svg class="slds-icon slds-page-header__icon">
+                <use [attr.xlink:href]="symbol"></use>
+              </svg>
+            </span>
+          </div>
+          <div class="slds-media__body">
+            <div class="slds-page-header__name">
+              <div class="slds-page-header__name-title">
+                <h1>
+                  <span
+                    class="slds-page-header__title slds-truncate"
+                    [title]="title"
+                    >{{ title }}
+                  </span>
+                </h1>
+              </div>
+            </div>
+            <p
+              *ngIf="subtitle"
+              class="slds-page-header__name-meta"
+              [title]="subtitle"
+              >{{ subtitle }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

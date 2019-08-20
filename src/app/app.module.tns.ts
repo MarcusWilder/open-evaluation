@@ -4,6 +4,12 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { AppComponent } from '@src/app/app.component';
 import { HomeComponent } from '@src/app/home/home.component';
+import { ToastComponent } from '@src/app/components/toast/toast.component';
+import { ButtonComponent } from '@src/app/components/button/button.component';
+import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
+import { InputComponent } from '@src/app/components/input/input.component';
+import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
+import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -16,6 +22,12 @@ import { HomeComponent } from '@src/app/home/home.component';
   declarations: [
     AppComponent,
     HomeComponent,
+    ToastComponent,
+    ButtonComponent,
+    ButtonGroupComponent,
+    InputComponent,
+    PageHeaderComponent,
+    RadioButtonGroupComponent,
   ],
   imports: [
     NativeScriptModule,
