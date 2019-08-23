@@ -3,7 +3,8 @@ import { ToastRef } from '@src/app/services/toast/toast-ref';
 
 @Component({
   selector: 'app-toast',
-  templateUrl: './toast.component.html'
+  templateUrl: './toast.component.html',
+  styleUrls: ['./toast.component.css']
 })
 export class ToastComponent implements OnInit { // Need to alter overlay to appear in bottom right of screen
 
