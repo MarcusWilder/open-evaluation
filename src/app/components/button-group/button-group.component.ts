@@ -19,12 +19,12 @@ export class ButtonGroupComponent { // Will eventually need to incorporate overl
 
   }
 
-  @Input() set row(value: any) {
+  @Input() set row(value: boolean | string) {
     this.displayAsRow = coerceBooleanProperty(value);
   }
 
   innerButtons: object[];
   outerButtons: object[];
   overflow = false;
-  displayAsRow = false
+  displayAsRow = false;
 }
