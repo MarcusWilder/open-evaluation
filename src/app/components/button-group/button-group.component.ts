@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-button-group',
-  templateUrl: './button-group.component.html'
+  templateUrl: './button-group.component.html',
+  styleUrls: ['./button-group.component.css']
 })
 export class ButtonGroupComponent { // Will eventually need to incorporate overlay for dropdown
 
@@ -17,7 +19,12 @@ export class ButtonGroupComponent { // Will eventually need to incorporate overl
 
   }
 
+  @Input() set row(value: boolean | string) {
+    this.displayAsRow = coerceBooleanProperty(value);
+  }
+
   innerButtons: object[];
   outerButtons: object[];
   overflow = false;
+  displayAsRow = false;
 }

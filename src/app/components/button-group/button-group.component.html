@@ -1,5 +1,5 @@
-<ul class="slds-button-group-list">
-    <li *ngFor="let button of outerButtons">
+<ul class="slds-m-vertical_small" [ngClass]="displayAsRow ? 'slds-button-group-row' : 'slds-button-group-list'">
+    <li *ngFor="let button of outerButtons" [ngClass]="displayAsRow ? 'slds-button-group-item' : ''">
       <app-button
         [content]="button['content']"
         [type]="button['type']"
