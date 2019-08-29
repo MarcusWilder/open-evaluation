@@ -1,16 +1,16 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BrandBandType } from '@src/app/types/brand-band-types';
 
 @Component({
   selector: 'app-brand-band',
   templateUrl: './brand-band.component.html',
   styleUrls: ['./brand-band.component.css']
 })
-export class BrandBandComponent implements OnInit {
+export class BrandBandComponent {
 
-  constructor(private elementRef: ElementRef) { }
-
-  ngOnInit() {
-    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'green';
+  @Input() set type(value: BrandBandType) {
+    this.variation = `slds-brand-band_${value}`;
   }
 
+  variation: string;
 }
