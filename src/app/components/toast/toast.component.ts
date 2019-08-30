@@ -20,6 +20,7 @@ export class ToastComponent implements OnInit { // Need to alter overlay to appe
     this.description = this.toastRef.description;
     this.variation = `slds-theme_${this.toastRef.type}`;
     this.icon = `/assets/icons/utility-sprite/svg/symbols.svg#${this.toastRef.type}`;
+    setTimeout( () => { this.toastRef.close(); }, 10000);
   }
 
   close() {
