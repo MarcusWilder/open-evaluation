@@ -11,6 +11,7 @@ import { InputComponent } from '@src/app/components/input/input.component';
 import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
+import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -30,6 +31,7 @@ import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.co
     PageHeaderComponent,
     RadioButtonGroupComponent,
     BrandBandComponent,
+    GlobalNavigationComponent,
   ],
   imports: [
     NativeScriptModule,

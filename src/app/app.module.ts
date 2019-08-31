@@ -25,7 +25,7 @@ import { ToastComponent } from '@src/app/components/toast/toast.component';
     InputComponent,
     PageHeaderComponent,
     RadioButtonGroupComponent,
-    ToastComponent
+    ToastComponent,
   ],
   imports: [
     AppRoutingModule,
