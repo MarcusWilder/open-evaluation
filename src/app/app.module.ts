@@ -5,6 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppComponent } from '@src/app/app.component';
 import { AppRoutingModule } from '@src/app/app-routing.module';
+import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { ButtonComponent } from '@src/app/components/button/button.component';
 import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
 import { HomeComponent } from '@src/app/home/home.component';
@@ -17,13 +18,14 @@ import { ToastComponent } from '@src/app/components/toast/toast.component';
 @NgModule({
   declarations: [
     AppComponent,
+    BrandBandComponent,
     ButtonComponent,
     ButtonGroupComponent,
     HomeComponent,
     InputComponent,
     PageHeaderComponent,
     RadioButtonGroupComponent,
-    ToastComponent
+    ToastComponent,
   ],
   imports: [
     AppRoutingModule,
