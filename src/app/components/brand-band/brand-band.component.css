@@ -1,1 +1,4 @@
 .brand-band_image:before{background-image:url(src/assets/img/Georgia_Tech_logo.svg)}
+.slds-brand-band {
+    position: static;
+}
