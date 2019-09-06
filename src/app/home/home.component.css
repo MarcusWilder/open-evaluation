@@ -1,0 +1,57 @@
+h1.gtHeader {
+    margin-top: 25px;
+    color:white;
+    font-size:300%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+h1.surveyHeader {
+    color:white;
+    font-size:300%;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+div.navBackground {
+    margin-top: 40px;
+    background: #EAAA13;
+    width: 100%;
+    height: 75px;
+}
+
+h1.welcomeText {
+    margin-top: 30px;
+    margin-left: 15px;
+    color: #333333;
+    font-size: calc(1.2vw + 1.2vh);
+    font-weight: bold;
+    width: 75%;
+    text-align: left;
+}
+
+h1.loginText {
+    margin-top: 15px;
+    margin-left: 15px;
+    color: #333333;
+    font-size: calc(1.2vw + 1.2vh);
+    font-weight: bold;
+    width: 75%;
+    text-align: left;
+}
+
+h1.openEvalText {
+    margin-top: 30px;
+    color: #333333;
+    font-size: calc(1.2vw + 1.2vh);
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+iframe.videoPlayer {
+    display: block;
+    margin: 0 auto;
+}
