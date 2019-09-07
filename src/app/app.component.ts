@@ -19,6 +19,7 @@ export class AppComponent {
   lastName: string;
   rankings = [1, 2, 3, 4, 5];
   selection: unknown;
+  tabCollection = ['Home', 'Features', 'Resources'];
 
   submit() {
     this.toastService.open('Survey Response Received', 'Thank you for your feedback', 'success');

@@ -1,0 +1,20 @@
+<div class="slds-context-bar">
+  <div class="slds-context-bar__primary">
+    <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click slds-no-hover">
+      <span class="slds-context-bar__label-action slds-context-bar__app-name">
+        <span class="slds-truncate" [title]="appName">{{ appName }}</span>
+      </span>
+      <a class="slds-button slds-button_brand slds-m-right_large slds-m-vertical_xxx-small" href="javascript:void(0);">Login</a>
+    </div>
+  </div>
+  <nav class="slds-context-bar__secondary" role="navigation">
+    <ul class="slds-grid">
+      <li *ngFor="let tab of tabCollection" class="slds-context-bar__item">
+        <a class="slds-context-bar__label-action" [title]="tab">
+          <span class="slds-assistive-text">Current Page:</span>
+          <span class="slds-truncate" [title]="tab['name']">{{ tab['name'] }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
