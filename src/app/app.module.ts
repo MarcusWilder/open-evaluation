@@ -15,6 +15,7 @@ import { PageHeaderComponent } from '@src/app/components/page-header/page-header
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { TestComponent } from '@src/app/test/test.component';
     RadioButtonGroupComponent,
     ToastComponent,
     TestComponent,
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,
