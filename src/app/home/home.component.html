@@ -6,7 +6,7 @@
     name="OpenEval"
     buttonText="Login"
     [tabs]="tabs"
-    (activeTab)="activeTab"
+    (activeTab)="activeTab = $event"
   ></app-global-navigation>
 </div>
 <h1 class="welcomeText">Welcome to the Georgia Tech Course Evaluation System.</h1>
