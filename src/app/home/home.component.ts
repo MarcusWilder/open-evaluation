@@ -9,7 +9,6 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
-  title = 'open-eval';
   tabs = ['Home', 'Features', 'Resources'];
   activeTab: string;
 
