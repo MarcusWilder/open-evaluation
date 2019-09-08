@@ -4,12 +4,12 @@
   <ul>
       <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
   </ul>
-<app-page-header
-  icon="survey"
-  subtitle="Marcus Wilder"
-  title="Course Evaluation Survey"
-></app-page-header>
-<br>
+<app-global-navigation
+  name="OpenEval"
+  buttonText="Login"
+  [tabs]="tabs"
+  (activeTab)="activeTab"
+></app-global-navigation>
 <div class="slds-m-horizontal_small">
   <app-input
     required
@@ -17,29 +17,23 @@
     placeholder="Enter Your First Name"
     [(entry)]="firstName"
   ></app-input>
-  <br>
   <app-input
     required
     label="Last Name"
     placeholder="Enter Your Last Name"
     [(entry)]="lastName"
   ></app-input>
-  <br>
   <app-radio-button-group
     required
     label="Overall Course Satisfaction"
     [options]="rankings"
     [(selection)]="selection"
   ></app-radio-button-group>
-  <br>
-
-  <app-button-group [buttons]="buttons"></app-button-group>
-  <app-button-group row [buttons]="buttons"></app-button-group>
-  
-  <br>
-  <app-button
-    content="Submit"
-    type="success"
-    (click)="submit()"
-  ></app-button>
+  <app-button-group
+    [buttons]="buttons"
+  ></app-button-group>
+  <app-button-group
+    row
+    [buttons]="buttons"
+  ></app-button-group>
 </div>
