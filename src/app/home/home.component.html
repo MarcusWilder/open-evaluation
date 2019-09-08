@@ -5,6 +5,7 @@
   <app-global-navigation
     name="OpenEval"
     buttonText="Login"
+    [callback]="login"
     [tabs]="tabs"
     (activeTab)="activeTab = $event"
   ></app-global-navigation>
