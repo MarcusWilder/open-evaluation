@@ -1,7 +1,14 @@
 <app-brand-band type="medium"></app-brand-band>
 <h1 class="gtHeader">Georgia Tech</h1>
 <h1 class="surveyHeader">Online Survey System</h1>
-<div class="navBackground"></div>
+<div class="navBackground">
+  <app-global-navigation
+    name="OpenEval"
+    buttonText="Login"
+    [tabs]="tabs"
+    (activeTab)="activeTab"
+  ></app-global-navigation>
+</div>
 <h1 class="welcomeText">Welcome to the Georgia Tech Course Evaluation System.</h1>
 <h1 class="loginText">Please log in using your GT credentials to gain access.</h1>
 <h1 class="openEvalText">What is OpenEval?</h1>
