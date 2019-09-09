@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
           console.log('user:', json.info);
         } else {  
           this.router.navigateByUrl('/home');
-          console.log('resons:', json.reason);
+          console.log('reason:', json.reason);
         }
       });
   }
