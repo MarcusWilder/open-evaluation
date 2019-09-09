@@ -14,6 +14,7 @@ export class GlobalNavigationComponent {
 
   @Input() name: string;
   @Input() buttonText: string;
+  @Input() callback: () => void;
   @Input() set tabs(collection: string[]) {
     this.tabCollection = [];
     for (let ind = 0; ind < collection.length; ind++) {
@@ -37,4 +38,5 @@ export class GlobalNavigationComponent {
     this.currActive = ind;
     this.activeTab.emit(this.tabCollection[this.currActive]['name']);
   }
+
 }

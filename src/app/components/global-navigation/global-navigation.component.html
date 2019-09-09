@@ -4,7 +4,9 @@
       <span class="slds-context-bar__label-action slds-context-bar__app-name">
         <span class="slds-truncate" [title]="name">{{ name }}</span>
       </span>
-      <a class="slds-button slds-button_brand slds-m-right_large slds-m-vertical_xxx-small">{{ buttonText }}</a>
+      <a class="slds-button slds-button_brand slds-m-right_large slds-m-vertical_xxx-small" (click)="callback()">
+        {{ buttonText }}
+      </a>
     </div>
   </div>
   <nav class="slds-context-bar__secondary" role="navigation">
