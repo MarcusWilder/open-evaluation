@@ -10,7 +10,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   selector: 'app-input',
   templateUrl: './input.component.html'
 })
-export class InputComponent { // Add field level help functionality
+export class InputComponent {
 
   @Input() hasError = false;
   @Input() label = 'Input';

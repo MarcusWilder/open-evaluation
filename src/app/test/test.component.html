@@ -1,39 +1,48 @@
-<app-brand-band type="medium"
-></app-brand-band>
+<app-brand-band type="medium"></app-brand-band>
 <div class="row-2">
   <ul>
-      <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
+    <li>
+      <a href="index.html" class="active">
+        <p style="margin-top: 185px;"></p>
+      </a>
+    </li>
   </ul>
-<app-global-navigation
-  name="OpenEval"
-  buttonText="Login"
-  [tabs]="tabs"
-  (activeTab)="activeTab"
-></app-global-navigation>
-<div class="slds-m-horizontal_small">
-  <app-input
-    required
-    label="First Name"
-    placeholder="Enter Your First Name"
-    [(entry)]="firstName"
-  ></app-input>
-  <app-input
-    required
-    label="Last Name"
-    placeholder="Enter Your Last Name"
-    [(entry)]="lastName"
-  ></app-input>
-  <app-radio-button-group
-    required
-    label="Overall Course Satisfaction"
-    [options]="rankings"
-    [(selection)]="selection"
-  ></app-radio-button-group>
-  <app-button-group
-    [buttons]="buttons"
-  ></app-button-group>
-  <app-button-group
-    row
-    [buttons]="buttons"
-  ></app-button-group>
+  <app-global-navigation
+    name="OpenEval"
+    buttonText="Login"
+    [tabs]="tabs"
+    (activeTab)="activeTab"
+  ></app-global-navigation>
+  <div class="slds-m-horizontal_small">
+    <app-input
+      required
+      label="First Name"
+      placeholder="Enter Your First Name"
+      [(entry)]="firstName"
+    ></app-input>
+    <app-input
+      required
+      label="Last Name"
+      placeholder="Enter Your Last Name"
+      [(entry)]="lastName"
+    ></app-input>
+    <app-radio-button-group
+      required
+      label="Overall Course Satisfaction"
+      [options]="rankings"
+      [(selection)]="selection"
+    ></app-radio-button-group>
+    <app-button-group
+      [buttons]="buttons"
+    ></app-button-group>
+    <app-button-group
+      row
+      [buttons]="buttons"
+    ></app-button-group>
+    <app-button
+      content="Submit"
+      type="success"
+      (click)="submit()"
+    ></app-button>
+  </div>
 </div>

@@ -1,8 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { ToastComponent } from '../../components/toast/toast.component';
-import { ToastType } from '../../types/toast-types';
+
+import { ToastComponent } from '@src/app/components/toast/toast.component';
+import { ToastType } from '@src/app/types/toast-types';
 import { ToastRef } from './toast-ref';
 
 @Injectable({

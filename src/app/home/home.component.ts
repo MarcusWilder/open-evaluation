@@ -1,21 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 const CALLBACK_URL = `http://openeval.gatech.edu:4200/dashboard`;
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor() { }
-
-  tabs = ['Home', 'Features', 'Resources'];
   activeTab: string;
-
-  ngOnInit() {
-  }
+  tabs = ['Home', 'Features', 'Resources'];
 
   login() {
     window.location.href = `https://login.gatech.edu/cas/login?service=${

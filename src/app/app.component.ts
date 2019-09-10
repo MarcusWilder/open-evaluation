@@ -14,16 +14,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log('App init!');
-    let url = new URL(window.location.href);
-    let params = new URLSearchParams(url.search);
-    let ticket = params.get('ticket');
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const ticket = params.get('ticket');
     fetch(`${API_SERVER_URL}/validate?ticket=${ticket}`, { credentials: 'include' })
       .then(res => res.json())
       .then(json => {
         if (json.loggedIn) {
           this.router.navigateByUrl('/dashboard');
           console.log('user:', json.info);
-        } else {  
+        } else {
           this.router.navigateByUrl('/home');
           console.log('reason:', json.reason);
         }

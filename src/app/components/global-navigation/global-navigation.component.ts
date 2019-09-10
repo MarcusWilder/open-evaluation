@@ -38,5 +38,4 @@ export class GlobalNavigationComponent {
     this.currActive = ind;
     this.activeTab.emit(this.tabCollection[this.currActive]['name']);
   }
-
 }

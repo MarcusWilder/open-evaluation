@@ -6,7 +6,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   templateUrl: './button-group.component.html',
   styleUrls: ['./button-group.component.css']
 })
-export class ButtonGroupComponent { // Will eventually need to incorporate overlay for dropdown
+export class ButtonGroupComponent {
 
   @Input() set buttons(value: object[]) {
     if (value.length > 3) {
@@ -16,7 +16,6 @@ export class ButtonGroupComponent { // Will eventually need to incorporate overl
     } else {
       this.outerButtons = value;
     }
-
   }
 
   @Input() set row(value: boolean | string) {

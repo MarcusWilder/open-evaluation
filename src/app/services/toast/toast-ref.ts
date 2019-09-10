@@ -1,5 +1,6 @@
-import { ToastType } from 'src/app/types/toast-types';
 import { OverlayRef } from '@angular/cdk/overlay';
+
+import { ToastType } from 'src/app/types/toast-types';
 
 export class ToastRef {
 

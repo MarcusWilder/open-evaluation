@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+
 import { ButtonType } from '@src/app/types/button-types';
 
 @Component({

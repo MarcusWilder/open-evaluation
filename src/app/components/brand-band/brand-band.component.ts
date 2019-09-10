@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { BrandBandType } from '@src/app/types/brand-band-types';
 
 @Component({

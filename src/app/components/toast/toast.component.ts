@@ -6,7 +6,7 @@ import { ToastRef } from '@src/app/services/toast/toast-ref';
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.css']
 })
-export class ToastComponent implements OnInit { // Need to alter overlay to appear in bottom right of screen
+export class ToastComponent implements OnInit {
 
   description: string;
   icon: string;

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
+import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { HomeComponent } from '@src/app/home/home.component';
 import { TestComponent } from '@src/app/test/test.component';
-import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +17,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    },
+  },
   {
     path: '___test',
     component: TestComponent,
@@ -25,5 +25,5 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: '/home',
-  },
+  }
 ];
