@@ -1,5 +1,5 @@
 h1.gtHeader {
-    margin-top: 25px;
+    margin-top: 1.5625rem;
     color:white;
     font-size:300%;
     font-weight: bold;
@@ -16,16 +16,16 @@ h1.surveyHeader {
 }
 
 div.navBackground {
-    margin-top: 40px;
+    margin-top: 2.5rem;
     background: #EAAA13;
     width: 100%;
-    height: 75px;
-    padding-top: 18px;
+    height: 4.6875rem;
+    padding-top: 1.125rem;
 }
 
 h1.welcomeText {
-    margin-top: 30px;
-    margin-left: 15px;
+    margin-top: 1.875rem;
+    margin-left: 0.9375rem;
     color: #333333;
     font-size: calc(1.2vw + 1.2vh);
     font-weight: bold;
@@ -34,8 +34,8 @@ h1.welcomeText {
 }
 
 h1.loginText {
-    margin-top: 15px;
-    margin-left: 15px;
+    margin-top: 0.9375rem;
+    margin-left: 0.9375rem;
     color: #333333;
     font-size: calc(1.2vw + 1.2vh);
     font-weight: bold;
@@ -44,7 +44,7 @@ h1.loginText {
 }
 
 h1.openEvalText {
-    margin-top: 30px;
+    margin-top: 1.875rem;
     color: #333333;
     font-size: calc(1.2vw + 1.2vh);
     font-weight: bold;
