@@ -1,5 +1,7 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { AppComponent } from '@src/app/app.component';
@@ -14,6 +16,8 @@ import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.co
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
+import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
+import { DropdownComponent } from '@src/app/components/picklist/dropdown/dropdown.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -36,13 +40,21 @@ import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
     GlobalNavigationComponent,
     TestComponent,
     DashboardComponent,
+    ComboboxComponent,
+    DropdownComponent,
   ],
   imports: [
-    NativeScriptModule,
     AppRoutingModule,
+    FormsModule,
+    NativeScriptModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [
+    DropdownComponent,
+    ToastComponent
+  ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }

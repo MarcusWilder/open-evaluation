@@ -1,0 +1,29 @@
+<div class="slds-form-element">
+  <label class="slds-form-element__label">{{ label }}</label>
+  <div class="slds-form-element__control">
+    <div class="slds-combobox_container slds-size_small">
+      <div
+        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+        role="combobox"
+        >
+        <div
+          class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+          role="none"
+          >
+          <input
+            type="text"
+            class="slds-input slds-combobox__input slds-combobox__input-value"
+            autoComplete="off"
+            readonly=""
+            role="textbox"
+            [placeholder]="placeholder"/>
+          <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+            <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
