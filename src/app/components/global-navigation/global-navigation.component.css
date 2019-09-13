@@ -1,0 +1,9 @@
+.slds-context-bar {
+    border-color: black;
+}
+
+.slds-button_brand {
+    background-color: white;
+    border-color: black;
+    color: black;
+}
