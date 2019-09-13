@@ -17,7 +17,7 @@ import { GlobalNavigationComponent } from '@src/app/components/global-navigation
 import { TestComponent } from '@src/app/test/test.component';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
-import { DropdownComponent } from '@src/app/components/picklist/dropdown/dropdown.component';
+import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -41,7 +41,7 @@ import { DropdownComponent } from '@src/app/components/picklist/dropdown/dropdow
     TestComponent,
     DashboardComponent,
     ComboboxComponent,
-    DropdownComponent,
+    PicklistDropdownComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -52,7 +52,7 @@ import { DropdownComponent } from '@src/app/components/picklist/dropdown/dropdow
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    DropdownComponent,
+    PicklistDropdownComponent,
     ToastComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]

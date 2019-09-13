@@ -4,6 +4,7 @@
     <div class="slds-combobox_container slds-size_small">
       <div
         class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+        [ngClass]="{'slds-is-open': isOpen}"
         role="combobox"
         >
         <div
@@ -16,7 +17,8 @@
             autoComplete="off"
             readonly=""
             role="textbox"
-            [placeholder]="placeholder"/>
+            [placeholder]="placeholder"
+            (click)="toggleDropdown()"/>
           <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
             <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default">
               <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>

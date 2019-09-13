@@ -17,12 +17,10 @@
     placeholder="Enter Your First Name"
     [(entry)]="firstName"
   ></app-input>
-  <app-input
-    required
-    label="Last Name"
-    placeholder="Enter Your Last Name"
-    [(entry)]="lastName"
-  ></app-input>
+  <app-picklist
+    label="Test"
+    [options]="options"
+  ></app-picklist>
   <app-radio-button-group
     required
     label="Overall Course Satisfaction"
@@ -36,4 +34,9 @@
     row
     [buttons]="buttons"
   ></app-button-group>
+  <app-button
+    content="Submit"
+    type="success"
+    (click)="submit()"
+  ></app-button>
 </div>

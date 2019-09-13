@@ -9,12 +9,12 @@ import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.co
 import { ButtonComponent } from '@src/app/components/button/button.component';
 import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
-import { DropdownComponent } from '@src/app/components/picklist/dropdown/dropdown.component';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
 import { HomeComponent } from '@src/app/home/home.component';
 import { InputComponent } from '@src/app/components/input/input.component';
 import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
+import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
@@ -28,11 +28,11 @@ import { TestComponent } from '@src/app/test/test.component';
     ButtonGroupComponent,
     ComboboxComponent,
     DashboardComponent,
-    DropdownComponent,
     GlobalNavigationComponent,
     HomeComponent,
     InputComponent,
     PageHeaderComponent,
+    PicklistDropdownComponent,
     RadioButtonGroupComponent,
     ToastComponent,
     TestComponent
@@ -46,7 +46,7 @@ import { TestComponent } from '@src/app/test/test.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    DropdownComponent,
+    PicklistDropdownComponent,
     ToastComponent
   ]
 })

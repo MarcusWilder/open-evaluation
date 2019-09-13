@@ -1,0 +1,45 @@
+<div class="slds-form-element">
+  <div class="slds-form-element__control">
+    <div class="slds-combobox_container slds-size_small">
+      <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" role="combobox">
+        <div
+          class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+          role="listbox"
+          >
+          <ul
+            class="slds-listbox slds-listbox_vertical"
+            role="presentation"
+            >
+            <li
+              *ngFor="let choice of options"
+              class="slds-listbox__item"
+              role="presentation"
+              >
+              <div
+                class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                role="option"
+                >
+                <!-- <span class="slds-media__figure slds-listbox__option-icon">
+                  <span class="slds-icon_container slds-icon-utility-check slds-current-color">
+                    <svg class="slds-icon slds-icon_x-small">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                    </svg>
+                  </span>
+                </span> -->
+                <span class="slds-media__body">
+                  <span
+                    class="slds-truncate"
+                    [title]="choice"
+                    >
+                    <!-- <span class="slds-assistive-text">Current Selection: </span> -->
+                    {{ choice }}
+                  </span>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
