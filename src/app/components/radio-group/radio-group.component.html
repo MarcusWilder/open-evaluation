@@ -1,0 +1,31 @@
+<fieldset class="slds-form-element">
+    <legend
+        class="slds-form-element__legend slds-form-element__label"
+        [title]="label"
+        >
+        <abbr
+            *ngIf="req"
+            class="slds-required"
+            title="Required"
+        >* </abbr>
+        {{ label }}
+    </legend>
+    <ul class="slds-form-element__control">
+        <li *ngFor="let option of options; index as num" class="slds-radio">
+            <input
+                type="radio"
+                name="radio"
+                [id]="num + 100"
+            />
+            <label 
+                class="slds-radio__label"
+                [for]="num + 100"
+                [title]="option"
+                (click)="makeSelection(option)"
+            >
+                <li class="slds-radio_faux"></li>
+                <li class="slds-form-element__label">{{ option }}</li>
+            </label>
+        </li>
+    </ul>
+</fieldset>

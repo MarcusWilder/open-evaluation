@@ -36,4 +36,10 @@
     row
     [buttons]="buttons"
   ></app-button-group>
+  <app-radio-group
+    required
+    label="The pace of the course is:"
+    [options]="coursePaceOptions"
+    [(selection)]="mcSelection"
+  ></app-radio-group>
 </div>
