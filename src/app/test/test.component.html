@@ -28,6 +28,7 @@
     label="Overall Course Satisfaction"
     [options]="rankings"
     [(selection)]="selection"
+    radioButtonGroupID = "rbg"
   ></app-radio-button-group>
   <app-button-group
     [buttons]="buttons"
@@ -41,5 +42,6 @@
     label="The pace of the course is:"
     [options]="coursePaceOptions"
     [(selection)]="mcSelection"
+    radioGroupID = "rg"
   ></app-radio-group>
 </div>

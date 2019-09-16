@@ -17,6 +17,7 @@ export class RadioGroupComponent  {
   @Input() hasError = false;
   @Input() options: unknown[];
   @Input() selection: unknown;
+  @Input() radioGroupID: string;
 
   @Input() set disabled(value: boolean | string) {
     this.dis = coerceBooleanProperty(value);

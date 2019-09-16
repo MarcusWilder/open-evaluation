@@ -14,12 +14,12 @@
         <li *ngFor="let option of options; index as num" class="slds-radio">
             <input
                 type="radio"
-                name="radio"
-                [id]="num + 100"
+                name="rgRadio"
+                [id]="radioGroupID + num"
             />
             <label 
                 class="slds-radio__label"
-                [for]="num + 100"
+                [for]="radioGroupID + num"
                 [title]="option"
                 (click)="makeSelection(option)"
             >

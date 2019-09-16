@@ -20,13 +20,13 @@
         >
         <input
           type="radio"
-          name="radio"
+          name="rbgRadio"
           [disabled]="dis"
-          [id]="num"
+          [id]="radioButtonGroupID + num"
         />
         <label
           class="slds-radio_button__label"
-          [for]="num"
+          [for]="radioButtonGroupID + num"
           [title]="option"
           (click)="makeSelection(option)"
           >
