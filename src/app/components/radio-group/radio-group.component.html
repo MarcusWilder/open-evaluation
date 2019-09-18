@@ -1,4 +1,6 @@
-<fieldset class="slds-form-element">
+<fieldset 
+    class="slds-form-element"
+    [ngClass]="{'slds-has-error': req && hasError}">
     <legend
         class="slds-form-element__legend slds-form-element__label"
         [title]="label"
@@ -28,4 +30,10 @@
             </label>
         </li>
     </ul>
+    <div
+        *ngIf="req && hasError"
+        class="slds-form-element__help"
+        title="This field is required"
+        >This field is required
+  </div>
 </fieldset>

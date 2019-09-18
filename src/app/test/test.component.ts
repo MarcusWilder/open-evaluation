@@ -20,8 +20,8 @@ export class TestComponent {
   firstName: string;
   lastName: string;
   rankings = [1, 2, 3, 4, 5];
-  coursePaceOptions = ['too slow', 'about right', 'too fast'];
   selection: unknown;
+  coursePaceOptions = ['too slow', 'about right', 'too fast'];
   mcSelection: unknown;
 
   submit() {
