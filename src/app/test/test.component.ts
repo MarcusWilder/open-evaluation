@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastService } from '@src/app/services/toast/toast.service';
+import { Button } from '@src/app/types/button-group-types';
 
 @Component({
   selector: 'app-test',
@@ -10,10 +11,10 @@ export class TestComponent {
 
   constructor(private toastService: ToastService) {}
 
-  buttons = [
-    {type: 'destructive', content: 'Discard' },
-    {type: 'brand', content: 'Save' },
-    {type: 'success', content: 'Submit' }
+  buttons: Button[] = [
+    { type: 'destructive', content: 'Discard', onClick: () => alert('Discarded!') },
+    { type: 'brand', content: 'Save' , onClick: () => alert('Saved!') },
+    { type: 'success', content: 'Submit' }
   ];
   tabs = ['Home', 'Features', 'Resources'];
   activeTab: string;
