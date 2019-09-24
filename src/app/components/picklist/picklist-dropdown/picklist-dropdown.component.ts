@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PicklistDropdownRef } from '@src/app/services/picklist-dropdown/picklist-dropdown-ref';
+import { PicklistDropdownRef } from '@src/app/components/picklist/picklist-dropdown-ref';
 
 @Component({
-  templateUrl: './picklist-dropdown.component.html',
-  styleUrls: ['./picklist-dropdown.component.css']
+  templateUrl: './picklist-dropdown.component.html'
 })
 export class PicklistDropdownComponent implements OnInit {
-  // Add slds-is-selected and slds-has-focus later
 
-  options: unknown[];
+  options: object[];
+  areSelected: boolean[];
 
-  constructor(private picklistDropdownRef: PicklistDropdownRef) {}
+  constructor(
+    private picklistDropdownRef: PicklistDropdownRef
+  ) {}
 
   ngOnInit() {
     this.options = this.picklistDropdownRef.options;
+    this.areSelected = this.picklistDropdownRef.areSelected;
+  }
+
+  select(num: number) {
+    if (this.options[num]['header']) { return; }
+
+    this.picklistDropdownRef.sendSelection(num);
   }
 }
