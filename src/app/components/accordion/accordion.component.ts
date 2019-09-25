@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-accordion',
   templateUrl: './accordion.component.html',
   styleUrls: ['./accordion.component.css']
 })
-export class AccordionComponent implements OnInit {
+export class AccordionComponent {
 
-  constructor() { }
+  tabCollection: object[];
 
-  ngOnInit() {
+  @Input() header:string;
+  @Input() callback: () => void;
+  @Input() set tabs(collection: string[]) {
+
   }
-
 }
