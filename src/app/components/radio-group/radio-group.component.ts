@@ -7,16 +7,17 @@ import {
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
-  selector: 'app-radio-button-group',
-  templateUrl: './radio-button-group.component.html'
+  selector: 'app-radio-group',
+  templateUrl: './radio-group.component.html',
+  styleUrls: ['./radio-group.component.css']
 })
-export class RadioButtonGroupComponent {
+export class RadioGroupComponent  {
 
-  @Input() label = 'Radio Button Group';
+  @Input() label = 'Radio Group Label';
   @Input() hasError = false;
   @Input() options: unknown[];
   @Input() selection: unknown;
-  @Input() radioButtonGroupID: string;
+  @Input() radioGroupID: string;
 
   @Input() set disabled(value: boolean | string) {
     this.dis = coerceBooleanProperty(value);
