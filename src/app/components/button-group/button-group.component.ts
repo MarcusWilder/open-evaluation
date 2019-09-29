@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+
 import { Button } from '@src/app/types/button-group-types';
 
 @Component({
@@ -9,13 +10,13 @@ import { Button } from '@src/app/types/button-group-types';
 })
 export class ButtonGroupComponent { // Will eventually need to incorporate overlay for dropdown
 
-  @Input() set buttons(value: Button[]) {
-    if (value.length > 3) {
+  @Input() set buttons(collection: Button[]) {
+    if (collection.length > 3) {
       this.overflow = true;
-      this.innerButtons = value.slice(3, value.length);
-      this.outerButtons = value.slice(0, 3);
+      this.innerButtons = collection.slice(3, collection.length);
+      this.outerButtons = collection.slice(0, 3);
     } else {
-      this.outerButtons = value;
+      this.outerButtons = collection;
     }
 
   }

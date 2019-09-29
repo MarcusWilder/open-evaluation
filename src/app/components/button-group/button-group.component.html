@@ -3,7 +3,7 @@
       <app-button
         [content]="button['content']"
         [type]="button['type']"
-        (click)="button.onClick()"
+        (click)="button['onClick'] ? button.onClick() : ''"
         >
       </app-button>
     </li>
