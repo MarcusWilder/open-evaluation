@@ -17,12 +17,12 @@
     placeholder="Enter Your First Name"
     [(entry)]="firstName"
   ></app-input>
-  <app-input
+  <app-picklist
     required
-    label="Last Name"
-    placeholder="Enter Your Last Name"
-    [(entry)]="lastName"
-  ></app-input>
+    label="Created Surveys"
+    placeholder="Select a Survey"
+    [options]="options"
+  ></app-picklist>
   <app-radio-button-group
     required
     label="Overall Course Satisfaction"
@@ -30,13 +30,6 @@
     [(selection)]="selection"
     radioButtonGroupID = "rbg"
   ></app-radio-button-group>
-  <app-button-group
-    [buttons]="buttons"
-  ></app-button-group>
-  <app-button-group
-    row
-    [buttons]="buttons"
-  ></app-button-group>
   <app-radio-group
     required
     label="The pace of the course is:"
@@ -44,4 +37,11 @@
     [(selection)]="mcSelection"
     radioGroupID = "rg"
   ></app-radio-group>
+  <app-button-group
+    [buttons]="buttons"
+  ></app-button-group>
+  <app-button-group
+    row
+    [buttons]="buttons"
+  ></app-button-group>
 </div>

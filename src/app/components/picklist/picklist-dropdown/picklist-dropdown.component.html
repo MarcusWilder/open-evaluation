@@ -1,0 +1,56 @@
+<div class="slds-form-element">
+  <div class="slds-form-element__control">
+    <div class="slds-combobox_container slds-size_small">
+      <div
+        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+        role="listbox"
+        >
+        <ul
+          class="slds-listbox slds-listbox_vertical"
+          role="presentation"
+          >
+          <li
+            *ngFor="let choice of options; index as num"
+            class="slds-listbox__item"
+            role="presentation"
+            (click)="select(num)"
+            >
+            <div
+              class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+              [ngClass]="{'slds-is-selected': areSelected[num]}"
+              role="choice['header'] ? presentation : option"
+              >
+              <ng-container *ngIf="choice['header']; else selectable">
+                <h3
+                  class="slds-listbox__option-header"
+                  role="presentation"
+                  >{{ choice['name'] }}
+                </h3>
+              </ng-container>
+              <ng-template #selectable>
+                <span class="slds-media__figure slds-listbox__option-icon">
+                  <span
+                    *ngIf="areSelected[num]"
+                    class="slds-icon_container slds-icon-utility-check slds-current-color"
+                    >
+                    <svg class="slds-icon slds-icon_x-small">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                    </svg>
+                  </span>
+                </span>
+                <span class="slds-media__body">
+                  <span
+                    class="slds-truncate"
+                    [title]="choice['name']"
+                    >
+                    {{ choice['name'] }}
+                  </span>
+                </span>
+              </ng-template>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
