@@ -12,6 +12,7 @@ import { ButtonGroupComponent } from '@src/app/components/button-group/button-gr
 import { InputComponent } from '@src/app/components/input/input.component';
 import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
+import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
 import { TestComponent } from '@src/app/test/test.component';
@@ -40,8 +41,9 @@ import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist
     GlobalNavigationComponent,
     TestComponent,
     DashboardComponent,
+    RadioGroupComponent,
     ComboboxComponent,
-    PicklistDropdownComponent,
+    PicklistDropdownComponent
   ],
   imports: [
     AppRoutingModule,

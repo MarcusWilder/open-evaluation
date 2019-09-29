@@ -16,8 +16,10 @@ export class TestComponent {
     {type: 'brand', content: 'Save' },
     {type: 'success', content: 'Submit' }
   ];
+  coursePaceOptions = ['too slow', 'about right', 'too fast'];
   firstName: string;
   lastName: string;
+  mcSelection: unknown;
   options = [
     {name: 'CS 1331', header: true},
     {name: 'Survey 1', header: false},

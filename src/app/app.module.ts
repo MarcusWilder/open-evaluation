@@ -16,6 +16,7 @@ import { InputComponent } from '@src/app/components/input/input.component';
 import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
+import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 
@@ -34,6 +35,7 @@ import { TestComponent } from '@src/app/test/test.component';
     PageHeaderComponent,
     PicklistDropdownComponent,
     RadioButtonGroupComponent,
+    RadioGroupComponent,
     ToastComponent,
     TestComponent
   ],
