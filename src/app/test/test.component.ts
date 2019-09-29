@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+
+import { Button } from '@src/app/types/button-group-types';
 import { ToastService } from '@src/app/services/toast/toast.service';
 
 @Component({
@@ -11,10 +13,10 @@ export class TestComponent {
   constructor(private toastService: ToastService) {}
 
   activeTab: string;
-  buttons = [
-    {type: 'destructive', content: 'Discard' },
-    {type: 'brand', content: 'Save' },
-    {type: 'success', content: 'Submit' }
+  buttons: Button[] = [
+    { type: 'destructive', content: 'Discard', onClick: () => alert('Discarded!') },
+    { type: 'brand', content: 'Save' , onClick: () => alert('Saved!') },
+    { type: 'success', content: 'Submit' }
   ];
   coursePaceOptions = ['too slow', 'about right', 'too fast'];
   firstName: string;
@@ -33,8 +35,8 @@ export class TestComponent {
   selection: unknown;
   tabs = ['Home', 'Features', 'Resources'];
 
-  submit() {
-    this.toastService.open('Survey Response Received', 'Thank you for your feedback', 'success');
-  }
+  // submit() {
+  //   this.toastService.open('Survey Response Received', 'Thank you for your feedback', 'success');
+  // }
 
 }
