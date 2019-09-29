@@ -18,8 +18,19 @@ export class TestComponent {
     { type: 'brand', content: 'Save' , onClick: () => alert('Saved!') },
     { type: 'success', content: 'Submit' }
   ];
+  coursePaceOptions = ['too slow', 'about right', 'too fast'];
   firstName: string;
   lastName: string;
+  mcSelection: unknown;
+  options = [
+    {name: 'CS 1331', header: true},
+    {name: 'Survey 1', header: false},
+    {name: 'Survey 2', header: false},
+    {name: 'CS 1332', header: true},
+    {name: 'Survey 3', header: false},
+    {name: 'Survey 4', header: false},
+    {name: 'Survey 5', header: false}
+  ];
   rankings = [1, 2, 3, 4, 5];
   selection: unknown;
   tabs = ['Home', 'Features', 'Resources'];

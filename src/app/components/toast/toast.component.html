@@ -19,7 +19,11 @@
             [title]="title"
           > {{ title }}
           </h2>
-          <p *ngIf="description">{{ description }}</p>
+          <p
+            *ngIf="description"
+            [title]="description"
+            >{{ description }}
+          </p>
         </div>
         <div class="slds-notify__close">
           <button
