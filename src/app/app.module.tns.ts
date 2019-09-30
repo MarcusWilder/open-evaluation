@@ -19,6 +19,7 @@ import { TestComponent } from '@src/app/test/test.component';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
+import { PageHeaderEnhanceComponent } from '@src/app/components/page-header-enhance/page-header-enhance.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -43,7 +44,8 @@ import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist
     DashboardComponent,
     RadioGroupComponent,
     ComboboxComponent,
-    PicklistDropdownComponent
+    PicklistDropdownComponent,
+    PageHeaderEnhanceComponent
   ],
   imports: [
     AppRoutingModule,
