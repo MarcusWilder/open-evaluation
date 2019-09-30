@@ -1,15 +1,10 @@
-<div class="slds-page-header">
+<article class="slds-card">
+  <div class="slds-page-header">
     <div class="slds-page-header__row">
       <div class="slds-page-header__col-title">
         <div class="slds-media">
-          <div
-            *ngIf="graphic"
-            class="slds-media__figure"
-            >
-            <span
-              class="slds-icon_container"
-              [ngClass]="iconClass"
-              >
+          <div *ngIf="graphic" class="slds-media__figure">
+            <span class="slds-icon_container" [ngClass]="iconClass">
               <svg class="slds-icon slds-page-header__icon">
                 <use [attr.xlink:href]="symbol"></use>
               </svg>
@@ -36,5 +31,36 @@
           </div>
         </div>
       </div>
+      <div class="slds-page-header__col-actions">
+        <div class="slds-page-header__controls">
+          <div class="slds-page-header__control">
+            <ul class="slds-button-group-list">
+              <li>
+                <button class="slds-button slds-button_neutral">Create New Survey</button>
+                <button class="slds-button slds-button_neutral">LogOut</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="slds-page-header__row slds-align_absolute-center">
+      <div class="slds-page-header__col-actions">
+        <div class="slds-page-header__controls">
+          <div class="slds-page-header__control">
+            <ul class="slds-button-group-list">
+              <li>
+                  <app-picklist
+                  required
+                  label="Created Surveys"
+                  placeholder="Select a Survey"
+                  [options]="options">
+                </app-picklist>
+              </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+        </div>
   </div>
+</article>

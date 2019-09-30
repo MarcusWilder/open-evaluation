@@ -18,4 +18,13 @@ export class PageHeaderComponent {
   graphic: string;
   iconClass: string;
   symbol: string;
+  options = [
+    {name: 'CS 1331', header: true},
+    {name: 'Survey 1', header: false},
+    {name: 'Survey 2', header: false},
+    {name: 'CS 1332', header: true},
+    {name: 'Survey 3', header: false},
+    {name: 'Survey 4', header: false},
+    {name: 'Survey 5', header: false}
+  ];
 }
