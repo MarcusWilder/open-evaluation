@@ -15,7 +15,7 @@ export class ToastService {
     private injector: Injector
     ) { }
 
-  open(title: string, description: string, type: ToastType) {
+  open(title: string, description: string, type: ToastType): ToastRef {
     const overlayRef = this.overlay.create(this.getToastConfig());
     const toastRef = new ToastRef(overlayRef, title, description, type);
     const injector = this.createInjector(toastRef, this.injector);
@@ -29,7 +29,7 @@ export class ToastService {
     });
   }
 
-  private createInjector(toastRef: ToastRef, injector: Injector) {
+  private createInjector(toastRef: ToastRef, injector: Injector): PortalInjector {
     const tokens = new WeakMap([[ToastRef, toastRef]]);
     return new PortalInjector(injector, tokens);
   }
