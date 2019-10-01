@@ -1,4 +1,4 @@
-export interface Accordion {
+export interface AccordionTab {
     heading: string;
     items?: string[];
 }

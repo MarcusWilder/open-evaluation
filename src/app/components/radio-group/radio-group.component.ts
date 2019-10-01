@@ -8,8 +8,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-radio-group',
-  templateUrl: './radio-group.component.html',
-  styleUrls: ['./radio-group.component.css']
+  templateUrl: './radio-group.component.html'
 })
 export class RadioGroupComponent  {
 

@@ -7,7 +7,7 @@
 <app-global-navigation
   name="OpenEval"
   buttonText="Login"
-  [tabs]="tabs"
+  [tabs]="globalNavTabs"
   (activeTab)="activeTab"
 ></app-global-navigation>
 <app-page-header
@@ -49,7 +49,11 @@
     row
     [buttons]="buttons"
   ></app-button-group>
-  <app-accordion
-    [tabs]="sections"
-  ></app-accordion>
+  <app-card
+    icon="survey"
+    title="Active Surveys"
+    [accordionButtons]="accordionButtons"
+    [accordionTabs]="accordionTabs"
+    [cardButtons]="cardButtons"
+  ></app-card>
 </div>
