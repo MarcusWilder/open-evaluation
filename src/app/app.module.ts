@@ -19,8 +19,6 @@ import { RadioButtonGroupComponent } from '@src/app/components/radio-button-grou
 import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
-import { PageHeaderEnhanceComponent } from '@src/app/components/page-header-enhance/page-header-enhance.component';
-
 
 @NgModule({
   declarations: [
@@ -38,8 +36,7 @@ import { PageHeaderEnhanceComponent } from '@src/app/components/page-header-enha
     RadioButtonGroupComponent,
     RadioGroupComponent,
     ToastComponent,
-    TestComponent,
-    PageHeaderEnhanceComponent
+    TestComponent
   ],
   imports: [
     AppRoutingModule,

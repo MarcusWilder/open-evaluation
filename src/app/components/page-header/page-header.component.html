@@ -34,12 +34,11 @@
       <div class="slds-page-header__col-actions">
         <div class="slds-page-header__controls">
           <div class="slds-page-header__control">
-            <ul class="slds-button-group-list">
-              <li>
-                <button class="slds-button slds-button_neutral">Create New Survey</button>
-                <button class="slds-button slds-button_neutral">LogOut</button>
-              </li>
-            </ul>
+            <app-button-group
+              row
+              [buttons]="buttons"
+              >
+            </app-button-group>
           </div>
         </div>
       </div>
@@ -50,17 +49,16 @@
           <div class="slds-page-header__control">
             <ul class="slds-button-group-list">
               <li>
-                  <app-picklist
-                  required
+                <app-picklist
                   label="Created Surveys"
                   placeholder="Select a Survey"
                   [options]="options">
                 </app-picklist>
               </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+            </ul>
+          </div>
         </div>
+      </div>
+    </div>
   </div>
 </article>
