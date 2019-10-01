@@ -42,10 +42,13 @@
                     >{{ item }}
                   </span>
                 </div>
-                <app-button-group
-                  
-                  >
-                </app-button-group>
+                <ng-container *ngIf="buttons">
+                  <app-button-group
+                    row
+                    [buttons]="buttons"
+                    >
+                  </app-button-group>
+                </ng-container>
               </div>
             </section>
           </li>
