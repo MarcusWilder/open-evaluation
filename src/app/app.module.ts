@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 
+import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
 import { AppComponent } from '@src/app/app.component';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
@@ -23,6 +24,7 @@ import { TestComponent } from '@src/app/test/test.component';
 
 @NgModule({
   declarations: [
+    AccordionComponent,
     AppComponent,
     BrandBandComponent,
     ButtonComponent,

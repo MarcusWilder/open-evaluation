@@ -1,0 +1,56 @@
+<ul class="slds-accordion">
+  <li
+    *ngFor="let tab of tabCollection; index as num"
+    class="slds-accordion__list-item"
+    >
+    <section
+      class="slds-accordion__section"
+      [ngClass]="{'slds-is-open': areOpen[num]}"
+      >
+      <div class="slds-accordion__summary">
+        <h3 class="slds-accordion__summary-heading">
+          <button
+            class="slds-button slds-button_reset slds-accordion__summary-action"
+            (click)="toggleTab(num)"
+            >
+            <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#switch"></use>
+            </svg>
+            <span
+              class="slds-truncate"
+              [title]="tab['heading']"
+              >{{ tab['heading'] }}
+            </span>
+          </button>
+        </h3>
+      </div>
+      <div
+        *ngIf="areOpen[num]"
+        class="slds-accordion__content"
+        >
+        <ul class="slds-accordion">
+          <li
+            *ngFor="let item of tab['items']"
+            class="slds-accordion__list-item"
+            >
+            <section class="slds-accordion__section">
+              <div class="slds-accordion__summary">
+                <div class="slds-accordion__summary-action">
+                  <span
+                    class="slds-truncate"
+                    [title]="item"
+                    >{{ item }}
+                  </span>
+                </div>
+                <app-button-group
+                  
+                  >
+                </app-button-group>
+              </div>
+            </section>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </li>
+</ul>
