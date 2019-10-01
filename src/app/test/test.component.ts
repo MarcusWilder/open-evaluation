@@ -11,7 +11,9 @@ import { ToastService } from '@src/app/services/toast/toast.service';
 })
 export class TestComponent {
 
-  constructor(private toastService: ToastService) {}
+  constructor(
+    // private toastService: ToastService
+  ) {}
 
   activeTab: string;
   buttons: Button[] = [

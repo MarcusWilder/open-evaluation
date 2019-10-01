@@ -18,9 +18,7 @@ export class ButtonGroupComponent { // Will eventually need to incorporate overl
     } else {
       this.outerButtons = collection;
     }
-
   }
-
   @Input() set row(value: boolean | string) {
     this.displayAsRow = coerceBooleanProperty(value);
   }

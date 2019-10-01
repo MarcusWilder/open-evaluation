@@ -21,7 +21,6 @@ import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 
-
 @NgModule({
   declarations: [
     AccordionComponent,
