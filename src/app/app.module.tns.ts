@@ -20,6 +20,7 @@ import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
+import { CardComponent } from '@src/app/components/card/card.component';
 
 
 
@@ -46,7 +47,8 @@ import { AccordionComponent } from '@src/app/components/accordion/accordion.comp
     RadioGroupComponent,
     ComboboxComponent,
     PicklistDropdownComponent,
-    AccordionComponent
+    AccordionComponent,
+    CardComponent
   ],
   imports: [
     AppRoutingModule,

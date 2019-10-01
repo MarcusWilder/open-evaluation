@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { Accordion } from '@src/app/types/accordion-types';
 import { Button } from '@src/app/types/button-group-types';
 import { ToastService } from '@src/app/services/toast/toast.service';
 
@@ -33,11 +32,6 @@ export class TestComponent {
     {name: 'Survey 5', header: false}
   ];
   rankings = [1, 2, 3, 4, 5];
-  sections: Accordion[] = [
-    {heading: 'CS 1301'},
-    {heading: 'CS 1331', items: ['Survey 1', 'Survey 2']},
-    {heading: 'CS 1332', items: ['Survey 3', 'Survey 4', 'Survey 5']},
-  ];
   selection: unknown;
   tabs = ['Home', 'Features', 'Resources'];
 
