@@ -33,10 +33,12 @@
       </div>
     </header>
   </div>
-  <div class="slds-card__body">
+  <div
+    *ngIf="accordionTabs"
+    class="slds-card__body">
     <app-accordion
       [buttons]="accordionButtons"
-      [tabs]="sections"
+      [tabs]="accordionTabs"
     ></app-accordion>
   </div>
 </article>

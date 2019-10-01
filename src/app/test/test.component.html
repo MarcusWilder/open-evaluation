@@ -7,7 +7,7 @@
 <app-global-navigation
   name="OpenEval"
   buttonText="Login"
-  [tabs]="tabs"
+  [tabs]="globalNavTabs"
   (activeTab)="activeTab"
 ></app-global-navigation>
 <div class="slds-m-horizontal_small">
@@ -48,6 +48,7 @@
     icon="survey"
     title="Active Surveys"
     [accordionButtons]="accordionButtons"
+    [accordionTabs]="accordionTabs"
     [cardButtons]="cardButtons"
   ></app-card>
 </div>
