@@ -27,7 +27,10 @@ export class AppComponent implements OnInit {
           this.router.navigateByUrl('/home');
           console.log('reason:', json.reason);
         }
-      });
+      })
+      .catch(err => {
+        console.warn(err, 'Did you forget to start the authentication server?');
+      })
   }
 
 }

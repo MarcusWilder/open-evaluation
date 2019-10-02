@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { InMemoryDataService }  from './services/in-memory-data/in-memory-data.service';
 
 import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
 import { AppComponent } from '@src/app/app.component';
@@ -46,7 +50,14 @@ import { TestComponent } from '@src/app/test/test.component';
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    OverlayModule
+    OverlayModule,
+    HttpClientModule,
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent],
