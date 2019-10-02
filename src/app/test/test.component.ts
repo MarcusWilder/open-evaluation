@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { tap, flatMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { AccordionTab } from '../types/accordion-types';
+import { Button } from '@src/app/types/button-group-types';
 import { ToastService } from '@src/app/services/toast/toast.service';
 
 import { Survey } from '@src/app/objects/survey';
@@ -16,14 +19,26 @@ export class TestComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private toastService: ToastService
+    // private toastService: ToastService
   ) {}
 
+  accordionButtons: Button[] = [
+    {type: 'brand', content: 'Edit'},
+    {type: 'destructive', content: 'Delete'}
+  ];
+  accordionTabs: AccordionTab[] = [
+    {heading: 'CS 1301'},
+    {heading: 'CS 1331', items: ['Survey 1', 'Survey 2']},
+    {heading: 'CS 1332', items: ['Survey 3', 'Survey 4', 'Survey 5']},
+  ];
   activeTab: string;
-  buttons = [
-    {type: 'destructive', content: 'Discard' },
-    {type: 'brand', content: 'Save' },
-    {type: 'success', content: 'Submit' }
+  buttons: Button[] = [
+    {type: 'destructive', content: 'Discard', onClick: () => alert('Discarded!')},
+    {type: 'brand', content: 'Save' , onClick: () => alert('Saved!')},
+    {type: 'success', content: 'Submit'}
+  ];
+  cardButtons: Button[] = [
+    {type: 'success', content: 'Creaete Survey'}
   ];
   coursePaceOptions = ['too slow', 'about right', 'too fast'];
   firstName: string;
@@ -40,7 +55,7 @@ export class TestComponent implements OnInit {
   ];
   rankings = [1, 2, 3, 4, 5];
   selection: unknown;
-  tabs = ['Home', 'Features', 'Resources'];
+  globalNavTabs = ['Home', 'Features', 'Resources'];
 
   ngOnInit() {
     const log = (surveys, message) => {
@@ -75,8 +90,7 @@ export class TestComponent implements OnInit {
     ).subscribe();
   }
 
-  submit() {
-    this.toastService.open('Survey Response Received', 'Thank you for your feedback', 'success');
-  }
-
+  // submit() {
+  //   this.toastService.open('Survey Response Received', 'Thank you for your feedback', 'success');
+  // }
 }

@@ -7,11 +7,13 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { InMemoryDataService }  from './services/in-memory-data/in-memory-data.service';
 
+import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
 import { AppComponent } from '@src/app/app.component';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { ButtonComponent } from '@src/app/components/button/button.component';
 import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
+import { CardComponent } from '@src/app/components/card/card.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
 import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
@@ -24,13 +26,14 @@ import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 
-
 @NgModule({
   declarations: [
+    AccordionComponent,
     AppComponent,
     BrandBandComponent,
     ButtonComponent,
     ButtonGroupComponent,
+    CardComponent,
     ComboboxComponent,
     DashboardComponent,
     GlobalNavigationComponent,

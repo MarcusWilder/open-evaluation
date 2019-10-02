@@ -7,9 +7,14 @@
 <app-global-navigation
   name="OpenEval"
   buttonText="Login"
-  [tabs]="tabs"
+  [tabs]="globalNavTabs"
   (activeTab)="activeTab"
 ></app-global-navigation>
+<app-page-header
+  icon="survey"
+  title="Prof. Stasko"
+  subtitle="Computer Science Professor"
+></app-page-header>
 <div class="slds-m-horizontal_small">
   <app-input
     required
@@ -44,4 +49,11 @@
     row
     [buttons]="buttons"
   ></app-button-group>
+  <app-card
+    icon="survey"
+    title="Active Surveys"
+    [accordionButtons]="accordionButtons"
+    [accordionTabs]="accordionTabs"
+    [cardButtons]="cardButtons"
+  ></app-card>
 </div>
