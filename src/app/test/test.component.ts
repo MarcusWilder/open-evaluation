@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { tap, flatMap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastService } from '@src/app/services/toast/toast.service';
+
 import { Survey } from '@src/app/objects/survey';
+import { QUESTIONS } from '@src/app/mock-data/mock-questions';
+
 
 @Component({
   selector: 'app-test',
@@ -39,17 +43,36 @@ export class TestComponent implements OnInit {
   tabs = ['Home', 'Features', 'Resources'];
 
   ngOnInit() {
-    this.http.get<Survey[]>('api/surveys').subscribe({
-      next(surveys) {
-        console.log('%c THIS IS MOCK DATA: ', `
-          font-weight: bold;
-          font-size: 24px;
-          background: black;
-          color: white;
-        `, surveys);
-        console.log(JSON.stringify(surveys, undefined, 2));
-      }
-    })
+    const log = (surveys, message) => {
+      console.log(`%c ${message} `, `
+        font-weight: bold;
+        font-size: 24px;
+        background: black;
+        color: white;
+      `, surveys);
+      console.log(JSON.stringify(surveys, undefined, 2));
+    };
+
+    this.http.get<Survey[]>('api/surveys')
+    .pipe(
+      tap(data => log(data, 'THIS IS MOCK DATA')),
+      
+      flatMap(() => this.http.post<Survey>('api/surveys', {
+        id: 2,
+        name: 'New Survey With Same Questions',
+        questionList: QUESTIONS
+      }, {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+        })
+      })),
+      flatMap(() => this.http.get<Survey[]>('api/surveys')),
+      tap(data => log(data, 'ADDED A NEW ITEM')),
+      
+      flatMap(() => this.http.delete<Survey>('api/surveys/1')),
+      flatMap(() => this.http.get<Survey[]>('api/surveys')),
+      tap(data => log(data, 'DELETED THE FIRST ITEM')),
+    ).subscribe();
   }
 
   submit() {
