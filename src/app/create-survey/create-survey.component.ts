@@ -48,14 +48,13 @@ export class CreateSurveyComponent implements OnInit {
 
         console.log('effectedCourse:' + effectedCourse[0].id);
 
-        this.mockdataService.deleteCourse(effectedCourse[0])
-          .subscribe(deletedCourse => {
-            this.mockdataService.addCourse({id: effectedCourse[0].id, name: effectedCourse[0].name, professor: effectedCourse[0].professor,
-              roster: effectedCourse[0].roster, surveys: effectedCourse[0].surveys.concat(newSurvey) })
-                .subscribe(newCourse => {
-                  this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
-                  this.router.navigateByUrl('/professor-dashboard');
-                });
+        const actualCourse = effectedCourse[0];
+        actualCourse.surveys = actualCourse.surveys.concat([newSurvey]);
+
+        this.mockdataService.updateCourse(actualCourse)
+          .subscribe(newCourse => {
+            this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
+            this.router.navigateByUrl('/professor-dashboard');
           });
 
         console.log('**New Survey Posted');

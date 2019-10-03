@@ -69,28 +69,9 @@ export class MockdataService {
 
   updateCourse(course: Course): Observable<Course> {
     console.log('update course' + course.id);
-    return this.http.post<Course>(this.surveysUrl, course, this.httpOptions).pipe(
+    return this.http.put<Course>(this.coursesUrl, course, this.httpOptions).pipe(
       tap((updatedCourse: Course) => console.log(`updated course w/ id=${updatedCourse.id}`)),
-      catchError(this.handleError<Course>('addCourse'))
-    );
-  }
-
-  deleteCourse(course: Course | number): Observable<Course> {
-    const id = typeof course === 'number' ? course : course.id;
-    const url = `${this.coursesUrl}/${id}`;
-
-    return this.http.delete<Course>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted course id=${id}`)),
-      catchError(this.handleError<Course>('deleteCourse'))
-    );
-  }
-
-
-  addCourse(course: Course): Observable<Course> {
-    console.log('create new course');
-    return this.http.post<Course>(this.coursesUrl, course, this.httpOptions).pipe(
-      tap((newCourse: Course) => console.log(`added course w/ id=${newCourse.id}`)),
-      catchError(this.handleError<Course>('addCourse'))
+      catchError(this.handleError<Course>('updateCourse'))
     );
   }
 
