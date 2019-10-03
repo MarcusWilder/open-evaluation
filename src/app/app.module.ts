@@ -25,6 +25,8 @@ import { RadioButtonGroupComponent } from '@src/app/components/radio-button-grou
 import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { ProfessorDashboardComponent } from '@src/app/professor-dashboard/professor-dashboard.component';
+import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { TestComponent } from '@src/app/test/test.component';
     RadioButtonGroupComponent,
     RadioGroupComponent,
     ToastComponent,
-    TestComponent
+    TestComponent,
+    ProfessorDashboardComponent,
+    CreateSurveyComponent
   ],
   imports: [
     AppRoutingModule,

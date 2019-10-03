@@ -6,5 +6,10 @@ export const SURVEYS: Survey[] = [
         id: 1,
         name: 'Sample Midterm Survey',
         questionList: QUESTIONS
+    },
+    {
+        id: 2,
+        name: 'Sample Midterm Survey2',
+        questionList: QUESTIONS
     }
 ];

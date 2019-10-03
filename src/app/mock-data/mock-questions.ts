@@ -25,6 +25,19 @@ export const QUESTIONS: Question[] = [
     {
         id: 3,
         type: QuestionType.freeResponse,
+        baseQuestion: 'If I am to succeed in this course, I will need to do more of (a), do less of (b), and do the same amount of (c).',
+        options: null
+    },
+    {
+        id: 4,
+        type: QuestionType.freeResponse,
+        baseQuestion: 'If I am to succeed in this course, the instructor will need to do more of (a), do less of (b),'
+                    + 'and do the same amount of (c).',
+        options: null
+    },
+    {
+        id: 5,
+        type: QuestionType.freeResponse,
         baseQuestion: 'Any additional comments about this course:',
         options: null
     }

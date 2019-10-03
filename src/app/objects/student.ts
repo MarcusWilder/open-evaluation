@@ -2,7 +2,8 @@ import { Course } from './course';
 
 export class Student {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
     courseList: Course[];
     // other properties?
 }

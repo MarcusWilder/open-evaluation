@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Button } from '@src/app/types/button-group-types';
+import { AccordionTab } from '@src/app/types/accordion-types';
 
 @Component({
   selector: 'app-accordion',
@@ -9,7 +10,7 @@ import { Button } from '@src/app/types/button-group-types';
 export class AccordionComponent {
 
   @Input() buttons: Button[];
-  @Input() set tabs(collection: object[]) {
+  @Input() set tabs(collection: AccordionTab[]) {
     this.tabCollection = collection;
     for (let ind = 0; ind < collection.length; ind++) {
       this.areOpen.push(false);

@@ -2,7 +2,9 @@ import { Course } from './course';
 
 export class Professor {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
+    academicField: string;
     courseList: Course[];
     // other properties?
 }
