@@ -1,0 +1,67 @@
+<app-brand-band type="medium"
+></app-brand-band>
+<div class="row-2">
+    <ul>
+        <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
+    </ul>
+<app-card
+    icon="survey"
+    title="Create Survey"
+></app-card>
+
+<div style='padding-left: 10px;'>
+    <app-input
+        required
+        label="Survey Title"
+        placeholder="Enter a title for the survey"
+        [(entry)]="surveyTitle"
+    ></app-input>
+    <app-picklist
+        required
+        label="Target Course"
+        placeholder="Select a Course"
+        [options]="courseOptions"
+        [(selection)]="courseSelection"
+    ></app-picklist>
+    <h2 style='font-size: 20px;'>Survey Template:</h2>
+</div>
+
+<div style='background-color: white; padding: 20px;'>
+    <h2 style='font-size: 20px;'>{{surveyTitle}}</h2>
+
+    <app-radio-group
+        required
+        label="The pace of the course is:"
+        [options]="coursePaceOptions"
+        [(selection)]="mcSelection"
+        radioGroupID = "rg1"
+    ></app-radio-group>
+    <app-radio-group
+        required
+        label="The instructor and/or TA are reachable for questions and feedback:"
+        [options]="reachabilityOptions"
+        [(selection)]="mcSelection2"
+        radioGroupID = "rg2"
+    ></app-radio-group>
+    <app-input
+        required
+        label="If I am to succeed in this course, I will need to do more of (a), do less of (b), and do the same amount of (c)."
+        placeholder="Enter your response"
+    ></app-input>
+    <app-input
+        required
+        label="If I am to succeed in this course, the instructor will need to do more of (a), do less of (b), and do the same amount of (c)."
+        placeholder="Enter your response"
+    ></app-input>
+    <app-input
+        required
+        label="Any additional comments about this course:"
+        placeholder="Enter your response"
+    ></app-input>
+</div>
+
+
+<app-button-group
+row
+[buttons]="buttons"
+></app-button-group>

@@ -21,6 +21,8 @@ import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobo
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
 import { CardComponent } from '@src/app/components/card/card.component';
+import { ProfessorDashboardComponent } from '@src/app/professor-dashboard/professor-dashboard.component';
+import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.component';
 
 
 
@@ -48,7 +50,9 @@ import { CardComponent } from '@src/app/components/card/card.component';
     ComboboxComponent,
     PicklistDropdownComponent,
     AccordionComponent,
-    CardComponent
+    CardComponent,
+    ProfessorDashboardComponent,
+    CreateSurveyComponent
   ],
   imports: [
     AppRoutingModule,

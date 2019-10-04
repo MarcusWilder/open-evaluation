@@ -38,7 +38,7 @@ export class TestComponent implements OnInit {
     {type: 'success', content: 'Submit'}
   ];
   cardButtons: Button[] = [
-    {type: 'success', content: 'Creaete Survey'}
+    {type: 'success', content: 'Create Survey'}
   ];
   coursePaceOptions = ['too slow', 'about right', 'too fast'];
   firstName: string;
@@ -71,7 +71,6 @@ export class TestComponent implements OnInit {
     this.http.get<Survey[]>('api/surveys')
     .pipe(
       tap(data => log(data, 'THIS IS MOCK DATA')),
-      
       flatMap(() => this.http.post<Survey>('api/surveys', {
         id: 2,
         name: 'New Survey With Same Questions',
@@ -83,7 +82,6 @@ export class TestComponent implements OnInit {
       })),
       flatMap(() => this.http.get<Survey[]>('api/surveys')),
       tap(data => log(data, 'ADDED A NEW ITEM')),
-      
       flatMap(() => this.http.delete<Survey>('api/surveys/1')),
       flatMap(() => this.http.get<Survey[]>('api/surveys')),
       tap(data => log(data, 'DELETED THE FIRST ITEM')),

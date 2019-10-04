@@ -18,7 +18,6 @@ export class PageHeaderComponent {
   }
 
   buttons: Button[] = [
-    { type: 'success', content: 'Create New Survey' },
     { type: 'destructive', content: 'Logout' }
   ];
   graphic: string;
