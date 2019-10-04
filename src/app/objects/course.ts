@@ -8,5 +8,4 @@ export class Course {
     professor: Professor;
     roster: Student[];
     surveys: Survey[];
-    // other properties?
 }

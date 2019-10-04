@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
-import { Survey } from './objects/survey';
-import { Professor } from './objects/professor';
-import { Course } from './objects/course';
-import { QUESTIONS } from './mock-data/mock-questions';
+import { Course } from '../../objects/course';
+import { Professor } from '../../objects/professor';
+import { Survey } from '../../objects/survey';
 
 
 @Injectable({
@@ -25,30 +24,12 @@ export class MockdataService {
 
   constructor(private http: HttpClient) { }
 
-  getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>(this.surveysUrl)
+  getCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.coursesUrl)
       .pipe(
-        tap(_ => console.log('fetched surveys')),
-        catchError(this.handleError<Survey[]>('getSurveys', []))
+        tap(_ => console.log('fetched courses')),
+        catchError(this.handleError<Course[]>('getProfessor', []))
       );
-  }
-
-  addSurvey(survey: Survey): Observable<Survey> {
-    console.log('create new survey');
-    return this.http.post<Survey>(this.surveysUrl, survey, this.httpOptions).pipe(
-      tap((newSurvey: Survey) => console.log(`added survey w/ id=${newSurvey.id}`)),
-      catchError(this.handleError<Survey>('addSurvey'))
-    );
-  }
-
-  deleteSurvey(survey: Survey | number): Observable<Survey> {
-    const id = typeof survey === 'number' ? survey : survey.id;
-    const url = `${this.surveysUrl}/${id}`;
-
-    return this.http.delete<Survey>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted survey id=${id}`)),
-      catchError(this.handleError<Survey>('deleteSurvey'))
-    );
   }
 
   getProfessor(): Observable<Professor> {
@@ -59,16 +40,32 @@ export class MockdataService {
       );
   }
 
-  getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.coursesUrl)
+  getSurveys(): Observable<Survey[]> {
+    return this.http.get<Survey[]>(this.surveysUrl)
       .pipe(
-        tap(_ => console.log('fetched courses')),
-        catchError(this.handleError<Course[]>('getProfessor', []))
+        tap(_ => console.log('fetched surveys')),
+        catchError(this.handleError<Survey[]>('getSurveys', []))
       );
   }
 
+  addSurvey(survey: Survey): Observable<Survey> {
+    return this.http.post<Survey>(this.surveysUrl, survey, this.httpOptions).pipe(
+      tap((newSurvey: Survey) => console.log(`added survey w/ id=${newSurvey.id}`)),
+      catchError(this.handleError<Survey>('addSurvey'))
+    );
+  }
+
+  // deleteSurvey(survey: Survey | number): Observable<Survey> {
+  //   const id = typeof survey === 'number' ? survey : survey.id;
+  //   const url = `${this.surveysUrl}/${id}`;
+
+  //   return this.http.delete<Survey>(url, this.httpOptions).pipe(
+  //     tap(_ => console.log(`deleted survey id=${id}`)),
+  //     catchError(this.handleError<Survey>('deleteSurvey'))
+  //   );
+  // }
+
   updateCourse(course: Course): Observable<Course> {
-    console.log('update course' + course.id);
     return this.http.put<Course>(this.coursesUrl, course, this.httpOptions).pipe(
       tap((updatedCourse: Course) => console.log(`updated course w/ id=${updatedCourse.id}`)),
       catchError(this.handleError<Course>('updateCourse'))

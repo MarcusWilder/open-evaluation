@@ -11,13 +11,13 @@ import { Survey } from '@src/app/objects/survey';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return {
-      surveys: SURVEYS,
+      courses: COURSES,
       professor: STASKO,
-      courses: COURSES
+      surveys: SURVEYS
     };
   }
 
   genId(surveys: Survey[]): number {
-    return surveys.length > 0 ? Math.max(...surveys.map(hero => hero.id)) + 1 : 1;
+    return surveys.length > 0 ? Math.max(...surveys.map(survey => survey.id)) + 1 : 1;
   }
 }

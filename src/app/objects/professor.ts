@@ -6,5 +6,4 @@ export class Professor {
     lastName: string;
     academicField: string;
     courseList: Course[];
-    // other properties?
 }
