@@ -3,6 +3,7 @@
   [ngClass]="{'slds-has-error': req && hasError}"
   >
   <label
+    *ngIf="label"
     class="slds-form-element__label"
     [title]="label"
     >

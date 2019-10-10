@@ -7,7 +7,7 @@ import { Button } from '@src/app/types/button-group-types';
 import { ToastService } from '@src/app/services/toast/toast.service';
 
 import { Survey } from '@src/app/objects/survey';
-import { QUESTIONS } from '@src/app/mock-data/mock-questions';
+import { DEFAULT_QUESTIONS } from '@src/app/mock-data/mock-questions';
 
 
 @Component({
@@ -74,7 +74,7 @@ export class TestComponent implements OnInit {
       flatMap(() => this.http.post<Survey>('api/surveys', {
         id: 2,
         name: 'New Survey With Same Questions',
-        questionList: QUESTIONS
+        questionList: DEFAULT_QUESTIONS
       }, {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',

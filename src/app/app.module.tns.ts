@@ -23,6 +23,7 @@ import { AccordionComponent } from '@src/app/components/accordion/accordion.comp
 import { CardComponent } from '@src/app/components/card/card.component';
 import { ProfessorDashboardComponent } from '@src/app/professor-dashboard/professor-dashboard.component';
 import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.component';
+import { SurveyTemplateComponent } from '@src/app/survey-template/survey-template.component';
 
 
 
@@ -52,7 +53,8 @@ import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.comp
     AccordionComponent,
     CardComponent,
     ProfessorDashboardComponent,
-    CreateSurveyComponent
+    CreateSurveyComponent,
+    SurveyTemplateComponent
   ],
   imports: [
     AppRoutingModule,

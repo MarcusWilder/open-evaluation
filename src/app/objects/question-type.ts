@@ -1,7 +1,7 @@
 export enum QuestionType {
-    'multipleChoice',
-    'freeResponse',
-    'ranking',
-    'picklist'
+    multipleChoice = 'MULTIPLE_CHOICE',
+    freeResponse = 'FREE_RESPONSE',
+    ranking = 'RANKING',
+    picklist = 'PICKLIST'
     // other question types?
 }
