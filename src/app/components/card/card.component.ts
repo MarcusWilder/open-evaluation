@@ -5,7 +5,8 @@ import { Button } from '@src/app/types/button-group-types';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html'
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.css']
 })
 export class CardComponent {
 

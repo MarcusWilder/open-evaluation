@@ -31,10 +31,11 @@
           [buttons]="cardButtons"
         ></app-button-group>
       </div>
+      <ng-content select="[header]"></ng-content>
     </header>
   </div>
   <div
-    class="slds-card__body slds-p-around_small">
-    <ng-content></ng-content>
+    class="slds-card__body slds-p-horizontal_medium">
+    <ng-content select="[body]"></ng-content>
   </div>
 </article>
