@@ -34,11 +34,7 @@
     </header>
   </div>
   <div
-    *ngIf="accordionTabs"
-    class="slds-card__body">
-    <app-accordion
-      [buttons]="accordionButtons"
-      [tabs]="accordionTabs"
-    ></app-accordion>
+    class="slds-card__body slds-p-around_small">
+    <ng-content></ng-content>
   </div>
 </article>

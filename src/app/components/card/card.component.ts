@@ -9,8 +9,6 @@ import { Button } from '@src/app/types/button-group-types';
 })
 export class CardComponent {
 
-  @Input() accordionButtons: Button[];
-  @Input() accordionTabs: AccordionTab[];
   @Input() cardButtons: Button[];
   @Input() set icon(value: string) {
     this.graphic = value;
