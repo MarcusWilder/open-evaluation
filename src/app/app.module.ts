@@ -12,7 +12,6 @@ import { AppComponent } from '@src/app/app.component';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { ButtonComponent } from '@src/app/components/button/button.component';
-import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
 import { CardComponent } from '@src/app/components/card/card.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
 import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.component';
@@ -33,7 +32,6 @@ import { TestComponent } from '@src/app/test/test.component';
     AppComponent,
     BrandBandComponent,
     ButtonComponent,
-    ButtonGroupComponent,
     CardComponent,
     ComboboxComponent,
     CreateSurveyComponent,
