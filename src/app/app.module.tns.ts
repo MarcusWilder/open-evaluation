@@ -16,7 +16,6 @@ import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
 import { TestComponent } from '@src/app/test/test.component';
-import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
 import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
@@ -45,7 +44,6 @@ import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.comp
     BrandBandComponent,
     GlobalNavigationComponent,
     TestComponent,
-    DashboardComponent,
     RadioGroupComponent,
     ComboboxComponent,
     PicklistDropdownComponent,
