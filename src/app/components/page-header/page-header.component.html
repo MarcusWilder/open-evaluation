@@ -34,16 +34,11 @@
       <div class="slds-page-header__col-actions">
         <div class="slds-page-header__controls">
           <div class="slds-page-header__control">
-            <ul class="slds-m-vertical_small slds-button-group-row">
-              <li *ngFor="let button of buttons" class="slds-button-group-item">
-                <app-button
-                  [content]="button['content']"
-                  [type]="button['type']"
-                  (click)="button['onClick'] ? button.onClick() : ''"
-                  >
-                </app-button>
-              </li>
-            </ul>
+            <app-button-group
+              row
+              [buttons]="buttons"
+              >
+            </app-button-group>
           </div>
         </div>
       </div>

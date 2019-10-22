@@ -17,8 +17,8 @@ export class ProfessorDashboardComponent implements OnInit {
   ) { }
 
   accordionButtons: Button[] = [
-    {type: 'brand', content: 'Edit', onClick: this.editSurvey},
-    {type: 'destructive', content: 'Delete', onClick: this.deleteSurvey}
+    {type: 'brand', content: 'Edit', onClick: () => this.editSurvey()},
+    {type: 'destructive', content: 'Delete', onClick: () => this.deleteSurvey()}
   ];
 
   accordionTabs: AccordionTab[];
@@ -40,11 +40,11 @@ export class ProfessorDashboardComponent implements OnInit {
     });
   }
 
-  deleteSurvey(item: string) {
-    console.log(item);
+  deleteSurvey() {
+    alert('Coming Soon :O');
   }
 
-  editSurvey(item: string) {
-    console.log(item);
+  editSurvey() {
+    alert('Coming Soon :O');
   }
 }

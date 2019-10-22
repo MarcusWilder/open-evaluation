@@ -37,16 +37,6 @@ export class CreateSurveyComponent implements OnInit {
     {type: 'destructive', content: 'Discard Survey', onClick: () => this.discardSurvey()},
   ];
 
-  ngOnInit() {
-    this.mockdataService.getProfessor().subscribe(professor => {
-      this.currentProfessor = professor;
-      this.courseOptions = professor.courseList
-      .map(function (course) {
-        return {name: course.name, header: false};
-      });
-    });
-  }
-
   createSurvey() {
     const selectedCourse = this.courseSelection;
 
@@ -70,6 +60,16 @@ export class CreateSurveyComponent implements OnInit {
   discardSurvey() {
     this.toastService.open('Survey Discarded', this.surveyTitle + ' was discarded.', 'error');
     this.router.navigateByUrl('/professor-dashboard');
+  }
+
+  ngOnInit() {
+    this.mockdataService.getProfessor().subscribe(professor => {
+      this.currentProfessor = professor;
+      this.courseOptions = professor.courseList
+      .map(function (course) {
+        return {name: course.name, header: false};
+      });
+    });
   }
 
 }
