@@ -27,16 +27,9 @@
       <div
         *ngIf="cardButtons"
         class="slds-no-flex">
-        <ul class="slds-m-vertical_small slds-button-group-row">
-          <li *ngFor="let button of cardButtons" class="slds-button-group-item">
-            <app-button
-              [content]="button['content']"
-              [type]="button['type']"
-              (click)="button['onClick'] ? button.onClick() : ''"
-              >
-            </app-button>
-          </li>
-        </ul>
+        <app-button-group
+          [buttons]="cardButtons"
+        ></app-button-group>
       </div>
     </header>
   </div>

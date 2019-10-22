@@ -18,7 +18,7 @@ export class PageHeaderComponent {
   }
 
   buttons: Button[] = [
-    { type: 'destructive', content: 'Logout', onClick: () => { console.log('Logged Out'); } }
+    { type: 'destructive', content: 'Logout' }
   ];
   graphic: string;
   iconClass: string;

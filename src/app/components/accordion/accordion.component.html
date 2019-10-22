@@ -43,16 +43,11 @@
                   </span>
                 </div>
                 <ng-container *ngIf="buttons">
-                  <ul class="slds-m-vertical_small slds-button-group-row">
-                    <li *ngFor="let button of buttons" class="slds-button-group-item">
-                      <app-button
-                        [content]="button['content']"
-                        [type]="button['type']"
-                        (click)="button['onClick'] ? button.onClick(item) : ''"
-                        >
-                      </app-button>
-                    </li>
-                  </ul>
+                  <app-button-group
+                    row
+                    [buttons]="buttons"
+                    >
+                  </app-button-group>
                 </ng-container>
               </div>
             </section>
