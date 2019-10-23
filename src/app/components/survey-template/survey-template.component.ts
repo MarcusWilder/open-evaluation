@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Survey } from '@src/app/objects/survey';
 import { Question } from '@src/app/objects/question';
 
@@ -7,7 +7,7 @@ import { Question } from '@src/app/objects/question';
   templateUrl: './survey-template.component.html',
   styleUrls: ['./survey-template.component.css']
 })
-export class SurveyTemplateComponent implements OnInit, OnChanges {
+export class SurveyTemplateComponent {
 
   constructor() { }
 
@@ -23,12 +23,4 @@ export class SurveyTemplateComponent implements OnInit, OnChanges {
   // reachabilityOptions = ['Yes', 'Sometimes, but not enough', 'No'];
   // mcSelection: unknown;
   // mcSelection2: unknown;
-
-  ngOnInit() {
-  }
-
-  ngOnChanges() {
-    console.log('from survey template compoennt', this.data);
-  }
-
 }

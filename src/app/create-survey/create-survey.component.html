@@ -5,14 +5,14 @@
         <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
     </ul>
 </div>
-<app-card icon="survey" title="Create Survey">
-    <app-picklist header
-        required
-        placeholder="Select a Template"
-        [options]="templateOptions"
-        [(selection)]="templateSelection"
-    ></app-picklist>    
-</app-card>
+<app-page-header
+    picklistLabel="Current Survey Template"
+    picklistPlaceholder="Select a template"
+    title="Create Survey"
+    icon="calibration"
+    [options]="templateOptions"
+    [(selection)]="templateSelection"
+></app-page-header>
 
 <section class="slds-m-around_large">
     <app-input

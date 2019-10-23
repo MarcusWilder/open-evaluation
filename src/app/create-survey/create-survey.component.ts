@@ -28,7 +28,7 @@ export class CreateSurveyComponent implements OnInit {
   courseSelection: string;
   surveyDataLoaded: boolean = false;
   surveyQuestions: { [option: string]: Survey } = {};
-  templateOptions = [{ name:'Default' }, { name: 'CTL' }];
+  templateOptions = [{ name: 'Default' }, { name: 'CTL' }];
   templateSelection: string = 'Default';
 
   buttons: Button[] = [

@@ -27,8 +27,19 @@ export class ProfessorDashboardComponent implements OnInit {
     {type: 'success', content: 'Create Survey', onClick: () => this.router.navigate(['/create-survey'])}
   ];
 
+  options = [
+    {name: 'CS 1331', header: true},
+    {name: 'Survey 1', header: false},
+    {name: 'Survey 2', header: false},
+    {name: 'CS 1332', header: true},
+    {name: 'Survey 3', header: false},
+    {name: 'Survey 4', header: false},
+    {name: 'Survey 5', header: false}
+  ]
+
   profName: string;
   academicField: string;
+  surveySelection: any;
 
   ngOnInit() {
     this.mockdataService.getProfessor().subscribe(professor => {
