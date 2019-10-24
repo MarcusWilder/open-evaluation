@@ -22,6 +22,7 @@ import { CardComponent } from '@src/app/components/card/card.component';
 import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/professor-dashboard.component';
 import { CreateSurveyComponent } from '@src/app/pages/create-survey/create-survey.component';
 import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/student-dashboard.component';
+import { SurveyTemplateComponent } from './components/survey-template/survey-template.component';
 
 
 
@@ -50,7 +51,8 @@ import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/stud
     CardComponent,
     ProfessorDashboardComponent,
     CreateSurveyComponent,
-    StudentDashboardComponent
+    StudentDashboardComponent,
+    SurveyTemplateComponent
   ],
   imports: [
     AppRoutingModule,

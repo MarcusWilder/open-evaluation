@@ -26,6 +26,7 @@ import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group
 import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/student-dashboard.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TestComponent } from '@src/app/test/test.component';
     StudentDashboardComponent,
     ToastComponent,
     TestComponent,
+    SurveyTemplateComponent,
   ],
   imports: [
     AppRoutingModule,

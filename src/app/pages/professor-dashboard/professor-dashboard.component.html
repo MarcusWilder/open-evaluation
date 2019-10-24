@@ -7,12 +7,19 @@
 <app-page-header
   icon="dashboard"
   [title]="profName"
+  picklistLabel="Created Surveys"
+  picklistPlaceholder="Select a Survey"
   [subtitle]="academicField"
+  [options]="options"
+  [(selection)]="surveySelection"
 ></app-page-header>
 <app-card
     icon="survey"
     title="Active Surveys"
-    [accordionButtons]="accordionButtons"
-    [accordionTabs]="accordionTabs"
     [cardButtons]="cardButtons"
-></app-card>
+>
+    <app-accordion body
+        [buttons]="accordionButtons"
+        [tabs]="accordionTabs"
+    ></app-accordion>
+</app-card>

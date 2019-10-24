@@ -1,0 +1,26 @@
+<ng-container *ngFor="let question of questions">
+    <ng-container [ngSwitch]="question.type">
+        <app-radio-group
+            *ngSwitchCase="'MULTIPLE_CHOICE'"
+            required
+            [label]="question.baseQuestion"
+            [options]="question.options"
+            [(selection)]="question.answer"
+            [radioGroupID] = "'MC' + question.id"
+        ></app-radio-group>
+        <app-input
+            *ngSwitchCase="'FREE_RESPONSE'"
+            required
+            [label]="question.baseQuestion"
+            placeholder="Enter your response"
+        ></app-input>
+        <app-radio-button-group
+            *ngSwitchCase="'RANKING'"
+            required
+            [label]="question.baseQuestion"
+            [options]="[0,1,2,3,4,5]"
+            [(selection)]="question.answer"
+            [radioButtonGroupID]="'RK' + question.id"
+        ></app-radio-button-group>
+    </ng-container>
+</ng-container>
