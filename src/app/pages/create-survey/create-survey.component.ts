@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 
 import { ToastService } from '@src/app/services/toast/toast.service';
 
-import { Button } from '../types/button-group-types';
-import { MockdataService } from '../services/mockdata/mockdata.service';
-import { Professor } from '../objects/professor';
-import { Survey } from '../objects/survey';
-import { QUESTIONS } from '../mock-data/mock-questions';
+import { Button } from '../../types/button-group-types';
+import { MockdataService } from '../../services/mockdata/mockdata.service';
+import { Professor } from '../../objects/professor';
+import { Survey } from '../../objects/survey';
+import { QUESTIONS } from '../../mock-data/mock-questions';
 
 @Component({
   selector: 'app-create-survey',
@@ -37,6 +37,16 @@ export class CreateSurveyComponent implements OnInit {
     {type: 'destructive', content: 'Discard Survey', onClick: () => this.discardSurvey()},
   ];
 
+  ngOnInit() {
+    this.mockdataService.getProfessor().subscribe(professor => {
+      this.currentProfessor = professor;
+      this.courseOptions = professor.courseList
+      .map(function (course) {
+        return {name: course.name, header: false};
+      });
+    });
+  }
+
   createSurvey() {
     const selectedCourse = this.courseSelection;
 
@@ -60,16 +70,6 @@ export class CreateSurveyComponent implements OnInit {
   discardSurvey() {
     this.toastService.open('Survey Discarded', this.surveyTitle + ' was discarded.', 'error');
     this.router.navigateByUrl('/professor-dashboard');
-  }
-
-  ngOnInit() {
-    this.mockdataService.getProfessor().subscribe(professor => {
-      this.currentProfessor = professor;
-      this.courseOptions = professor.courseList
-      .map(function (course) {
-        return {name: course.name, header: false};
-      });
-    });
   }
 
 }

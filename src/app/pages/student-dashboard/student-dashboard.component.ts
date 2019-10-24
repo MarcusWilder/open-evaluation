@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AccordionTab } from '../types/accordion-types';
+import { AccordionTab } from '@src/app/types/accordion-types';
 import { Button } from '@src/app/types/button-group-types';
-import { MockdataService } from '../services/mockdata/mockdata.service';
+import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 
 @Component({
-  selector: 'app-professor-dashboard',
-  templateUrl: './professor-dashboard.component.html'
+  selector: 'app-student-dashboard',
+  templateUrl: './student-dashboard.component.html'
 })
-export class ProfessorDashboardComponent implements OnInit {
+export class StudentDashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -17,14 +17,12 @@ export class ProfessorDashboardComponent implements OnInit {
   ) { }
 
   accordionButtons: Button[] = [
-    {type: 'brand', content: 'Edit', onClick: () => this.editSurvey()},
-    {type: 'destructive', content: 'Delete', onClick: () => this.deleteSurvey()}
+    {type: 'success', content: 'Take', onClick: this.takeSurvey},
   ];
 
   accordionTabs: AccordionTab[];
 
   cardButtons: Button[] = [
-    {type: 'success', content: 'Create Survey', onClick: () => this.router.navigate(['/create-survey'])}
   ];
 
   profName: string;
@@ -40,11 +38,7 @@ export class ProfessorDashboardComponent implements OnInit {
     });
   }
 
-  deleteSurvey() {
-    alert('Coming Soon :O');
-  }
-
-  editSurvey() {
+  takeSurvey() {
     alert('Coming Soon :O');
   }
 }

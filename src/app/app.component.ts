@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       .then(res => res.json())
       .then(json => {
         if (json.loggedIn) {
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/professor-dashboard');
           console.log('user:', json.info);
         } else {
           this.router.navigateByUrl('/home');
