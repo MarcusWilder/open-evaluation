@@ -31,14 +31,11 @@
           [buttons]="cardButtons"
         ></app-button-group>
       </div>
+      <ng-content select="[header]"></ng-content>
     </header>
   </div>
   <div
-    *ngIf="accordionTabs"
-    class="slds-card__body">
-    <app-accordion
-      [buttons]="accordionButtons"
-      [tabs]="accordionTabs"
-    ></app-accordion>
+    class="slds-card__body slds-p-horizontal_medium">
+    <ng-content select="[body]"></ng-content>
   </div>
 </article>

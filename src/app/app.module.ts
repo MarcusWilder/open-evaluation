@@ -5,7 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './services/in-memory-data/in-memory-data.service';
+import { InMemoryDataService } from '@src/app/services/in-memory-data/in-memory-data.service';
 
 import { AccordionComponent } from '@src/app/components/accordion/accordion.component';
 import { AppComponent } from '@src/app/app.component';
@@ -27,6 +27,7 @@ import { RadioButtonGroupComponent } from '@src/app/components/radio-button-grou
 import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { TestComponent } from '@src/app/test/test.component';
     RadioGroupComponent,
     ToastComponent,
     TestComponent,
+    SurveyTemplateComponent,
   ],
   imports: [
     AppRoutingModule,

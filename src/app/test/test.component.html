@@ -14,6 +14,7 @@
   icon="survey"
   title="Prof. Stasko"
   subtitle="Computer Science Professor"
+  [options]="options"
 ></app-page-header>
 <div class="slds-m-horizontal_small">
   <app-input
@@ -52,8 +53,11 @@
   <app-card
     icon="survey"
     title="Active Surveys"
-    [accordionButtons]="accordionButtons"
-    [accordionTabs]="accordionTabs"
     [cardButtons]="cardButtons"
-  ></app-card>
+  >
+    <app-accordion body
+      [buttons]="accordionButtons"
+      [tabs]="accordionTabs"
+    ></app-accordion>
+  </app-card>
 </div>

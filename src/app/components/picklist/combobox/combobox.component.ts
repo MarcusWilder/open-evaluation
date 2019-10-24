@@ -20,7 +20,7 @@ export class ComboboxComponent {
     this.dis = coerceBooleanProperty(value);
   }
   @Input() hasError = false;
-  @Input() label = 'Picklist';
+  @Input() label;
   @Input() set options(values: object[]) {
     this.opts = values;
     for (let ind = 0; ind < values.length; ind++) {

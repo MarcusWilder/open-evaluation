@@ -50,9 +50,12 @@
             <ul class="slds-button-group-list">
               <li>
                 <app-picklist
-                  label="Created Surveys"
-                  placeholder="Select a Survey"
-                  [options]="options">
+                  [label]="picklistLabel"
+                  [placeholder]="picklistPlaceholder"
+                  [options]="options"
+                  [selection]="selection"
+                  (selectionChange)="select($event)"
+                  >
                 </app-picklist>
               </li>
             </ul>

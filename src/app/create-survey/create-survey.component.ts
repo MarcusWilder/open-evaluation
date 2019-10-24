@@ -7,7 +7,7 @@ import { Button } from '../types/button-group-types';
 import { MockdataService } from '../services/mockdata/mockdata.service';
 import { Professor } from '../objects/professor';
 import { Survey } from '../objects/survey';
-import { QUESTIONS } from '../mock-data/mock-questions';
+import { DEFAULT_QUESTIONS } from '../mock-data/mock-questions';
 
 @Component({
   selector: 'app-create-survey',
@@ -22,15 +22,14 @@ export class CreateSurveyComponent implements OnInit {
   ) { }
 
   activeTab: string;
-  coursePaceOptions = ['Too slow', 'About right', 'Too fast'];
-  reachabilityOptions = ['Yes', 'Sometimes, but not enough', 'No'];
   surveyTitle: string;
-  mcSelection: unknown;
-  mcSelection2: unknown;
   currentProfessor: Professor;
-
-  courseOptions: object[];
+  courseOptions: object[] = [];
   courseSelection: string;
+  surveyDataLoaded: boolean = false;
+  surveyQuestions: { [option: string]: Survey } = {};
+  templateOptions = [{ name: 'Default' }, { name: 'CTL' }];
+  templateSelection: string = 'Default';
 
   buttons: Button[] = [
     {type: 'success', content: 'Create Survey' , onClick: () => this.createSurvey()},
@@ -40,7 +39,7 @@ export class CreateSurveyComponent implements OnInit {
   createSurvey() {
     const selectedCourse = this.courseSelection;
 
-    this.mockdataService.addSurvey({name: this.surveyTitle, questionList: QUESTIONS} as Survey)
+    this.mockdataService.addSurvey({name: this.surveyTitle, questionList: DEFAULT_QUESTIONS} as Survey)
       .subscribe(newSurvey => {
         const effectedCourse = this.currentProfessor.courseList.filter(function (course) {
           return course.name === selectedCourse;
@@ -70,6 +69,12 @@ export class CreateSurveyComponent implements OnInit {
         return {name: course.name, header: false};
       });
     });
+    
+    this.mockdataService.getSurveys().subscribe(surveys => {
+      this.surveyQuestions['Default'] = surveys[0];
+      this.surveyQuestions['CTL'] = surveys[1];
+      this.surveyDataLoaded = true;
+    })
   }
 
 }
