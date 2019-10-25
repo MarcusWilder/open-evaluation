@@ -50,6 +50,10 @@ export class PicklistOverlay {
     this.overlayRef.dispose();
   }
 
+  getOverlayRef() {
+    return this.overlayRef;
+  }
+
   getPicklistDropdownRef() {
     return this.picklistDropdownRef;
   }
