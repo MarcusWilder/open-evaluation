@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Injector,
   Input,
+  OnDestroy,
   Output
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -14,7 +15,7 @@ import { PicklistOverlay } from '../picklist-overlay';
   selector: 'app-picklist',
   templateUrl: './combobox.component.html'
 })
-export class ComboboxComponent {
+export class ComboboxComponent implements OnDestroy {
 
   @Input() set disabled(value: boolean | string) {
     this.dis = coerceBooleanProperty(value);
@@ -48,6 +49,12 @@ export class ComboboxComponent {
     private overlay: Overlay,
     private injector: Injector
   ) {}
+
+  ngOnDestroy() {
+    if (!this.picklistOverlay) { return; }
+
+    this.picklistOverlay.getOverlayRef().dispose();
+  }
 
   toggleDropdown() {
     if (!this.isOpen) {
