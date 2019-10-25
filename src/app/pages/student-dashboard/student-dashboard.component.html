@@ -12,7 +12,10 @@
 <app-card
     icon="survey"
     title="Active Surveys"
-    [accordionButtons]="accordionButtons"
-    [accordionTabs]="accordionTabs"
     [cardButtons]="cardButtons"
-></app-card>
+    >
+    <app-accordion body
+        [buttons]="accordionButtons"
+        [tabs]="accordionTabs"
+    ></app-accordion>
+</app-card>

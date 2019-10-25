@@ -35,7 +35,7 @@ export class ProfessorDashboardComponent implements OnInit {
     {name: 'Survey 3', header: false},
     {name: 'Survey 4', header: false},
     {name: 'Survey 5', header: false}
-  ]
+  ];
 
   profName: string;
   academicField: string;
