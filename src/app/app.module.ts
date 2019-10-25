@@ -12,19 +12,18 @@ import { AppComponent } from '@src/app/app.component';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { BrandBandComponent } from '@src/app/components/brand-band/brand-band.component';
 import { ButtonComponent } from '@src/app/components/button/button.component';
-import { ButtonGroupComponent } from '@src/app/components/button-group/button-group.component';
 import { CardComponent } from '@src/app/components/card/card.component';
 import { ComboboxComponent } from '@src/app/components/picklist/combobox/combobox.component';
-import { CreateSurveyComponent } from '@src/app/create-survey/create-survey.component';
-import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
+import { CreateSurveyComponent } from '@src/app/pages/create-survey/create-survey.component';
 import { GlobalNavigationComponent } from '@src/app/components/global-navigation/global-navigation.component';
-import { HomeComponent } from '@src/app/home/home.component';
+import { HomeComponent } from '@src/app/pages/home/home.component';
 import { InputComponent } from '@src/app/components/input/input.component';
 import { PageHeaderComponent } from '@src/app/components/page-header/page-header.component';
 import { PicklistDropdownComponent } from '@src/app/components/picklist/picklist-dropdown/picklist-dropdown.component';
-import { ProfessorDashboardComponent } from '@src/app/professor-dashboard/professor-dashboard.component';
+import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/professor-dashboard.component';
 import { RadioButtonGroupComponent } from '@src/app/components/radio-button-group/radio-button-group.component';
 import { RadioGroupComponent } from '@src/app/components/radio-group/radio-group.component';
+import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/student-dashboard.component';
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
@@ -35,11 +34,9 @@ import { SurveyTemplateComponent } from '@src/app/components/survey-template/sur
     AppComponent,
     BrandBandComponent,
     ButtonComponent,
-    ButtonGroupComponent,
     CardComponent,
     ComboboxComponent,
     CreateSurveyComponent,
-    DashboardComponent,
     GlobalNavigationComponent,
     HomeComponent,
     InputComponent,
@@ -48,6 +45,7 @@ import { SurveyTemplateComponent } from '@src/app/components/survey-template/sur
     ProfessorDashboardComponent,
     RadioButtonGroupComponent,
     RadioGroupComponent,
+    StudentDashboardComponent,
     ToastComponent,
     TestComponent,
     SurveyTemplateComponent,

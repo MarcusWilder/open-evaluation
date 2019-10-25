@@ -40,6 +40,15 @@
         </app-survey-template>
     </div>
 </app-card>
+
 <section class="slds-m-around_large">
-    <app-button-group row [buttons]="buttons"></app-button-group>
+  <ul class="slds-m-vertical_small slds-button-group-row">
+    <li *ngFor="let button of buttons" class="slds-button-group-item">
+      <app-button
+        [content]="button['content']"
+        [type]="button['type']"
+        (click)="button['onClick'] ? button.onClick() : ''"
+        ></app-button>
+    </li>
+  </ul>
 </section>

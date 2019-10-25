@@ -23,7 +23,7 @@ export class PageHeaderComponent {
   @Output() selectionChange = new EventEmitter<any>();
 
   buttons: Button[] = [
-    { type: 'destructive', content: 'Logout' }
+    { type: 'destructive', content: 'Logout', onClick: () => { console.log('Logged Out'); } }
   ];
   graphic: string;
   iconClass: string;

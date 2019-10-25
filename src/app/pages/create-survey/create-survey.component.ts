@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 
 import { ToastService } from '@src/app/services/toast/toast.service';
 
-import { Button } from '../types/button-group-types';
-import { MockdataService } from '../services/mockdata/mockdata.service';
-import { Professor } from '../objects/professor';
-import { Survey } from '../objects/survey';
-import { DEFAULT_QUESTIONS } from '../mock-data/mock-questions';
+import { Button } from '../../types/button-group-types';
+import { MockdataService } from '../../services/mockdata/mockdata.service';
+import { Professor } from '../../objects/professor';
+import { Survey } from '../../objects/survey';
+import { DEFAULT_QUESTIONS } from '../../mock-data/mock-questions';
 
 @Component({
   selector: 'app-create-survey',
@@ -26,15 +26,31 @@ export class CreateSurveyComponent implements OnInit {
   currentProfessor: Professor;
   courseOptions: object[] = [];
   courseSelection: string;
-  surveyDataLoaded: boolean = false;
+  surveyDataLoaded = false;
   surveyQuestions: { [option: string]: Survey } = {};
   templateOptions = [{ name: 'Default' }, { name: 'CTL' }];
-  templateSelection: string = 'Default';
+  templateSelection = 'Default';
 
   buttons: Button[] = [
     {type: 'success', content: 'Create Survey' , onClick: () => this.createSurvey()},
     {type: 'destructive', content: 'Discard Survey', onClick: () => this.discardSurvey()},
   ];
+
+  ngOnInit() {
+    this.mockdataService.getProfessor().subscribe(professor => {
+      this.currentProfessor = professor;
+      this.courseOptions = professor.courseList
+      .map(function (course) {
+        return {name: course.name, header: false};
+      });
+    });
+
+    this.mockdataService.getSurveys().subscribe(surveys => {
+      this.surveyQuestions['Default'] = surveys[0];
+      this.surveyQuestions['CTL'] = surveys[1];
+      this.surveyDataLoaded = true;
+    })
+  }
 
   createSurvey() {
     const selectedCourse = this.courseSelection;
@@ -59,22 +75,6 @@ export class CreateSurveyComponent implements OnInit {
   discardSurvey() {
     this.toastService.open('Survey Discarded', this.surveyTitle + ' was discarded.', 'error');
     this.router.navigateByUrl('/professor-dashboard');
-  }
-
-  ngOnInit() {
-    this.mockdataService.getProfessor().subscribe(professor => {
-      this.currentProfessor = professor;
-      this.courseOptions = professor.courseList
-      .map(function (course) {
-        return {name: course.name, header: false};
-      });
-    });
-    
-    this.mockdataService.getSurveys().subscribe(surveys => {
-      this.surveyQuestions['Default'] = surveys[0];
-      this.surveyQuestions['CTL'] = surveys[1];
-      this.surveyDataLoaded = true;
-    })
   }
 
 }
