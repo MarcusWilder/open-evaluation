@@ -6,12 +6,8 @@
     </ul>
 </div>
 <app-page-header
-    picklistLabel="Current Survey Template"
-    picklistPlaceholder="Select a template"
     title="Create Survey"
     icon="calibration"
-    [options]="templateOptions"
-    [(selection)]="templateSelection"
 ></app-page-header>
 
 <section class="slds-m-around_large">
@@ -27,6 +23,13 @@
         placeholder="Select a Course"
         [options]="courseOptions"
         [(selection)]="courseSelection"
+    ></app-picklist>
+    <app-picklist
+        required
+        label="Current Survey Template"
+        placeholder="Select a Template"
+        [options]="templateOptions"
+        [(selection)]="templateSelection"
     ></app-picklist>
 </section>
 

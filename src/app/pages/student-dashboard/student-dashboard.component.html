@@ -12,10 +12,18 @@
 <app-card
     icon="survey"
     title="Active Surveys"
-    [cardButtons]="cardButtons"
     >
     <app-accordion body
-        [buttons]="accordionButtons"
-        [tabs]="accordionTabs"
+        [buttons]="activeButtons"
+        [tabs]="activeTabs"
+    ></app-accordion>
+</app-card>
+<app-card
+    icon="survey"
+    title="Closed Surveys"
+    >
+    <app-accordion body
+        [buttons]="closedButtons"
+        [tabs]="closedTabs"
     ></app-accordion>
 </app-card>
