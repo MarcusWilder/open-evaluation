@@ -16,25 +16,25 @@ export class ProfessorDashboardComponent implements OnInit {
     private mockdataService: MockdataService
   ) { }
 
-  accordionButtons: Button[] = [
+  activeButtons: Button[] = [
     {type: 'brand', content: 'Edit', onClick: this.editSurvey},
     {type: 'destructive', content: 'Delete', onClick: this.deleteSurvey}
   ];
 
-  accordionTabs: AccordionTab[];
+  activeTabs: AccordionTab[];
 
   cardButtons: Button[] = [
     {type: 'success', content: 'Create Survey', onClick: () => this.router.navigate(['/create-survey'])}
   ];
 
-  options = [
-    {name: 'CS 1331', header: true},
-    {name: 'Survey 1', header: false},
-    {name: 'Survey 2', header: false},
-    {name: 'CS 1332', header: true},
-    {name: 'Survey 3', header: false},
-    {name: 'Survey 4', header: false},
-    {name: 'Survey 5', header: false}
+  closedButtons = [
+    {type: 'brand', content: 'View Results', onClick: console.log('Viewing Results')},
+  ];
+
+  closedTabs = [
+    {heading: 'CS 1301', items: ['Sample Survey 1', 'Sample Survey 2']},
+    {heading: 'CS 1331', items: ['Sample Survey 3', 'Sample Survey 4']},
+    {heading: 'CS 1332', items: ['Sample Survey 5', 'Sample Survey 6']},
   ];
 
   profName: string;
@@ -45,7 +45,7 @@ export class ProfessorDashboardComponent implements OnInit {
     this.mockdataService.getProfessor().subscribe(professor => {
       this.profName = `${professor.firstName} ${professor.lastName}`;
       this.academicField = professor.academicField + ' Professor';
-      this.accordionTabs = professor.courseList.map( (course) => {
+      this.activeTabs = professor.courseList.map( (course) => {
         return {heading: course.name, items: course.surveys.map(survey => survey.name)};
       });
     });
