@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Button } from '@src/app/types/button-group-types';
-import { AccordionTab } from '@src/app/types/accordion-types';
+import { AccordionTab } from '@src/app/types/accordion-tab';
+import { Button } from '@src/app/types/button';
 
 @Component({
   selector: 'app-accordion',

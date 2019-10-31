@@ -1,11 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { Button } from '@src/app/types/button-group-types';
+import { Button } from '@src/app/types/button';
 
 @Component({
   selector: 'app-page-header',

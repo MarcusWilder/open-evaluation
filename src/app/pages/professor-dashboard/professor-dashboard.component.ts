@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AccordionTab } from '@src/app/types/accordion-types';
-import { Button } from '@src/app/types/button-group-types';
+import { AccordionTab } from '@src/app/types/accordion-tab';
+import { Button } from '@src/app/types/button';
 import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 
 @Component({

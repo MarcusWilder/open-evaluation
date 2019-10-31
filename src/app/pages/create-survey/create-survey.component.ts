@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Button } from '@src/app/types/button';
+import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
+import { Professor } from '@src/app/objects/professor';
+import { Survey } from '@src/app/objects/survey';
 import { ToastService } from '@src/app/services/toast/toast.service';
-
-import { Button } from '../../types/button-group-types';
-import { MockdataService } from '../../services/mockdata/mockdata.service';
-import { Professor } from '../../objects/professor';
-import { Survey } from '../../objects/survey';
-import { DEFAULT_QUESTIONS } from '../../mock-data/mock-questions';
+import { DEFAULT_QUESTIONS } from '@src/app/mock-data/mock-questions';
 
 @Component({
   selector: 'app-create-survey',
