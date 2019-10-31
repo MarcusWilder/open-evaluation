@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { tap, flatMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tap, flatMap } from 'rxjs/operators';
 
-import { AccordionTab } from '../types/accordion-types';
-import { Button } from '@src/app/types/button-group-types';
-import { ToastService } from '@src/app/services/toast/toast.service';
-
+import { AccordionTab } from '@src/app/types/accordion-tab';
+import { Button } from '@src/app/types/button';
 import { Survey } from '@src/app/objects/survey';
 import { DEFAULT_QUESTIONS } from '@src/app/mock-data/mock-questions';
 
