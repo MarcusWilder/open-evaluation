@@ -7,7 +7,6 @@ import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 import { CourseWithSurveys } from '@src/app/objects/survey';
 import { SurveyService } from '@src/app/services/survey/survey.service';
 import { UserService, User } from '@src/app/services/user/user.service';
-import { currentId } from 'async_hooks';
 
 @Component({
   selector: 'app-professor-dashboard',
@@ -38,6 +37,14 @@ export class ProfessorDashboardComponent implements OnInit {
 
   }
 
+  cardButtons: Button[] = [
+    {
+      type: 'success',
+      content: 'Create Survey',
+      onClick: () => this.router.navigate(['/create-survey',])
+    }
+  ];
+  
   activeButtons: Button[] = [
     {
       type: 'brand',
@@ -47,21 +54,25 @@ export class ProfessorDashboardComponent implements OnInit {
         const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
         this.router.navigateByUrl(`/take-survey/${courseId}/${surveyId}`);
       }
-    }
-  ];
-
-  closedButtons = [
+    },
     {
       type: 'destructive',
       content: 'Delete',
       onClick: (courseIndex: number, surveyIndex: number) => {
-        const courseId = this.closedSurveys[courseIndex].courseId;
-        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        const courseId = this.activeSurveys[courseIndex].courseId;
+        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
         this.surveyService.deleteSurveyById(courseId, surveyId).subscribe();
       }
     }
   ];
 
+  closedButtons = [
+    {
+      type: 'brand',
+      content: 'View Results',
+      onClick: () => console.log('Viewing Results')
+    },
+  ];
 
   ngOnInit() {
     this.userService.user$.subscribe((user: User) => {
