@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Headers', '*');
+  res.set('Access-Control-Allow-Methods', '*');
   next();
 });
 
@@ -84,6 +85,18 @@ app.get('/courses', async (req, res) => {
   }
 });
 
+app.get('/surveys', async (req, res) => {
+  const db = await dbPromise;
+  db.collection('surveys').find({}).toArray((err, items) => {
+    if (err) {
+      res.status(500);
+      res.send({ error });
+    } else {
+      res.send(items)
+    }
+  })
+});
+
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
@@ -109,6 +122,19 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
       res.send({ error });
     });
 });
+
+app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
+  const courseId = +req.params.courseId;
+  const surveyId = +req.params.surveyId;
+  const db = await dbPromise;
+  const { surveys } = await db.collection('surveys').findOne({ courseId });
+  await db.collection('surveys').updateOne(
+    { courseId },
+    { $set: { surveys: surveys.filter(s => s.surveyId !== surveyId)}}
+  );
+  res.send();
+});
+
 
 app.get('/response', async (req, res) => {
   const courseId = +req.query.courseId;

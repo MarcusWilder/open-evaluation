@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Survey } from '@src/app/objects/survey';
+import { Survey, CourseWithSurveys } from '@src/app/objects/survey';
 import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from '@src/app/mock-data/mock-questions';
 import { Observable, of, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -15,6 +15,10 @@ export class SurveyService {
 
   constructor(private http: HttpClient) { }
 
+  getAllSurveys(): Observable<CourseWithSurveys[]> {
+    return this.http.get<CourseWithSurveys[]>(`${API_SERVER_URL}/surveys`);
+  }
+  
   getSurveyById(courseId: number, surveyId: number): Observable<Survey> {
     return this.http.get<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`).pipe(
       map(survey => ({
@@ -23,6 +27,11 @@ export class SurveyService {
       }))
     );
   }
+
+  deleteSurveyById(courseId: number, surveyId: number): Observable<Survey> {
+    return this.http.delete<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`)
+  }
+
   
   getSurveysByCourseId(courseId: number): Observable<Survey[]> {
     return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}`).pipe(

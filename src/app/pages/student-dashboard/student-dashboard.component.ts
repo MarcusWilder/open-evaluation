@@ -21,6 +21,8 @@ export class StudentDashboardComponent implements OnInit {
     private surveyService: SurveyService
   ) { }
   
+
+  name: string;
   activeSurveys: CourseWithSurveys[] = [];
   closedSurveys: CourseWithSurveys[] = [];
 
@@ -56,18 +58,15 @@ export class StudentDashboardComponent implements OnInit {
       type: 'brand',
       content: 'View Response',
       onClick: (courseIndex: number, surveyIndex: number) => {
-        console.log('View Response')
-        // this.takeSurvey.call(
-        //   this,
-        //   this.activeSurveys[courseIndex].courseId,
-        //   this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId
-        // );
+        const courseId = this.closedSurveys[courseIndex].courseId;
+        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        const studentId = this.userService.user.id;
+        this.surveyService.fetchResponse(courseId, surveyId, studentId).subscribe(responses => {
+          console.log(responses);
+        });
       }
     }
   ];
-
-  name: string;
-  academicField: string;
 
   ngOnInit() {
     this.userService.user$.subscribe((user: User) => {

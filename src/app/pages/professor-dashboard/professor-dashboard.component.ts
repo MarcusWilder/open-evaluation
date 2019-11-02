@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { AccordionTab } from '@src/app/types/accordion-tab';
 import { Button } from '@src/app/types/button';
 import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
+import { CourseWithSurveys } from '@src/app/objects/survey';
+import { SurveyService } from '@src/app/services/survey/survey.service';
+import { UserService, User } from '@src/app/services/user/user.service';
+import { currentId } from 'async_hooks';
 
 @Component({
   selector: 'app-professor-dashboard',
@@ -13,49 +17,68 @@ export class ProfessorDashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private mockdataService: MockdataService
+    private mockdataService: MockdataService,
+    private surveyService: SurveyService,
+    private userService: UserService
   ) { }
 
+  name: string;
+  activeSurveys: CourseWithSurveys[] = [];
+  closedSurveys: CourseWithSurveys[] = [];
+
+  get activeTabs(): AccordionTab[] {
+    return this.activeSurveys.map(({ courseName, surveys }) => {
+      return { heading: courseName, items: surveys.map(s => s.name)}
+    });
+  }
+  get closedTabs(): AccordionTab[] {
+    return this.closedSurveys.map(({ courseName, surveys }) => {
+      return { heading: courseName, items: surveys.map(s => s.name)}
+    });
+
+  }
+
   activeButtons: Button[] = [
-    {type: 'brand', content: 'Edit', onClick: this.editSurvey},
-    {type: 'destructive', content: 'Delete', onClick: this.deleteSurvey}
-  ];
-
-  activeTabs: AccordionTab[];
-
-  cardButtons: Button[] = [
-    {type: 'success', content: 'Create Survey', onClick: () => this.router.navigate(['/create-survey'])}
+    {
+      type: 'brand',
+      content: 'Edit',
+      onClick: (courseIndex: number, surveyIndex: number) => {
+        const courseId = this.activeSurveys[courseIndex].courseId;
+        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        this.router.navigateByUrl(`/take-survey/${courseId}/${surveyId}`);
+      }
+    }
   ];
 
   closedButtons = [
-    {type: 'brand', content: 'View Results', onClick: console.log('Viewing Results')},
+    {
+      type: 'destructive',
+      content: 'Delete',
+      onClick: (courseIndex: number, surveyIndex: number) => {
+        const courseId = this.closedSurveys[courseIndex].courseId;
+        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        this.surveyService.deleteSurveyById(courseId, surveyId).subscribe();
+      }
+    }
   ];
 
-  closedTabs = [
-    {heading: 'CS 1301', items: ['Sample Survey 1', 'Sample Survey 2']},
-    {heading: 'CS 1331', items: ['Sample Survey 3', 'Sample Survey 4']},
-    {heading: 'CS 1332', items: ['Sample Survey 5', 'Sample Survey 6']},
-  ];
-
-  profName: string;
-  academicField: string;
-  surveySelection: any;
 
   ngOnInit() {
-    this.mockdataService.getProfessor().subscribe(professor => {
-      this.profName = `${professor.firstName} ${professor.lastName}`;
-      this.academicField = professor.academicField + ' Professor';
-      this.activeTabs = professor.courseList.map( (course) => {
-        return {heading: course.name, items: course.surveys.map(survey => survey.name)};
-      });
+    this.userService.user$.subscribe((user: User) => {
+      this.name = user.name;
+      let courseIds = user.courses.map(c => c.courseId);
+      this.surveyService.getSurveysByCourseIds(courseIds).subscribe(surveysForEachCourse => { 
+        this.activeSurveys = surveysForEachCourse.map((surveys, i) => {
+          let course = user.courses[i];
+          return { ...course, surveys: surveys.filter(s => s.active) };
+        });
+
+        this.closedSurveys = surveysForEachCourse.map((surveys, i) => {
+          let course = user.courses[i];
+          return { ...course, surveys: surveys.filter(s => !s.active) };
+        });   
+
+      })
     });
-  }
-
-  deleteSurvey(item: string) {
-    console.log(item);
-  }
-
-  editSurvey(item: string) {
-    console.log(item);
   }
 }
