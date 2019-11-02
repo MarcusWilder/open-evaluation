@@ -30,7 +30,7 @@
         >
         <ul class="slds-accordion">
           <li
-            *ngFor="let item of tab['items']"
+            *ngFor="let item of tab['items']; index as i"
             class="slds-accordion__list-item"
             >
             <section class="slds-accordion__section">
@@ -48,7 +48,7 @@
                       <app-button
                         [content]="button['content']"
                         [type]="button['type']"
-                        (click)="button['onClick'] ? button.onClick() : ''"
+                        (click)="button['onClick'] ? button.onClick(num, i) : ''"
                         >
                       </app-button>
                     </li>

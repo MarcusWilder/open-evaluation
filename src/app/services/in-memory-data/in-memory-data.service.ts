@@ -17,7 +17,7 @@ export class InMemoryDataService implements InMemoryDbService {
     };
   }
 
-  genId(surveys: Survey[]): number {
-    return surveys.length > 0 ? Math.max(...surveys.map(survey => survey.id)) + 1 : 1;
-  }
+  // genId(surveys: Survey[]): number {
+  //   return surveys.length > 0 ? Math.max(...surveys.map(survey => survey.d)) + 1 : 1;
+  // }
 }

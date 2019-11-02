@@ -27,6 +27,7 @@ import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/stud
 import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
+import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { SurveyTemplateComponent } from '@src/app/components/survey-template/sur
     ToastComponent,
     TestComponent,
     SurveyTemplateComponent,
+    TakeSurveyComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -59,9 +61,9 @@ import { SurveyTemplateComponent } from '@src/app/components/survey-template/sur
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   providers: [],
   bootstrap: [AppComponent],

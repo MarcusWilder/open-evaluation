@@ -15,12 +15,9 @@ export class SurveyTemplateComponent {
   questions: Question[];
 
   @Input() set data(survey: Survey) {
-    this.surveyName = survey.name;
-    this.questions = survey.questionList;
+    this.surveyName = survey ? survey.name : '';
+    this.questions = survey ? survey.questionList : [];
+    console.log(this.questions);
   };
 
-  // coursePaceOptions = ['Too slow', 'About right', 'Too fast'];
-  // reachabilityOptions = ['Yes', 'Sometimes, but not enough', 'No'];
-  // mcSelection: unknown;
-  // mcSelection2: unknown;
 }

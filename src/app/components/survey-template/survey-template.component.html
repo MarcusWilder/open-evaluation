@@ -12,6 +12,7 @@
             *ngSwitchCase="'FREE_RESPONSE'"
             required
             [label]="question.baseQuestion"
+            [(entry)]="question.answer"
             placeholder="Enter your response"
         ></app-input>
         <app-radio-button-group

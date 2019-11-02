@@ -1,0 +1,33 @@
+<app-brand-band type="medium"></app-brand-band>
+<div class="row-2">
+    <ul>
+        <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
+    </ul>
+</div>
+<app-page-header
+    [title]="surveyData ? surveyData.name : ''"
+    icon="calibration"
+></app-page-header>
+
+<app-card
+    [title]="surveyData ? surveyData.template : ''"
+    class="slds-m-around_large">
+    <div body class="slds-p-horizontal_medium slds-p-bottom_small">
+        <app-survey-template
+            *ngIf="surveyDataLoaded"
+            [data]="surveyData">
+        </app-survey-template>
+    </div>
+</app-card>
+
+<section class="slds-m-around_large">
+  <ul class="slds-m-vertical_small slds-button-group-row">
+    <li *ngFor="let button of buttons" class="slds-button-group-item">
+      <app-button
+        [content]="button['content']"
+        [type]="button['type']"
+        (click)="button['onClick'] ? button.onClick() : ''"
+        ></app-button>
+    </li>
+  </ul>
+</section>

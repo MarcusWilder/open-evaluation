@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MockdataService } from './services/mockdata/mockdata.service';
 import { SURVEYS } from '@src/app/mock-data/mock-surveys';
-import { flatMap, tap } from 'rxjs/operators';
-
-const API_SERVER_URL = `http://openeval.gatech.edu:4201`;
+import { flatMap, tap, catchError } from 'rxjs/operators';
+import { UserService } from './services/user/user.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,19 @@ const API_SERVER_URL = `http://openeval.gatech.edu:4201`;
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    const token = new URLSearchParams(window.location.search).get('access_token');
+    if (!this.userService.user) {
+      if (!token) {
+        alert('Please type in access token!');
+        this.router.navigateByUrl('/');
+      }
+      this.userService.fetchUser(token).subscribe();
+    }
   }
-
 }

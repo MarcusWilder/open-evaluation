@@ -5,6 +5,7 @@ import { HomeComponent } from '@src/app/pages/home/home.component';
 import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/professor-dashboard.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'create-survey',
     component: CreateSurveyComponent,
+  },
+  {
+    path: 'take-survey/:courseId/:surveyId',
+    component: TakeSurveyComponent,
   },
   {
     path: '**',

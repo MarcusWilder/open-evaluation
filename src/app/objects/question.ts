@@ -5,4 +5,5 @@ export class Question {
     type: QuestionType;
     baseQuestion: string;
     options?: unknown[];
+    answer?: any;
 }
