@@ -1,71 +1,40 @@
-const request = require('request');
+const fetch = require('node-fetch');
 const express = require('express');
-var cookieParser = require('cookie-parser');
-const uniqueString = require('unique-string');
-const { parseString: parseXML } = require('xml2js');
-const { getUserInfoById } = require('./user');
-
-const CALLBACK_URL = `http://openeval.gatech.edu:4200/dashboard`;
 const app = express();
-const sessions = new Map();
+const TOKEN = '2096~qSLzU7BxpYDDiPppntkyBADaMxUl9Rjrtc8g6pKrhIeOcTf6intMwZJHv6vTp7YY';
 
-app.use(cookieParser());
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://openeval.gatech.edu:4200');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  // console.log('Cookies:', req.cookies);
-  next();
+app.get('/user', async (req, res) => {
+  let raw = await fetch(`
+    https://gatech.instructure.com/api/v1/users/self`,
+    { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+  );
+  let text = await raw.text();
+  try {
+    let data = JSON.parse(text.slice(text.indexOf(';') + 1));
+    if (data.errors) throw data.errors;
+    const { id, name } = data;
+    res.send({ id, name });
+  } catch (err) {
+    res.send(err);  
+  }
 });
 
-app.get('/validate', (req, res) => {
-  let ticket = req.query.ticket;
-  if (!ticket) {
-    res.send({ loggedIn: false, reason: 'No Ticket' });
-    return;
-  }
-  let validation_url = `https://login.gatech.edu/serviceValidate?service=${
-    encodeURIComponent(CALLBACK_URL)
-  }&ticket=${ticket}`;
 
-  request(validation_url, (err, response, body) => {
-    parseXML(body, (err, result) => {
-      if (err) {
-        res.send({ loggedIn: false, reason: err });
-        return;
-      }
-      if (sessions.has(req.cookies.SESSION)) {
-        let username = sessions.get(req.cookies.SESSION);
-        getUserInfoById(username).then(data => {
-          res.send({ loggedIn: true, info: data[0] });
-        }, (reason) => {
-          res.send({ loggedIn: false, reason });
-        });
-        return;
-      }
-      if (result['cas:serviceResponse']['cas:authenticationSuccess']) {
-        let username = result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:user'][0];
-        const session = uniqueString();
-        sessions.set(session, username);
-        res.cookie('SESSION', session);
-        getUserInfoById(username).then(data => {
-          res.send({ loggedIn: true, info: data[0] });
-        }, (reason) => {
-          res.send({ loggedIn: false, reason });
-        });
-        return;
-      }
-      res.send({ loggedIn: false, reason: result });
-    });
-  });
+app.get('/courses', async (req, res) => {
+  let raw = await fetch(
+    `https://gatech.instructure.com/api/v1/courses?enrollment_type=student&enrollment_state=active`,
+    { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+  );
+  let text = await raw.text();
+  try {
+    let data = JSON.parse(text.slice(text.indexOf(';') + 1));
+    if (data.errors) throw data.errors;
+    res.send(data.map(({ id, name }) => ({
+      id, name,
+    })));
+  } catch (err) {
+    res.send(err);
+  }
 });
 
-app.get('/logout', (req, res) => {
-  let session = req.cookies.SESSION;
-  if (sessions.has(session)) {
-    sessions.delete(session);
-  }
-  res.send();
-})
-
-app.listen(4201, () => console.log(`Listening on port 4201`));
+app.listen(4201, () => console.log('listening on 4201'));

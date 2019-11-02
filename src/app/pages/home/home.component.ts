@@ -18,9 +18,6 @@ export class HomeComponent implements OnInit {
   }
 
   login() {
-    window.location.href = `https://login.gatech.edu/cas/login?service=${
-      encodeURIComponent(CALLBACK_URL)
-    }`;
   }
 
 }
