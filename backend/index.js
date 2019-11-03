@@ -81,23 +81,23 @@ app.get('/courses', async (req, res) => {
   }
 });
 
-app.get('/surveys', async (req, res) => {
-  const db = await dbPromise;
-  db.collection('surveys').find({}).toArray((err, items) => {
-    if (err) {
-      res.status(500);
-      res.send({ error });
-    } else {
-      res.send(items)
-    }
-  })
-});
+// app.get('/surveys', async (req, res) => {
+//   const db = await dbPromise;
+//   db.collection('surveys').find({}).toArray((err, items) => {
+//     if (err) {
+//       res.status(500);
+//       res.send({ error });
+//     } else {
+//       res.send(items)
+//     }
+//   })
+// });
 
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').findOne({ courseId })
+    const result = await db.collection('surveys').findOne({ _id: courseId })
     if (!result) {
       res.send([]);
     } else {
@@ -114,10 +114,10 @@ app.post('/surveys/:courseId', async (req, res) => {
   const { name, template } = req.body;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').findOne({ courseId });
+    const result = await db.collection('surveys').findOne({ _id: courseId });
     if (!result) {
       await db.collection('surveys').insertOne({
-        courseId,
+        _id: courseId,
         surveys: [{
             surveyId: courseId * 100 + 1,
             name,
@@ -127,7 +127,7 @@ app.post('/surveys/:courseId', async (req, res) => {
       });
     } else if (result.surveys.length === 0) {
       await db.collection('surveys').updateOne(
-        { courseId },
+        { _id: courseId },
         {
           $set: {
             surveys: [{
@@ -144,7 +144,7 @@ app.post('/surveys/:courseId', async (req, res) => {
       const surveyId = Math.max(...surveys.map(s => s.surveyId)) + 1;
       surveys.push({ surveyId, name, template, active: true });
       await db.collection('surveys').updateOne(
-        { courseId },
+        { _id: courseId },
         { $set: { surveys } }
       );
     }
@@ -160,7 +160,7 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
   const courseId = +req.params.courseId;
   const surveyId = +req.params.surveyId;
   const db = await dbPromise;
-  db.collection('surveys').findOne({ courseId })
+  db.collection('surveys').findOne({ _id: courseId })
     .then(({ surveys }) => {
       const result = surveys.find(s => s.surveyId === surveyId);
       res.send(result);
@@ -174,9 +174,9 @@ app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
   const courseId = +req.params.courseId;
   const surveyId = +req.params.surveyId;
   const db = await dbPromise;
-  const { surveys } = await db.collection('surveys').findOne({ courseId });
+  const { surveys } = await db.collection('surveys').findOne({ _id: courseId });
   await db.collection('surveys').updateOne(
-    { courseId },
+    { _id: courseId },
     { $set: { surveys: surveys.filter(s => s.surveyId !== surveyId)}}
   );
   res.send();
@@ -190,7 +190,7 @@ app.get('/response', async (req, res) => {
   const db = await dbPromise;
   const col = db.collection('responses');
   const result = await col.findOne({
-    '_id' : { courseId, surveyId, studentId }
+    _id : { courseId, surveyId, studentId }
   }, { responses: true });
   res.send(result ? result.responses : []);
 })

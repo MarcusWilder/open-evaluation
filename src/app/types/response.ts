@@ -4,6 +4,6 @@ export interface ResponseData {
         surveyId: number;
         studentId: number;    
     },
-    template: 'DEFAULT' | 'CTL';
+    template: string;
     responses: any[];
 }
