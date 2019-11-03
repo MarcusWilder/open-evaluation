@@ -25,7 +25,9 @@ export class AppComponent implements OnInit {
         alert('Please type in access token!');
         this.router.navigateByUrl('/');
       }
-      this.userService.fetchUser(token).subscribe();
+      this.userService.fetchUser(token).subscribe(() => {
+        this.router.navigateByUrl('/home');
+      });
     }
   }
 }

@@ -8,11 +8,11 @@ import { TestComponent } from '@src/app/test/test.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/home',
+  //   pathMatch: 'full',
+  // },
   {
     path: 'home',
     component: HomeComponent,
@@ -37,8 +37,8 @@ export const routes: Routes = [
     path: 'take-survey/:courseId/:surveyId',
     component: TakeSurveyComponent,
   },
-  {
-    path: '**',
-    redirectTo: '/home',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '/home',
+  // },
 ];

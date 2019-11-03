@@ -44,6 +44,8 @@ export class UserService {
       }),
       map(courses => {
         const user = Object.assign({}, _user, { courses });
+        const role = new URLSearchParams(window.location.search).get('role');
+        if (role === 'student' || role === 'professor') user.role = role; // OVERRIDE
         console.log('Logged in as', user);
         this.user = user;
         this.subjects.forEach(s => s.next(user));

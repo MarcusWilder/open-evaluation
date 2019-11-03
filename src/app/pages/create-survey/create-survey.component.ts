@@ -7,6 +7,9 @@ import { Professor } from '@src/app/objects/professor';
 import { Survey } from '@src/app/objects/survey';
 import { ToastService } from '@src/app/services/toast/toast.service';
 import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from '@src/app/mock-data/mock-questions';
+import { UserService } from '@src/app/services/user/user.service';
+import { SurveyService } from '@src/app/services/survey/survey.service';
+import { TemplateType } from '@src/app/types/template-type';
 
 @Component({
   selector: 'app-create-survey',
@@ -17,18 +20,23 @@ export class CreateSurveyComponent implements OnInit {
   constructor(
     private router: Router,
     private toastService: ToastService,
-    private mockdataService: MockdataService
+    private mockdataService: MockdataService,
+    private userService: UserService,
+    private surveyService: SurveyService,
   ) { }
 
   activeTab: string;
   surveyTitle: string;
   currentProfessor: Professor;
   courseOptions: object[] = [];
-  courseSelection: string;
+  courseSelection: object;
   surveyDataLoaded = false;
   surveyQuestions: { [option: string]: Survey } = {};
-  templateOptions = [{ name: 'Default' }, { name: 'CTL' }];
-  templateSelection = 'Default';
+  templateOptions = [
+    { name: 'Default', data: TemplateType.DEFAULT },
+    { name: 'CTL', data: TemplateType.CTL }
+  ];
+  templateSelection = this.templateOptions[0];
 
   buttons: Button[] = [
     {type: 'success', content: 'Create Survey' , onClick: () => this.createSurvey()},
@@ -36,51 +44,42 @@ export class CreateSurveyComponent implements OnInit {
   ];
 
   ngOnInit() {
-    // this.mockdataService.getProfessor().subscribe(professor => {
-    //   this.currentProfessor = professor;
-    //   this.courseOptions = professor.courseList
-    //   .map(function (course) {
-    //     return {name: course.name, header: false};
-    //   });
-    // });
-
-      this.surveyQuestions = {
-        'Default': {
-          surveyId: 0,
-          name: 'Default Template',
-          template: 'DEFAULT',
-          questionList: DEFAULT_QUESTIONS,
-          active: true
-        },
-        'CTL': {
-          surveyId: 1,
-          name: 'CTL Template',
-          template: 'CTL',
-          questionList: CTL_QUESTIONS,
-          active: true
-        }        
-      };
-      this.surveyDataLoaded = true;
+    this.userService.user$.subscribe(user => {
+      this.courseOptions = user.courses.map(c => {
+        return { name: c.courseName, data: c.courseId };
+      });
+    });
+    this.surveyQuestions = {
+      'DEFAULT': {
+        surveyId: 0,
+        name: 'Default Template',
+        template: 'DEFAULT',
+        questionList: DEFAULT_QUESTIONS,
+        active: true
+      },
+      'CTL': {
+        surveyId: 1,
+        name: 'CTL Template',
+        template: 'CTL',
+        questionList: CTL_QUESTIONS,
+        active: true
+      }        
+    };
+    this.surveyDataLoaded = true;
   }
 
   createSurvey() {
-  //   const selectedCourse = this.courseSelection;
-
-    // this.mockdataService.addSurvey({name: this.surveyTitle, questionList: DEFAULT_QUESTIONS} as Survey)
-    //   .subscribe(newSurvey => {
-    //     const effectedCourse = this.currentProfessor.courseList.filter(function (course) {
-    //       return course.name === selectedCourse;
-    //     });
-
-    //     const actualCourse = effectedCourse[0];
-    //     actualCourse.surveys = actualCourse.surveys.concat([newSurvey]);
-
-        // this.mockdataService.updateCourse(actualCourse)
-        //   .subscribe( () => {
-        //     this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
-        //     this.router.navigateByUrl('/professor-dashboard');
-        //   });
-      // });?
+    if (!this.courseSelection) {
+      this.toastService.open('Please select a course', '', 'warning');
+      return;
+    }
+    const courseId = this.courseSelection['data'];
+    const template: TemplateType = this.templateSelection['data'];
+    const name = this.surveyTitle || 'Untitled';
+    this.surveyService.createSurvey(courseId, name, template).subscribe(() => {
+      this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
+      this.router.navigateByUrl('/professor-dashboard');
+    });
   }
 
   discardSurvey() {

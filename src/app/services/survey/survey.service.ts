@@ -5,6 +5,7 @@ import { Observable, of, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import { ResponseData } from '@src/app/types/response';
+import { TemplateType } from '@src/app/types/template-type';
 
 const API_SERVER_URL = `http://localhost:4201`;
 
@@ -17,6 +18,10 @@ export class SurveyService {
 
   getAllSurveys(): Observable<CourseWithSurveys[]> {
     return this.http.get<CourseWithSurveys[]>(`${API_SERVER_URL}/surveys`);
+  }
+
+  createSurvey(courseId: number, name: string, template: TemplateType): Observable<any> {
+    return this.http.post(`${API_SERVER_URL}/surveys/${courseId}`, { name, template });
   }
   
   getSurveyById(courseId: number, surveyId: number): Observable<Survey> {

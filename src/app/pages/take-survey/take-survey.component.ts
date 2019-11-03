@@ -9,6 +9,7 @@ import { Survey } from '@src/app/objects/survey';
 import { Button } from '@src/app/types/button';
 import { UserService } from '@src/app/services/user/user.service';
 import { ResponseData } from '@src/app/types/response';
+import { ToastService } from '@src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-take-survey',
@@ -20,6 +21,7 @@ export class TakeSurveyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
+    private toastService: ToastService,
     private userService: UserService,
     private surveyService: SurveyService,
   ) { }
@@ -47,7 +49,7 @@ export class TakeSurveyComponent implements OnInit {
           responses
         }
         this.surveyService.submitResponse(responseData).subscribe(() => {
-          console.log('Submitted');
+          this.toastService.open('Submitted!', 'Your response has been recorded', 'success');    
           this.location.back();
         }); 
       })

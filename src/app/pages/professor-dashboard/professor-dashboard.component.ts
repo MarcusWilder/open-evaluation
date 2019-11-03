@@ -7,6 +7,7 @@ import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 import { CourseWithSurveys } from '@src/app/objects/survey';
 import { SurveyService } from '@src/app/services/survey/survey.service';
 import { UserService, User } from '@src/app/services/user/user.service';
+import { ToastService } from '@src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-professor-dashboard',
@@ -18,7 +19,8 @@ export class ProfessorDashboardComponent implements OnInit {
     private router: Router,
     private mockdataService: MockdataService,
     private surveyService: SurveyService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) { }
 
   name: string;
@@ -61,7 +63,11 @@ export class ProfessorDashboardComponent implements OnInit {
       onClick: (courseIndex: number, surveyIndex: number) => {
         const courseId = this.activeSurveys[courseIndex].courseId;
         const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
-        this.surveyService.deleteSurveyById(courseId, surveyId).subscribe();
+        const surveyTitle = this.activeSurveys[courseIndex].surveys[surveyIndex].name;
+        this.surveyService.deleteSurveyById(courseId, surveyId).subscribe(() => {
+          this.toastService.open('Survey Deleted', surveyTitle + ' was discarded.', 'info');
+          this.loadData();
+        });
       }
     }
   ];
@@ -74,7 +80,7 @@ export class ProfessorDashboardComponent implements OnInit {
     },
   ];
 
-  ngOnInit() {
+  loadData() {
     this.userService.user$.subscribe((user: User) => {
       this.name = user.name;
       let courseIds = user.courses.map(c => c.courseId);
@@ -91,5 +97,9 @@ export class ProfessorDashboardComponent implements OnInit {
 
       })
     });
+  }
+
+  ngOnInit() {
+    this.loadData();
   }
 }

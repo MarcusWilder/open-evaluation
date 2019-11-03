@@ -4,10 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const url = 'mongodb://openeval:admin2019@ds141248.mlab.com:41248/open-evaluation';
-/*
-2096~qSLzU7BxpYDDiPppntkyBADaMxUl9Rjrtc8g6pKrhIeOcTf6intMwZJHv6vTp7YY
-2096~6f0706awgu4zbPMos2pGOVapNTovZ3ObNF9P2LHrs3DpYrmfV8ZgJEk2MT5HCofK
-*/
 
 let dbPromise = new Promise((resolve, reject) => {
   try {
@@ -100,13 +96,64 @@ app.get('/surveys', async (req, res) => {
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
-  db.collection('surveys').findOne({ courseId })
-    .then(({ surveys }) => {
-      res.send(surveys);
-    }, error => {
-      res.status(500);
-      res.send({ error });
-    });
+  try {
+    const result = await db.collection('surveys').findOne({ courseId })
+    if (!result) {
+      res.send([]);
+    } else {
+      res.send(result.surveys);
+    }
+  } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }  
+});
+
+app.post('/surveys/:courseId', async (req, res) => {
+  const courseId = +req.params.courseId;
+  const { name, template } = req.body;
+  const db = await dbPromise;
+  try {
+    const result = await db.collection('surveys').findOne({ courseId });
+    if (!result) {
+      await db.collection('surveys').insertOne({
+        courseId,
+        surveys: [{
+            surveyId: courseId * 100 + 1,
+            name,
+            template,
+            active: true
+        }]
+      });
+    } else if (result.surveys.length === 0) {
+      await db.collection('surveys').updateOne(
+        { courseId },
+        {
+          $set: {
+            surveys: [{
+              surveyId: courseId * 100 + 1,
+              name,
+              template,
+              active: true
+          }]
+          }
+        }
+      );
+    } else {
+      const surveys = result.surveys;
+      const surveyId = Math.max(...surveys.map(s => s.surveyId)) + 1;
+      surveys.push({ surveyId, name, template, active: true });
+      await db.collection('surveys').updateOne(
+        { courseId },
+        { $set: { surveys } }
+      );
+    }
+    res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(500);
+    res.send({ error })
+  }
 });
 
 app.get('/surveys/:courseId/:surveyId', async (req, res) => {
