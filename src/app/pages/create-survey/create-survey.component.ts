@@ -6,10 +6,10 @@ import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 import { Professor } from '@src/app/objects/professor';
 import { Survey } from '@src/app/objects/survey';
 import { ToastService } from '@src/app/services/toast/toast.service';
-import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from '@src/app/mock-data/mock-questions';
+import { QUESTIONS } from '@src/app/mock-data/mock-questions';
 import { UserService } from '@src/app/services/user/user.service';
 import { SurveyService } from '@src/app/services/survey/survey.service';
-import { TemplateType } from '@src/app/types/template-type';
+import { TemplateType, toDisplayString } from '@src/app/types/template-type';
 
 @Component({
   selector: 'app-create-survey',
@@ -32,10 +32,9 @@ export class CreateSurveyComponent implements OnInit {
   courseSelection: object;
   surveyDataLoaded = false;
   surveyQuestions: { [option: string]: Survey } = {};
-  templateOptions = [
-    { name: 'Default', data: TemplateType.DEFAULT },
-    { name: 'CTL', data: TemplateType.CTL }
-  ];
+  templateOptions = Object.values(TemplateType).map(type => {
+    return { name: toDisplayString(type), data: type }
+  })
   templateSelection = this.templateOptions[0];
 
   buttons: Button[] = [
@@ -49,22 +48,17 @@ export class CreateSurveyComponent implements OnInit {
         return { name: c.courseName, data: c.courseId };
       });
     });
-    this.surveyQuestions = {
-      'DEFAULT': {
+    this.surveyQuestions = {};
+    Object.keys(QUESTIONS).forEach(type => {
+      this.surveyQuestions[type] = {
         surveyId: 0,
-        name: 'Default Template',
-        template: 'DEFAULT',
-        questionList: DEFAULT_QUESTIONS,
+        name: `${type} Survey Template`,
+        template: type,
+        questionList: QUESTIONS[type],
         active: true
-      },
-      'CTL': {
-        surveyId: 1,
-        name: 'CTL Template',
-        template: 'CTL',
-        questionList: CTL_QUESTIONS,
-        active: true
-      }        
-    };
+      }
+
+    })    
     this.surveyDataLoaded = true;
   }
 

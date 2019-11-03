@@ -3,7 +3,7 @@ import { Question } from './question';
 export class Survey {
     surveyId: number;
     name: string;
-    template: 'DEFAULT' | 'CTL';
+    template: string;
     questionList: Question[];
     active: boolean;
     // other properties?

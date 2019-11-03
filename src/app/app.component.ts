@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
         this.router.navigateByUrl('/');
       }
       this.userService.fetchUser(token).subscribe(() => {
-        this.router.navigateByUrl('/home');
+        // this.router.navigateByUrl('/home');
       });
     }
   }
