@@ -6,7 +6,7 @@ import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 import { Professor } from '@src/app/objects/professor';
 import { Survey } from '@src/app/objects/survey';
 import { ToastService } from '@src/app/services/toast/toast.service';
-import { DEFAULT_QUESTIONS } from '@src/app/mock-data/mock-questions';
+import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from '@src/app/mock-data/mock-questions';
 
 @Component({
   selector: 'app-create-survey',
@@ -36,39 +36,51 @@ export class CreateSurveyComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.mockdataService.getProfessor().subscribe(professor => {
-      this.currentProfessor = professor;
-      this.courseOptions = professor.courseList
-      .map(function (course) {
-        return {name: course.name, header: false};
-      });
-    });
+    // this.mockdataService.getProfessor().subscribe(professor => {
+    //   this.currentProfessor = professor;
+    //   this.courseOptions = professor.courseList
+    //   .map(function (course) {
+    //     return {name: course.name, header: false};
+    //   });
+    // });
 
-    this.mockdataService.getSurveys().subscribe(surveys => {
-      this.surveyQuestions['Default'] = surveys[0];
-      this.surveyQuestions['CTL'] = surveys[1];
+      this.surveyQuestions = {
+        'Default': {
+          surveyId: 0,
+          name: 'Default Template',
+          template: 'DEFAULT',
+          questionList: DEFAULT_QUESTIONS,
+          active: true
+        },
+        'CTL': {
+          surveyId: 1,
+          name: 'CTL Template',
+          template: 'CTL',
+          questionList: CTL_QUESTIONS,
+          active: true
+        }        
+      };
       this.surveyDataLoaded = true;
-    })
   }
 
   createSurvey() {
-    const selectedCourse = this.courseSelection;
+  //   const selectedCourse = this.courseSelection;
 
-    this.mockdataService.addSurvey({name: this.surveyTitle, questionList: DEFAULT_QUESTIONS} as Survey)
-      .subscribe(newSurvey => {
-        const effectedCourse = this.currentProfessor.courseList.filter(function (course) {
-          return course.name === selectedCourse;
-        });
+    // this.mockdataService.addSurvey({name: this.surveyTitle, questionList: DEFAULT_QUESTIONS} as Survey)
+    //   .subscribe(newSurvey => {
+    //     const effectedCourse = this.currentProfessor.courseList.filter(function (course) {
+    //       return course.name === selectedCourse;
+    //     });
 
-        const actualCourse = effectedCourse[0];
-        actualCourse.surveys = actualCourse.surveys.concat([newSurvey]);
+    //     const actualCourse = effectedCourse[0];
+    //     actualCourse.surveys = actualCourse.surveys.concat([newSurvey]);
 
-        this.mockdataService.updateCourse(actualCourse)
-          .subscribe( () => {
-            this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
-            this.router.navigateByUrl('/professor-dashboard');
-          });
-      });
+        // this.mockdataService.updateCourse(actualCourse)
+        //   .subscribe( () => {
+        //     this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
+        //     this.router.navigateByUrl('/professor-dashboard');
+        //   });
+      // });?
   }
 
   discardSurvey() {
