@@ -19,15 +19,16 @@ export class HomeComponent {
   activeTab: string;
 
   login() {
-    if (!this.userService.user) {
-      alert('Please type in access token!');
-      return;
-    }
-    if (this.userService.user.role === 'student') {
-      this.router.navigateByUrl('/student-dashboard');
-    } else {
-      this.router.navigateByUrl('/professor-dashboard');
-    }
+    this.router.navigateByUrl('/login');
+    // if (!this.userService.user) {
+    //   alert('Please type in access token!');
+    //   return;
+    // }
+    // if (this.userService.user.role === 'student') {
+    //   this.router.navigateByUrl('/student-dashboard');
+    // } else {
+    //   this.router.navigateByUrl('/professor-dashboard');
+    // }
   }
 
 }

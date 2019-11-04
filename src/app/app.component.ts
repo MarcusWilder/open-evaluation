@@ -19,15 +19,15 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    const token = new URLSearchParams(window.location.search).get('access_token');
-    if (!this.userService.user) {
-      if (!token) {
-        alert('Please type in access token!');
-        this.router.navigateByUrl('/');
-      }
-      this.userService.fetchUser(token).subscribe(() => {
-        this.router.navigateByUrl('/home');
-      });
-    }
+    // const token = new URLSearchParams(window.location.search).get('access_token');
+    // if (!this.userService.user) {
+    //   if (!token) {
+    //     alert('Please type in access token!');
+    //     this.router.navigateByUrl('/');
+    //   }
+    //   this.userService.fetchUser(token).subscribe(() => {
+    //     this.router.navigateByUrl('/home');
+    //   });
+    // }
   }
 }

@@ -28,6 +28,7 @@ import { ToastComponent } from '@src/app/components/toast/toast.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
+import { LoginComponent } from '@src/app/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.comp
     TestComponent,
     SurveyTemplateComponent,
     TakeSurveyComponent,
+    LoginComponent,
   ],
   imports: [
     AppRoutingModule,

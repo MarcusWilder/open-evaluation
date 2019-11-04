@@ -6,13 +6,14 @@ import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
+import { LoginComponent } from '@src/app/pages/login/login.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: '/home',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     component: HomeComponent,
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: '___test',
     component: TestComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'professor-dashboard',

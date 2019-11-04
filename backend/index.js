@@ -2,8 +2,12 @@ const fetch = require('node-fetch');
 const { MongoClient } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
+// const cookieParser = require('cookie-parser');
 const app = express();
+const { getCookie } = require('./get-cookie');
 const url = 'mongodb://openeval:admin2019@ds141248.mlab.com:41248/open-evaluation';
+
+const COOKIE_NAME = 'canvas_session';
 
 let dbPromise = new Promise((resolve, reject) => {
   try {
@@ -17,21 +21,30 @@ let dbPromise = new Promise((resolve, reject) => {
 });
 
 app.use(bodyParser.json());
-
+// app.use(cookieParser());
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Headers', '*');
   res.set('Access-Control-Allow-Methods', '*');
+  res.set('Access-Control-Allow-Credentials', 'true');
   next();
+});
+
+app.get('/cookie', async (req, res) => {
+  const { username, password } = req.query;
+  const cookie = await getCookie(username, password);
+  res.send(cookie);
 });
 
 app.get('/user', async (req, res) => {
   try {
     // Basic info
-    let TOKEN = req.query.access_token;
-    let raw = await fetch(`
-      https://gatech.instructure.com/api/v1/users/self`,
-      { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+    // let TOKEN = req.query.access_token;
+    const cookie = req.query.cookie;
+    let raw = await fetch(
+      `https://gatech.instructure.com/api/v1/users/self`,
+      // { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+      { headers: { 'Cookie': COOKIE_NAME + '=' + cookie } }
     );
     let text = await raw.text();
     let data = JSON.parse(text.slice(text.indexOf(';') + 1));
@@ -41,7 +54,8 @@ app.get('/user', async (req, res) => {
     // Determine user role
     raw = await fetch(
       `https://gatech.instructure.com/api/v1/users/self/enrollments`,
-      { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+      // { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+      { headers: { 'Cookie': COOKIE_NAME + '=' + cookie } }
     );
     text = await raw.text();
     data = JSON.parse(text.slice(text.indexOf(';') + 1));
@@ -63,10 +77,12 @@ app.get('/user', async (req, res) => {
 
 
 app.get('/courses', async (req, res) => {
-  const TOKEN = req.query.access_token;
+  // const TOKEN = req.query.access_token;
+  const cookie = req.query.cookie;
   let raw = await fetch(
     `https://gatech.instructure.com/api/v1/courses?enrollment_type=student&enrollment_state=active`,
-    { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+    // { headers: { 'Authorization': 'Bearer ' + TOKEN } }
+    { headers: { 'Cookie': COOKIE_NAME + '=' + cookie } }
   );
   let text = await raw.text();
   try {

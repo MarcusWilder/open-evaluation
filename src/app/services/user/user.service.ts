@@ -23,7 +23,6 @@ export interface User {
 export class UserService {
   private subjects = [];
   user: User;
-  private ACCESS_TOKEN: string;
   
   constructor(private http: HttpClient) {}
 
@@ -34,8 +33,33 @@ export class UserService {
     return subject;
   }
 
+  login(username: string, password: string): Observable<User> {
+    let user; let cookie;
+    return this.http.get(
+      `${API_SERVER_URL}/cookie?username=${username}&password=${password}`,
+      { responseType: 'text' }
+    ).pipe(
+      flatMap((_cookie) => {
+        cookie = _cookie
+        return this.http.get<User>(`${API_SERVER_URL}/user?cookie=${cookie}`)
+      }),
+      flatMap(_user => {
+        user = _user;
+        return this.http.get<Course[]>(`${API_SERVER_URL}/courses?cookie=${cookie}`);
+      }),
+      map(courses => {
+        Object.assign(user, { courses });
+        const role = new URLSearchParams(window.location.search).get('role');
+        if (role === 'student' || role === 'professor') user.role = role; // OVERRIDE
+        console.log('Logged in as', user);
+        this.user = user;
+        this.subjects.forEach(s => s.next(user));
+        return user;
+      })
+    ); 
+  }
+
   fetchUser(token: string): Observable<any> {
-    this.ACCESS_TOKEN = token;
     let _user;
     return this.http.get<User>(`${API_SERVER_URL}/user?access_token=${token}`).pipe(
       flatMap(__user => {
@@ -54,7 +78,6 @@ export class UserService {
   }
 
   logOut(): void {
-    this.ACCESS_TOKEN = '';
     this.user = null;
   }
 }
