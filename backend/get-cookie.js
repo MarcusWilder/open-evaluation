@@ -4,6 +4,10 @@ const COOKIE_NAME = 'canvas_session';
 
 exports.getCookie = async function(username, password) {
     try {
+        username = decodeURIComponent(username);
+        password = decodeURIComponent(password);
+        console.log(username, password);
+        
         const browserPromise = puppeteer.launch();
         const browser = await browserPromise;
         const page = await browser.newPage();
@@ -26,6 +30,7 @@ exports.getCookie = async function(username, password) {
         await page.waitForSelector('#application'); // Wait for Canvas webpage to load
         const cookies = await page.cookies();
         const entry = cookies.find(c => c.name == COOKIE_NAME);
+        console.log(entry)
         if (entry) return entry.value;
     } catch (err) {
         console.log(err);

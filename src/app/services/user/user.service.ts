@@ -36,7 +36,7 @@ export class UserService {
   login(username: string, password: string): Observable<User> {
     let user; let cookie;
     return this.http.get(
-      `${API_SERVER_URL}/cookie?username=${username}&password=${password}`,
+      `${API_SERVER_URL}/cookie?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
       { responseType: 'text' }
     ).pipe(
       flatMap((_cookie) => {
