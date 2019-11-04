@@ -7,6 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Course } from '../../objects/course';
 import { Professor } from '../../objects/professor';
 import { Survey } from '../../objects/survey';
+import { COURSES } from '@src/app/mock-data/mock-courses';
 
 
 @Injectable({
@@ -70,6 +71,20 @@ export class MockdataService {
       tap((updatedCourse: Course) => console.log(`updated course w/ id=${updatedCourse.id}`)),
       catchError(this.handleError<Course>('updateCourse'))
     );
+  }
+
+  getCourseByID(id: number): Course {
+      return COURSES.find(x => x.id === id);
+  }
+
+  getCourseListByID(courseIDList: number[]): Course[] {
+    const courseList = [];
+
+    courseIDList.forEach(courseID => {
+      courseList.push(this.getCourseByID(courseID));
+    });
+
+    return courseList;
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

@@ -7,34 +7,34 @@ export const STUDENTS: Student[] = [
         firstName: 'Chris',
         lastName: 'Clark',
         major: 'Computer Science',
-        courseList: COURSES
+        courseIDList: [1, 2, 3]
     },
     {
         id: 2,
         firstName: 'Marcus',
         lastName: 'Wilder',
         major: 'Computer Science',
-        courseList: COURSES
+        courseIDList: [1, 2, 3]
     },
     {
         id: 3,
         firstName: 'Wenqi',
         lastName: 'He',
         major: 'Computer Science',
-        courseList: COURSES
+        courseIDList: [1, 2, 3]
     },
     {
         id: 4,
         firstName: 'Matthew',
         lastName: 'Orubina',
         major: 'Computer Science',
-        courseList: COURSES
+        courseIDList: [1, 2, 3]
     },
     {
         id: 5,
         firstName: 'Benjamin',
         lastName: 'Vaisberg',
         major: 'Computer Science',
-        courseList: COURSES
+        courseIDList: [1, 2, 3]
     }
 ];

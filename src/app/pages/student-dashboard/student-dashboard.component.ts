@@ -37,7 +37,7 @@ export class StudentDashboardComponent implements OnInit {
     this.mockdataService.getProfessor().subscribe(professor => {
       this.profName = `${professor.firstName} ${professor.lastName}`;
       this.academicField = professor.academicField + ' Professor';
-      this.activeTabs = professor.courseList.map( (course) => {
+      this.activeTabs = this.mockdataService.getCourseListByID(professor.courseIDList).map( (course) => {
         return {heading: course.name, items: course.surveys.map(survey => survey.name)};
       });
     });

@@ -38,7 +38,7 @@ export class CreateSurveyComponent implements OnInit {
   ngOnInit() {
     this.mockdataService.getProfessor().subscribe(professor => {
       this.currentProfessor = professor;
-      this.courseOptions = professor.courseList
+      this.courseOptions = this.mockdataService.getCourseListByID(professor.courseIDList)
       .map(function (course) {
         return {name: course.name, header: false};
       });
@@ -48,7 +48,7 @@ export class CreateSurveyComponent implements OnInit {
       this.surveyQuestions['Default'] = surveys[0];
       this.surveyQuestions['CTL'] = surveys[1];
       this.surveyDataLoaded = true;
-    })
+    });
   }
 
   createSurvey() {
@@ -56,7 +56,7 @@ export class CreateSurveyComponent implements OnInit {
 
     this.mockdataService.addSurvey({name: this.surveyTitle, questionList: DEFAULT_QUESTIONS} as Survey)
       .subscribe(newSurvey => {
-        const effectedCourse = this.currentProfessor.courseList.filter(function (course) {
+        const effectedCourse = this.mockdataService.getCourseListByID(this.currentProfessor.courseIDList).filter(function (course) {
           return course.name === selectedCourse;
         });
 
