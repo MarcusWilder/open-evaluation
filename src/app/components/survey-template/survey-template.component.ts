@@ -17,7 +17,6 @@ export class SurveyTemplateComponent {
   @Input() set data(survey: Survey) {
     this.surveyName = survey ? survey.name : '';
     this.questions = survey ? survey.questionList : [];
-    console.log(this.questions);
   };
 
 }

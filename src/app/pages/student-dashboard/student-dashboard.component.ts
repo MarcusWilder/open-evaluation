@@ -43,7 +43,6 @@ export class StudentDashboardComponent implements OnInit {
       type: 'success',
       content: 'Take',
       onClick: (courseIndex: number, surveyIndex: number) => {
-        console.log(courseIndex, surveyIndex)
         this.takeSurvey.call(
           this,
           this.activeSurveys[courseIndex].courseId,
