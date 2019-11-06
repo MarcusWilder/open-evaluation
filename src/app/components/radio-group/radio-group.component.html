@@ -16,8 +16,8 @@
         <li *ngFor="let option of options; index as num" class="slds-radio">
             <input
                 type="radio"
-                name="rgRadio"
                 [id]="radioGroupID + num"
+                [name]="radioGroupID"
             />
             <label 
                 class="slds-radio__label"
