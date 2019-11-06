@@ -19,6 +19,12 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    let cookie;
+    if (cookie = window.localStorage.getItem('cookie')) {
+      this.userService.loginWithCookie(cookie).subscribe(user => {});
+    } else {
+      this.router.navigateByUrl('/home');
+    }
     // const token = new URLSearchParams(window.location.search).get('access_token');
     // if (!this.userService.user) {
     //   if (!token) {

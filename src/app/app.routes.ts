@@ -42,8 +42,8 @@ export const routes: Routes = [
     path: 'take-survey/:courseId/:surveyId',
     component: TakeSurveyComponent,
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '/home',
-  // },
+  {
+    path: '**',
+    redirectTo: '/home',
+  },
 ];

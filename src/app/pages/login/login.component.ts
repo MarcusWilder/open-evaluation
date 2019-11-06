@@ -23,11 +23,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.userService.login(this.username, this.password).subscribe((user) => {
-      if (user.role === 'student') {
-        this.router.navigateByUrl('/student-dashboard');
-      } else {
-        this.router.navigateByUrl('/professor-dashboard');
-      }
+      this.router.navigateByUrl(`/${user.role}-dashboard`);
     })
   }
 

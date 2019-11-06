@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { of, Observable, Subject } from 'rxjs';
+import { of, Observable, Subject, identity } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 
 const API_SERVER_URL = `http://localhost:4201`;
 
@@ -33,12 +33,9 @@ export class UserService {
     return subject;
   }
 
-  login(username: string, password: string): Observable<User> {
+  fetchUserInfo(cookie$) {
     let user; let cookie;
-    return this.http.get(
-      `${API_SERVER_URL}/cookie?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
-      { responseType: 'text' }
-    ).pipe(
+    return cookie$.pipe(
       flatMap((_cookie) => {
         cookie = _cookie
         return this.http.get<User>(`${API_SERVER_URL}/user?cookie=${cookie}`)
@@ -56,28 +53,25 @@ export class UserService {
         this.subjects.forEach(s => s.next(user));
         return user;
       })
-    ); 
+    );
   }
 
-  fetchUser(token: string): Observable<any> {
-    let _user;
-    return this.http.get<User>(`${API_SERVER_URL}/user?access_token=${token}`).pipe(
-      flatMap(__user => {
-        _user = __user;
-        return this.http.get<Course[]>(`${API_SERVER_URL}/courses?access_token=${token}`);
-      }),
-      map(courses => {
-        const user = Object.assign({}, _user, { courses });
-        const role = new URLSearchParams(window.location.search).get('role');
-        if (role === 'student' || role === 'professor') user.role = role; // OVERRIDE
-        console.log('Logged in as', user);
-        this.user = user;
-        this.subjects.forEach(s => s.next(user));
-      })
+  loginWithCookie(cookie) {
+    return this.fetchUserInfo(of(cookie));
+  }
+
+  login(username: string, password: string): Observable<User> {
+    const cookie$ = this.http.get(
+      `${API_SERVER_URL}/cookie?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+      { responseType: 'text' }
+    ).pipe(
+      tap(cookie => window.localStorage.setItem('cookie', cookie))
     );
+    return this.fetchUserInfo(cookie$);
   }
 
   logOut(): void {
     this.user = null;
+    window.localStorage.removeItem('cookie');
   }
 }
