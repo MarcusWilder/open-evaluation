@@ -29,6 +29,7 @@ import { TestComponent } from '@src/app/test/test.component';
 import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
 import { LoginComponent } from '@src/app/pages/login/login.component';
+import { CheckboxComponent } from '@src/app/components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { LoginComponent } from '@src/app/pages/login/login.component';
     SurveyTemplateComponent,
     TakeSurveyComponent,
     LoginComponent,
+    CheckboxComponent,
   ],
   imports: [
     AppRoutingModule,

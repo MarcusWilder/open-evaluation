@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const { MongoClient } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
 const app = express();
 const { getCookie } = require('./get-cookie');
 const url = 'mongodb://openeval:admin2019@ds141248.mlab.com:41248/open-evaluation';
@@ -21,7 +20,6 @@ let dbPromise = new Promise((resolve, reject) => {
 });
 
 app.use(bodyParser.json());
-// app.use(cookieParser());
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Headers', '*');
@@ -111,7 +109,7 @@ app.get('/surveys/:courseId', async (req, res) => {
 
 app.post('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
-  const { name, template } = req.body;
+  const { name, template, active } = req.body;
   const db = await dbPromise;
   try {
     const surveys = await db.collection('surveys').find({ courseId }).toArray();
@@ -127,7 +125,7 @@ app.post('/surveys/:courseId', async (req, res) => {
       courseId,
       name,
       template,
-      active: true
+      active
     });
     res.status(200);
     res.send();
@@ -144,6 +142,29 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
     let survey = await db.collection('surveys').findOne({ _id })
     res.send(survey);
   } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }
+});
+
+app.put('/surveys/:courseId/:surveyId', async (req, res) => {
+  const _id = +req.params.surveyId;
+  const { name, template, active } = req.body;
+  const db = await dbPromise;
+  try {
+    await db.collection('surveys').updateOne(
+      { _id },
+      {
+        $set: {
+          name,
+          template,
+          active
+        }
+      }
+    )
+    res.send();
+  } catch (error) {
+    console.log(error)
     res.status(500);
     res.send({ error });
   }
@@ -176,7 +197,7 @@ app.get('/response', async (req, res) => {
     res.status(500);
     res.send({ error });
   }
-})
+});
 
 app.post('/response', async (req, res) => {
   const { _id, responses } = req.body;

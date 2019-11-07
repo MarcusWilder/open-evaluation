@@ -20,8 +20,11 @@ export class SurveyService {
     return this.http.get<CourseWithSurveys[]>(`${API_SERVER_URL}/surveys`);
   }
 
-  createSurvey(courseId: number, name: string, template: TemplateType): Observable<any> {
-    return this.http.post(`${API_SERVER_URL}/surveys/${courseId}`, { name, template });
+  createSurvey(courseId: number, name: string, template: TemplateType, active: boolean): Observable<any> {
+    return this.http.post(`${API_SERVER_URL}/surveys/${courseId}`, { name, template, active });
+  }
+  updateSurvey(courseId: number, surveyId: number, name: string, template: TemplateType, active: boolean): Observable<any> {
+    return this.http.put(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`, { name, template, active });
   }
   
   getSurveyById(courseId: number, surveyId: number): Observable<Survey> {

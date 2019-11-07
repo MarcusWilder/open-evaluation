@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Button } from '@src/app/types/button';
 import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
@@ -10,6 +10,7 @@ import { QUESTIONS } from '@src/app/mock-data/mock-questions';
 import { UserService } from '@src/app/services/user/user.service';
 import { SurveyService } from '@src/app/services/survey/survey.service';
 import { TemplateType, toDisplayString } from '@src/app/types/template-type';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-survey',
@@ -19,13 +20,16 @@ export class CreateSurveyComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private toastService: ToastService,
-    private mockdataService: MockdataService,
     private userService: UserService,
     private surveyService: SurveyService,
   ) { }
 
-  activeTab: string;
+  courseId?: number;
+  surveyId?: number;
+  editing: boolean = false;
+  active: boolean = true;
   surveyTitle: string;
   currentProfessor: Professor;
   courseOptions: object[] = [];
@@ -38,16 +42,17 @@ export class CreateSurveyComponent implements OnInit {
   templateSelection = this.templateOptions[0];
 
   buttons: Button[] = [
-    {type: 'success', content: 'Create Survey' , onClick: () => this.createSurvey()},
-    {type: 'destructive', content: 'Discard Survey', onClick: () => this.discardSurvey()},
+    {type: 'success', content: 'Save' , onClick: () => {
+      if (this.editing) {
+        this.updateSurvey();
+      } else {
+        this.createSurvey();
+      }
+    }},
+    {type: 'destructive', content: 'Discard', onClick: () => this.discardSurvey()},
   ];
 
   ngOnInit() {
-    this.userService.user$.subscribe(user => {
-      this.courseOptions = user.courses.map(c => {
-        return { name: c.courseName, data: c.courseId };
-      });
-    });
     this.surveyQuestions = {};
     Object.keys(QUESTIONS).forEach(type => {
       this.surveyQuestions[type] = {
@@ -57,9 +62,47 @@ export class CreateSurveyComponent implements OnInit {
         questionList: QUESTIONS[type],
         active: true
       }
+    });
 
-    })    
+    this.userService.user$.subscribe(user => {
+      this.courseOptions = user.courses.map(c => {
+        return { name: c.courseName, data: c.courseId };
+      });
+      this.route.url.subscribe(segments => {
+        if (segments[0].path === 'edit-survey') {
+          // Editing mode
+          this.editing = true;
+          // Load data
+          this.route.paramMap.pipe(
+            switchMap((params: ParamMap) => {
+              this.courseId = +params.get('courseId')
+              this.surveyId = +params.get('surveyId')        
+              return this.surveyService.getSurveyById(this.courseId, this.surveyId);
+            })
+          ).subscribe(survey => {
+            console.log(survey.template, this.templateOptions);
+            this.active = survey.active;
+            this.surveyTitle = survey.name;
+            this.courseSelection = this.courseOptions.find(c => c['courseId'] === this.courseId) || this.courseOptions[0];
+            this.templateSelection = this.templateOptions.find(c => c.data === survey.template) || this.templateOptions[0];
+          });
+      
+        }
+      })
+  
+    });
     this.surveyDataLoaded = true;
+  }
+
+  updateSurvey() {
+    const template: TemplateType = this.templateSelection['data'];
+    const name = this.surveyTitle || 'Untitled';
+    const active = this.active;
+    this.surveyService.updateSurvey(this.courseId, this.surveyId, name, template, active).subscribe(() => {
+      this.toastService.open('Survey Updated!','', 'success');
+      this.router.navigateByUrl('/professor-dashboard');
+    });
+
   }
 
   createSurvey() {
@@ -70,7 +113,8 @@ export class CreateSurveyComponent implements OnInit {
     const courseId = this.courseSelection['data'];
     const template: TemplateType = this.templateSelection['data'];
     const name = this.surveyTitle || 'Untitled';
-    this.surveyService.createSurvey(courseId, name, template).subscribe(() => {
+    const active = this.active
+    this.surveyService.createSurvey(courseId, name, template, active).subscribe(() => {
       this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
       this.router.navigateByUrl('/professor-dashboard');
     });

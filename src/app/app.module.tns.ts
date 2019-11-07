@@ -25,6 +25,7 @@ import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/stud
 import { SurveyTemplateComponent } from '@src/app/components/survey-template/survey-template.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
 import { LoginComponent } from '@src/app/pages/login/login.component';
+import { CheckboxComponent } from '@src/app/components/checkbox/checkbox.component'
 
 
 
@@ -56,7 +57,8 @@ import { LoginComponent } from '@src/app/pages/login/login.component';
     StudentDashboardComponent,
     SurveyTemplateComponent,
     TakeSurveyComponent,
-    LoginComponent
+    LoginComponent,
+    CheckboxComponent
   ],
   imports: [
     AppRoutingModule,

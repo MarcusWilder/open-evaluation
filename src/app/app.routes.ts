@@ -39,6 +39,10 @@ export const routes: Routes = [
     component: CreateSurveyComponent,
   },
   {
+    path: 'edit-survey/:courseId/:surveyId',
+    component: CreateSurveyComponent,
+  },
+  {
     path: 'take-survey/:courseId/:surveyId',
     component: TakeSurveyComponent,
   },

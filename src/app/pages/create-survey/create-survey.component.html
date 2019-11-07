@@ -23,6 +23,7 @@
         placeholder="Select a Course"
         [options]="courseOptions"
         [(selection)]="courseSelection"
+        [disabled]="editing"
     ></app-picklist>
     <app-picklist
         required
@@ -31,6 +32,10 @@
         [options]="templateOptions"
         [(selection)]="templateSelection"
     ></app-picklist>
+    <app-checkbox
+        label="Active"
+        [(checked)]="active"
+    ></app-checkbox>
 </section>
 
 <app-card

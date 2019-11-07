@@ -55,7 +55,7 @@ export class ProfessorDashboardComponent implements OnInit {
         const courseId = this.activeSurveys[courseIndex].courseId;
         const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
         console.log(courseId, surveyId)
-        this.router.navigateByUrl(`/take-survey/${courseId}/${surveyId}`);
+        this.router.navigateByUrl(`/edit-survey/${courseId}/${surveyId}`);
       }
     },
     {
