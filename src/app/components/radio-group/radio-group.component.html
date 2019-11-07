@@ -15,6 +15,7 @@
     <ul class="slds-form-element__control">
         <li *ngFor="let option of options; index as num" class="slds-radio">
             <input
+                [disabled]="_disabled"
                 type="radio"
                 [id]="radioGroupID + num"
                 [name]="radioGroupID"

@@ -19,14 +19,14 @@ export class RadioGroupComponent  {
   @Input() radioGroupID: string;
 
   @Input() set disabled(value: boolean | string) {
-    this.dis = coerceBooleanProperty(value);
+    this._disabled = coerceBooleanProperty(value);
   }
   @Input() set required(value: boolean | string) {
     this.req = coerceBooleanProperty(value);
   }
   @Output() selectionChange = new EventEmitter<unknown>();
 
-  dis: boolean;
+  _disabled: boolean;
   req: boolean;
 
   makeSelection(selection: unknown) {

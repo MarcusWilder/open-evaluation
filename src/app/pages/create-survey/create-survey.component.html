@@ -39,7 +39,9 @@
     <div body class="slds-p-horizontal_medium slds-p-bottom_small">
         <app-survey-template
             *ngIf="surveyDataLoaded"
-            [data]="surveyQuestions[templateSelection.data]" >
+            [data]="surveyQuestions[templateSelection.data]"
+            disabled
+        >
         </app-survey-template>
     </div>
 </app-card>
