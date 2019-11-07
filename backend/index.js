@@ -167,19 +167,31 @@ app.get('/response', async (req, res) => {
   const surveyId = +req.query.surveyId;
   const studentId = +req.query.studentId;
   const db = await dbPromise;
-  const col = db.collection('responses');
-  const result = await col.findOne({
-    _id : { courseId, surveyId, studentId }
-  });
-  res.send(result ? result.responses : []);
+  try {
+    const result = await db.collection('responses').findOne({
+      _id : { courseId, surveyId, studentId }
+    });
+    res.send(result ? result.responses : []);
+  } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }
 })
 
 app.post('/response', async (req, res) => {
   const { _id, responses } = req.body;
   const db = await dbPromise;
-  const col = db.collection('responses');
-  let result = await col.update({ _id }, { responses }, { upsert: true });
-  res.send(result);
+  try {
+    let result = await db.collection('responses').update(
+      { _id },
+      { responses },
+      { upsert: true }
+    );
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }
 });
 
 app.listen(4201, () => console.log('listening on 4201'));
