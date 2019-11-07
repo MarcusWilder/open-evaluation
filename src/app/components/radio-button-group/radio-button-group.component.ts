@@ -15,7 +15,7 @@ export class RadioButtonGroupComponent {
   @Input() label = 'Radio Button Group';
   @Input() hasError = false;
   @Input() options: unknown[];
-  @Input() selection: unknown;
+  @Input() selection: number;
   @Input() radioButtonGroupID: string;
 
   @Input() set disabled(value: boolean | string) {

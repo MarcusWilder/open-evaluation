@@ -22,6 +22,8 @@
           type="radio"
           [disabled]="dis"
           [id]="radioButtonGroupID + num"
+          [value]="option"
+          [(ngModel)]="selection"
           [name]="radioButtonGroupID"
         />
         <label

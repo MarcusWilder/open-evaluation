@@ -19,6 +19,8 @@
                 type="radio"
                 [id]="radioGroupID + num"
                 [name]="radioGroupID"
+                [value]="option"
+                [(ngModel)]="selection"
             />
             <label 
                 class="slds-radio__label"

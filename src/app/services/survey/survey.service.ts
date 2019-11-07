@@ -54,8 +54,8 @@ export class SurveyService {
     return combineLatest(surveyObservables);
   }
 
-  fetchResponse(courseId: number, surveyId: number, studentId: number): Observable<any[]>{
-    return this.http.get<any[]>(`${API_SERVER_URL}/response?courseId=${courseId}&surveyId=${surveyId}&studentId=${studentId}`);
+  fetchResponse(courseId: number, surveyId: number, studentId: number): Observable<ResponseData>{
+    return this.http.get<ResponseData>(`${API_SERVER_URL}/response?courseId=${courseId}&surveyId=${surveyId}&studentId=${studentId}`);
   }
   
   submitResponse(responseData: ResponseData): Observable<any[]> {

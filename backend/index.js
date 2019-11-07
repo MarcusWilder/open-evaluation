@@ -189,10 +189,10 @@ app.get('/response', async (req, res) => {
   const studentId = +req.query.studentId;
   const db = await dbPromise;
   try {
-    const result = await db.collection('responses').findOne({
+    const response = await db.collection('responses').findOne({
       _id : { courseId, surveyId, studentId }
     });
-    res.send(result ? result.responses : []);
+    res.send(response);
   } catch (error) {
     res.status(500);
     res.send({ error });
@@ -200,12 +200,12 @@ app.get('/response', async (req, res) => {
 });
 
 app.post('/response', async (req, res) => {
-  const { _id, responses } = req.body;
+  const { _id, template, responses } = req.body;
   const db = await dbPromise;
   try {
     let result = await db.collection('responses').update(
       { _id },
-      { responses },
+      { template, responses },
       { upsert: true }
     );
     res.send(result);
