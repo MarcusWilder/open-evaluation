@@ -53,7 +53,8 @@ export class ProfessorDashboardComponent implements OnInit {
       content: 'Edit',
       onClick: (courseIndex: number, surveyIndex: number) => {
         const courseId = this.activeSurveys[courseIndex].courseId;
-        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
+        console.log(courseId, surveyId)
         this.router.navigateByUrl(`/take-survey/${courseId}/${surveyId}`);
       }
     },
@@ -62,7 +63,7 @@ export class ProfessorDashboardComponent implements OnInit {
       content: 'Delete',
       onClick: (courseIndex: number, surveyIndex: number) => {
         const courseId = this.activeSurveys[courseIndex].courseId;
-        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
         const surveyTitle = this.activeSurveys[courseIndex].surveys[surveyIndex].name;
         this.surveyService.deleteSurveyById(courseId, surveyId).subscribe(() => {
           this.toastService.open('Survey Deleted', surveyTitle + ' was discarded.', 'info');
@@ -93,7 +94,9 @@ export class ProfessorDashboardComponent implements OnInit {
         this.closedSurveys = surveysForEachCourse.map((surveys, i) => {
           let course = user.courses[i];
           return { ...course, surveys: surveys.filter(s => !s.active) };
-        });   
+        });
+        console.log(this.activeSurveys);
+
 
       })
     });

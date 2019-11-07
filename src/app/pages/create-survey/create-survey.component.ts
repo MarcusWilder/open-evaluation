@@ -51,7 +51,7 @@ export class CreateSurveyComponent implements OnInit {
     this.surveyQuestions = {};
     Object.keys(QUESTIONS).forEach(type => {
       this.surveyQuestions[type] = {
-        surveyId: 0,
+        _id: 0,
         name: `${type} Survey Template`,
         template: type,
         questionList: QUESTIONS[type],

@@ -97,29 +97,13 @@ app.get('/courses', async (req, res) => {
   }
 });
 
-// app.get('/surveys', async (req, res) => {
-//   const db = await dbPromise;
-//   db.collection('surveys').find({}).toArray((err, items) => {
-//     if (err) {
-//       res.status(500);
-//       res.send({ error });
-//     } else {
-//       res.send(items)
-//     }
-//   })
-// });
-
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').findOne({ _id: courseId })
-    if (!result) {
-      res.send([]);
-    } else {
-      res.send(result.surveys);
-    }
-  } catch (error) {
+    const result = await db.collection('surveys').find({ courseId }).toArray();
+    res.send(result);
+ } catch (error) {
     res.status(500);
     res.send({ error });
   }  
@@ -130,40 +114,21 @@ app.post('/surveys/:courseId', async (req, res) => {
   const { name, template } = req.body;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').findOne({ _id: courseId });
-    if (!result) {
-      await db.collection('surveys').insertOne({
-        _id: courseId,
-        surveys: [{
-            surveyId: courseId * 100 + 1,
-            name,
-            template,
-            active: true
-        }]
-      });
-    } else if (result.surveys.length === 0) {
-      await db.collection('surveys').updateOne(
-        { _id: courseId },
-        {
-          $set: {
-            surveys: [{
-              surveyId: courseId * 100 + 1,
-              name,
-              template,
-              active: true
-          }]
-          }
-        }
-      );
+    const surveys = await db.collection('surveys').find({ courseId }).toArray();
+    console.log(surveys);
+    let _id;
+    if (surveys.length === 0) {
+      _id = courseId * 100;
     } else {
-      const surveys = result.surveys;
-      const surveyId = Math.max(...surveys.map(s => s.surveyId)) + 1;
-      surveys.push({ surveyId, name, template, active: true });
-      await db.collection('surveys').updateOne(
-        { _id: courseId },
-        { $set: { surveys } }
-      );
+      _id = Math.max(...surveys.map(s => s._id)) + 1; 
     }
+    await db.collection('surveys').insertOne({
+      _id,
+      courseId,
+      name,
+      template,
+      active: true
+    });
     res.status(200);
     res.send();
   } catch (error) {
@@ -173,29 +138,27 @@ app.post('/surveys/:courseId', async (req, res) => {
 });
 
 app.get('/surveys/:courseId/:surveyId', async (req, res) => {
-  const courseId = +req.params.courseId;
-  const surveyId = +req.params.surveyId;
+  const _id = +req.params.surveyId;
   const db = await dbPromise;
-  db.collection('surveys').findOne({ _id: courseId })
-    .then(({ surveys }) => {
-      const result = surveys.find(s => s.surveyId === surveyId);
-      res.send(result);
-    }, error => {
-      res.status(500);
-      res.send({ error });
-    });
+  try {
+    let survey = await db.collection('surveys').findOne({ _id })
+    res.send(survey);
+  } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }
 });
 
 app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
-  const courseId = +req.params.courseId;
-  const surveyId = +req.params.surveyId;
+  const _id = +req.params.surveyId;
   const db = await dbPromise;
-  const { surveys } = await db.collection('surveys').findOne({ _id: courseId });
-  await db.collection('surveys').updateOne(
-    { _id: courseId },
-    { $set: { surveys: surveys.filter(s => s.surveyId !== surveyId)}}
-  );
-  res.send();
+  try {
+    await db.collection('surveys').deleteOne({ _id });
+    res.send();
+  } catch (error) {
+    res.status(500);
+    res.send({ error });
+  }
 });
 
 
@@ -207,7 +170,7 @@ app.get('/response', async (req, res) => {
   const col = db.collection('responses');
   const result = await col.findOne({
     _id : { courseId, surveyId, studentId }
-  }, { responses: true });
+  });
   res.send(result ? result.responses : []);
 })
 

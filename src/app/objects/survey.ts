@@ -1,7 +1,7 @@
 import { Question } from './question';
 
 export class Survey {
-    surveyId: number;
+    _id: number;
     name: string;
     template: string;
     questionList: Question[];

@@ -46,7 +46,7 @@ export class StudentDashboardComponent implements OnInit {
         this.takeSurvey.call(
           this,
           this.activeSurveys[courseIndex].courseId,
-          this.activeSurveys[courseIndex].surveys[surveyIndex].surveyId
+          this.activeSurveys[courseIndex].surveys[surveyIndex]._id
         );
       }
     }
@@ -58,7 +58,7 @@ export class StudentDashboardComponent implements OnInit {
       content: 'View Response',
       onClick: (courseIndex: number, surveyIndex: number) => {
         const courseId = this.closedSurveys[courseIndex].courseId;
-        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex].surveyId;
+        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
         const studentId = this.userService.user.id;
         this.surveyService.fetchResponse(courseId, surveyId, studentId).subscribe(responses => {
           console.log(responses);
