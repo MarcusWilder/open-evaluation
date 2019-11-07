@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Survey, CourseWithSurveys } from '@src/app/objects/survey';
-import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from '@src/app/mock-data/mock-questions';
+import { DEFAULT_QUESTIONS, CTL_QUESTIONS, QUESTIONS } from '@src/app/mock-data/mock-questions';
 import { Observable, of, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
@@ -28,7 +28,7 @@ export class SurveyService {
     return this.http.get<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`).pipe(
       map(survey => ({
         ...survey,
-        questionList: survey.template === 'DEFAULT' ? DEFAULT_QUESTIONS : CTL_QUESTIONS        
+        questionList: QUESTIONS[survey.template]        
       }))
     );
   }
@@ -37,12 +37,11 @@ export class SurveyService {
     return this.http.delete<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`)
   }
 
-  
   getSurveysByCourseId(courseId: number): Observable<Survey[]> {
     return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}`).pipe(
       map(surveys => surveys.map(survey => ({
         ...survey,
-        questionList: survey.template === 'DEFAULT' ? DEFAULT_QUESTIONS : CTL_QUESTIONS        
+        questionList: QUESTIONS[survey.template]        
       })))
     );
   }
