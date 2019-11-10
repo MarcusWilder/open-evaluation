@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, Subject, identity } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { flatMap, map, tap, catchError } from 'rxjs/operators';
 
 const API_SERVER_URL = `http://localhost:4201`;
 
@@ -52,6 +52,9 @@ export class UserService {
         this.user = user;
         this.subjects.forEach(s => s.next(user));
         return user;
+      }),
+      catchError((error) => {
+        return of(null);
       })
     );
   }

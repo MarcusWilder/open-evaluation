@@ -21,7 +21,12 @@ export class HomeComponent {
   login() {
     if (window.localStorage.getItem('cookie')) {
       this.userService.user$.subscribe((user) => {
-        this.router.navigateByUrl(`/${user.role}-dashboard`);
+        if (!user) {
+          window.localStorage.removeItem('cookie');
+          this.router.navigateByUrl('/login');
+        } else {
+          this.router.navigateByUrl(`/${user.role}-dashboard`);
+        }
       })
     } else {
       this.router.navigateByUrl('/login');
