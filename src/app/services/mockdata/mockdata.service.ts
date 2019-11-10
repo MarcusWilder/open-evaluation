@@ -49,8 +49,9 @@ export class MockdataService {
   }
 
   addSurvey(survey: Survey): Observable<Survey> {
+    console.log(this.surveysUrl, survey);
     return this.http.post<Survey>(this.surveysUrl, survey, this.httpOptions).pipe(
-      tap((newSurvey: Survey) => console.log(`added survey w/ id=${newSurvey.id}`)),
+      tap((newSurvey: Survey) => console.log(`added survey w/ id=${newSurvey._id}`)),
       catchError(this.handleError<Survey>('addSurvey'))
     );
   }

@@ -5,6 +5,8 @@ import { HomeComponent } from '@src/app/pages/home/home.component';
 import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/professor-dashboard.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { TestComponent } from '@src/app/test/test.component';
+import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
+import { LoginComponent } from '@src/app/pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +23,10 @@ export const routes: Routes = [
     component: TestComponent,
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: 'professor-dashboard',
     component: ProfessorDashboardComponent,
   },
@@ -31,6 +37,14 @@ export const routes: Routes = [
   {
     path: 'create-survey',
     component: CreateSurveyComponent,
+  },
+  {
+    path: 'edit-survey/:courseId/:surveyId',
+    component: CreateSurveyComponent,
+  },
+  {
+    path: 'take-survey/:courseId/:surveyId',
+    component: TakeSurveyComponent,
   },
   {
     path: '**',

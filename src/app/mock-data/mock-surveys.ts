@@ -3,13 +3,17 @@ import { DEFAULT_QUESTIONS, CTL_QUESTIONS } from './mock-questions';
 
 export const SURVEYS: Survey[] = [
     {
-        id: 1,
+        _id: 1,
         name: 'Default Survey',
-        questionList: DEFAULT_QUESTIONS
+        template: 'DEFAULT',
+        questionList: DEFAULT_QUESTIONS,
+        active: true
     },
     {
-        id: 2,
+        _id: 2,
         name: 'CTL Survey',
-        questionList: CTL_QUESTIONS
+        template: 'CTL',
+        questionList: CTL_QUESTIONS,
+        active: true
     }
 ];

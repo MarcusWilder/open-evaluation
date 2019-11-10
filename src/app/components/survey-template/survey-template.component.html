@@ -7,12 +7,15 @@
             [options]="question.options"
             [(selection)]="question.answer"
             [radioGroupID] = "'MC' + question.id"
+            [disabled]="_disabled"
         ></app-radio-group>
         <app-input
             *ngSwitchCase="'FREE_RESPONSE'"
             required
             [label]="question.baseQuestion"
+            [(entry)]="question.answer"
             placeholder="Enter your response"
+            [disabled]="_disabled"
         ></app-input>
         <app-radio-button-group
             *ngSwitchCase="'RANKING'"
@@ -21,6 +24,7 @@
             [options]="[0,1,2,3,4,5]"
             [(selection)]="question.answer"
             [radioButtonGroupID]="'RK' + question.id"
+            [disabled]="_disabled"
         ></app-radio-button-group>
     </ng-container>
 </ng-container>

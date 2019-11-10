@@ -68,7 +68,7 @@ export class ComboboxComponent implements OnDestroy {
       );
       this.picklistOverlay.open();
       this.picklistOverlay.getPicklistDropdownRef().receiveSelection().subscribe((num) => {
-        this.selection = this.opts[num]['name'];
+        this.selection = this.opts[num];
         if (this.prevNum !== -1) {
           this.areSelected[this.prevNum] = false;
         }

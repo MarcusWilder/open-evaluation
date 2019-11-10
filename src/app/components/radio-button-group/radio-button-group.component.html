@@ -20,9 +20,11 @@
         >
         <input
           type="radio"
-          name="rbgRadio"
           [disabled]="dis"
           [id]="radioButtonGroupID + num"
+          [value]="option"
+          [(ngModel)]="selection"
+          [name]="radioButtonGroupID"
         />
         <label
           class="slds-radio_button__label"

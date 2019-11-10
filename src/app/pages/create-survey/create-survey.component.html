@@ -23,6 +23,7 @@
         placeholder="Select a Course"
         [options]="courseOptions"
         [(selection)]="courseSelection"
+        [disabled]="editing"
     ></app-picklist>
     <app-picklist
         required
@@ -31,15 +32,21 @@
         [options]="templateOptions"
         [(selection)]="templateSelection"
     ></app-picklist>
+    <app-checkbox
+        label="Active"
+        [(checked)]="active"
+    ></app-checkbox>
 </section>
 
 <app-card
-    title="Survey Template: {{templateSelection}}"
+    title="Survey Template Preview: {{templateSelection.name}}"
     class="slds-m-around_large">
     <div body class="slds-p-horizontal_medium slds-p-bottom_small">
         <app-survey-template
             *ngIf="surveyDataLoaded"
-            [data]="surveyQuestions[templateSelection]" >
+            [data]="surveyQuestions[templateSelection.data]"
+            disabled
+        >
         </app-survey-template>
     </div>
 </app-card>

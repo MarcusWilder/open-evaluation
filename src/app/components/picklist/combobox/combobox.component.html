@@ -32,7 +32,7 @@
             readonly=""
             role="textbox"
             [disabled]="dis"
-            [(ngModel)]="selection"
+            [value]="selection ? selection['name'] : ''"
             [placeholder]="placeholder"
             (click)="toggleDropdown()"/>
           <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
