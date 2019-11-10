@@ -1,1 +1,41 @@
-<Button text="professor-dashboard works!" class="btn btn-primary"></Button>
+<ActionBar>
+        <Label text="CS1331: A" style="font-family: 'Roboto'; font-size: 25"></Label>
+        <ActionItem ios.position=right>
+            <StackLayout>
+                <Image height=25 width=25 src="~/assets/img/LogoutButton.png" ></Image>
+                <Label text="Logout" style="font-size: 10"></Label>
+            </StackLayout>
+        </ActionItem>
+    </ActionBar>
+
+
+    <!-- <StackLayout style="background-color: white; height: 150; text-align: center; border-width: 1; border-radius: 7; border-color: darkgray; margin-left: 10; margin-right: 10; margin-top: 15; margin-bottom: 15;">
+        </StackLayout>
+        Need a header row for the create survey button?
+     -->
+        
+    <ListView [items]="hardCodedSurveys" style="background-color: #f3f6fa" separatorColor="transparent">
+        <!-- <ng-template nsTemplateKey="header" let-header="item">
+            <Label [text]="header.name" class="list-group-item h3 bg-primary" isUserInteractionEnabled="false" color="white" fontSize="24"></Label>
+        </ng-template> -->
+        <ng-template let-item="item">
+            <StackLayout>
+            <StackLayout style="background-color: white; height: 150; text-align: center; border-width: 1; border-radius: 7; border-color: darkgray; margin-left: 10; margin-right: 10; margin-top: 15; margin-bottom: 15;">
+                <GridLayout rows="auto" columns="*">
+                    <Image row="0" horizontalAlignment="left" height=25 width=25 src="~/assets/img/RedPauseButton.png" style="margin-left: 25; margin-top: 10;"></Image>
+                    <Label row="0" horizontalAlignment="left" text="Stop Survey" style="margin-top: 55; margin-left: 10; font-size: 10;" ></Label>
+                    <Label row="0" horizontalAlignment="center" [text]="item.title" style="margin-top: 15; font-size: 20" ></Label>
+                    <Button row="0" horizontalAlignment="right" text="Edit" style="z-index: 0; background-color: white; margin-top: 15; font-size: 15; margin-right: 10;"></Button>
+                </GridLayout>
+
+
+
+                <GridLayout rows="auto" columns="*" style="margin-left: 25; margin-top: 15; margin-right: 25;">
+                    <Button text="Delete" row="0" horizontalAlignment="left" width="130" style="z-index: 0; border-width: 3; border-radius: 12; border-color: red; font-weight: bold; color: red; padding: 15;"></Button>
+                    <Button text="View Results" row="0" horizontalAlignment="right" width="130" style="z-index: 0; border-width: 3; border-radius: 12; font-weight: bold; color: black; padding: 15;"></Button>
+                </GridLayout>
+
+            </StackLayout>
+        </StackLayout>
+        </ng-template>
+    </ListView>

@@ -41,6 +41,12 @@ export class ProfessorDashboardComponent implements OnInit {
   academicField: string;
   surveySelection: any;
 
+  public hardCodedSurveys: any[] = [
+    {title: 'Mid-Semester Survey', surveyActive: true},
+    {title: 'Exam 2 Survey', surveyActive: false},
+    {title: 'Exam 1 Survey', surveyActive: false}
+  ];
+
   ngOnInit() {
     this.mockdataService.getProfessor().subscribe(professor => {
       this.profName = `${professor.firstName} ${professor.lastName}`;

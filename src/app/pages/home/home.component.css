@@ -56,3 +56,10 @@ iframe.videoPlayer {
     display: block;
     margin: 0 auto;
 }
+
+/* Mobile Styles */
+
+ng-template.testCell {
+    text-align: center;
+    background-color: black;
+}

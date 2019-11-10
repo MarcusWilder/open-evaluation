@@ -3,6 +3,10 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from '@src/app/services/in-memory-data/in-memory-data.service';
+
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { AppComponent } from '@src/app/app.component';
 import { HomeComponent } from '@src/app/pages/home/home.component';
@@ -58,7 +62,14 @@ import { SurveyTemplateComponent } from './components/survey-template/survey-tem
     AppRoutingModule,
     FormsModule,
     NativeScriptModule,
-    OverlayModule
+    OverlayModule,
+    HttpClientModule,
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent],

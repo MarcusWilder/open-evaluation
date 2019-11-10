@@ -1,1 +1,18 @@
-<Button text="student-dashboard works!" class="btn btn-primary"></Button>
+<ActionBar>
+    <Label text="Courses" style="font-family: 'Roboto'; font-size: 25"></Label>
+    <ActionItem ios.position=right>
+        <StackLayout>
+            <Image height=25 width=25 src="~/assets/img/LogoutButton.png" ></Image>
+            <Label text="Logout" style="font-size: 10"></Label>
+        </StackLayout>
+    </ActionItem>
+</ActionBar>
+    
+<ListView [items]="hardCodedCourses" style="background-color: #f3f6fa" separatorColor="transparent">
+    <ng-template let-item="item">
+        <StackLayout style="background-color: white; height: 80; text-align: center; border-width: 1; border-radius: 7; border-color: darkgray; margin-left: 20; margin-right: 20; margin-top: 10; margin-bottom: 10;">
+            <Label [text]="item.title" style="margin-top: 15; font-size: 25" ></Label>
+            <Label [text]="item.subtitle" style="margin-top: 5; font-size: 12; color: gray;"></Label>
+        </StackLayout>
+    </ng-template>
+</ListView>
