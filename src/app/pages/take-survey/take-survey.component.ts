@@ -38,19 +38,12 @@ export class TakeSurveyComponent implements OnInit {
     onClick: () => {
       if (!this.courseId || !this.surveyId) return;
       this.userService.user$.subscribe(user => {
-        const responses = this.surveyData.questionList.map(question => question.answer);
-        let responseData: ResponseData = {
-          _id: {
-            courseId: this.courseId,
-            surveyId: this.surveyId,
-            studentId: user.id  
-          },
-          template: this.surveyData.template,
-          responses
-        }
-        console.log('responseData:', responseData);
-        this.surveyService.submitResponse(responseData).subscribe(() => {
-          this.toastService.open('Submitted!', 'Your response has been recorded', 'success');    
+        const responses: ResponseData = this.surveyData.questionList.map(question => question.answer);
+        this.surveyService.submitResponse(this.courseId, this.surveyId, responses).subscribe(() => {
+          this.surveyData.questionList.forEach(question => {
+            question.answer = null;
+          })
+          this.toastService.open('Submitted!', 'Your response has been recorded', 'success');
           this.location.back();
         }); 
       })
@@ -74,16 +67,6 @@ export class TakeSurveyComponent implements OnInit {
     ).subscribe(survey => {
       this.surveyData = survey;
       this.surveyDataLoaded = true;
-      this.userService.user$.subscribe(user => {
-        // Fill in previous responses
-        this.surveyService.fetchResponse(this.courseId, this.surveyId, user.id).subscribe(responseData => {
-          console.log('Loaded:', responseData);
-          if (!responseData || responseData['template'] !== survey.template ) return;
-          this.surveyData.questionList.forEach((question, i) => {
-            question.answer = responseData.responses[i];
-          });
-        })
-      });
     });
   }
 

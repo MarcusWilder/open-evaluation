@@ -42,14 +42,28 @@ export class CreateSurveyComponent implements OnInit {
   templateSelection = this.templateOptions[0];
 
   buttons: Button[] = [
-    {type: 'success', content: 'Save' , onClick: () => {
-      if (this.editing) {
-        this.updateSurvey();
-      } else {
-        this.createSurvey();
+    {
+      type: 'success',
+      content: 'Save',
+      onClick: () => {
+        if (this.editing) {
+          this.updateSurvey();
+        } else {
+          this.createSurvey();
+        }
       }
-    }},
-    {type: 'destructive', content: 'Discard', onClick: () => this.discardSurvey()},
+    },
+    {
+      type: 'destructive',
+      content: 'Cancel',
+      onClick: () => {
+        if (this.editing) {
+          this.cancel();
+        } else {
+          this.discardSurvey()
+        }
+      }
+    },
   ];
 
   ngOnInit() {
@@ -80,7 +94,6 @@ export class CreateSurveyComponent implements OnInit {
               return this.surveyService.getSurveyById(this.courseId, this.surveyId);
             })
           ).subscribe(survey => {
-            console.log(survey.template, this.templateOptions);
             this.active = survey.active;
             this.surveyTitle = survey.name;
             this.courseSelection = this.courseOptions.find(c => c['courseId'] === this.courseId) || this.courseOptions[0];
@@ -122,6 +135,10 @@ export class CreateSurveyComponent implements OnInit {
 
   discardSurvey() {
     this.toastService.open('Survey Discarded', this.surveyTitle + ' was discarded.', 'error');
+    this.router.navigateByUrl('/professor-dashboard');
+  }
+
+  cancel() {
     this.router.navigateByUrl('/professor-dashboard');
   }
 

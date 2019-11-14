@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const { getCookie } = require('./get-cookie');
+const questions = require('./schemas/questions');
+
 const url = 'mongodb://openeval:admin2019@ds141248.mlab.com:41248/open-evaluation';
 
 const COOKIE_NAME = 'canvas_session';
@@ -30,8 +32,14 @@ app.use((req, res, next) => {
 
 app.get('/cookie', async (req, res) => {
   const { username, password } = req.query;
-  const cookie = await getCookie(username, password);
-  res.send(cookie);
+  try {
+    const cookie = await getCookie(username, password);
+    res.send(cookie);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send({ error });  
+  }
 });
 
 app.get('/user', async (req, res) => {
@@ -68,6 +76,7 @@ app.get('/user', async (req, res) => {
 
     res.send({ id, name, role });
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });  
   }
@@ -90,6 +99,7 @@ app.get('/courses', async (req, res) => {
       courseId: id, courseName: name,
     })));
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
@@ -100,8 +110,12 @@ app.get('/surveys/:courseId', async (req, res) => {
   const db = await dbPromise;
   try {
     const result = await db.collection('surveys').find({ courseId }).toArray();
+    result.forEach(survey => {      
+      survey.questions = questions[survey.template];
+    });
     res.send(result);
  } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }  
@@ -113,7 +127,6 @@ app.post('/surveys/:courseId', async (req, res) => {
   const db = await dbPromise;
   try {
     const surveys = await db.collection('surveys').find({ courseId }).toArray();
-    console.log(surveys);
     let _id;
     if (surveys.length === 0) {
       _id = courseId * 100;
@@ -125,11 +138,13 @@ app.post('/surveys/:courseId', async (req, res) => {
       courseId,
       name,
       template,
-      active
+      active,
+      responses: questions[template].map(() => []),
     });
     res.status(200);
     res.send();
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error })
   }
@@ -139,9 +154,13 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
   const _id = +req.params.surveyId;
   const db = await dbPromise;
   try {
-    let survey = await db.collection('surveys').findOne({ _id })
+    let survey = await db.collection('surveys').findOne({ _id });
+    if (survey) {
+      survey.questions = questions[survey.template];
+    }
     res.send(survey);
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
@@ -152,19 +171,21 @@ app.put('/surveys/:courseId/:surveyId', async (req, res) => {
   const { name, template, active } = req.body;
   const db = await dbPromise;
   try {
+    const survey = await db.collection('surveys').findOne({ _id });
     await db.collection('surveys').updateOne(
       { _id },
       {
         $set: {
           name,
           template,
-          active
+          active,
+          responses: survey.template === template ? survey.responses : questions[template].map(() => [])
         }
       }
     )
     res.send();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
@@ -182,34 +203,23 @@ app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
   }
 });
 
-
-app.get('/response', async (req, res) => {
-  const courseId = +req.query.courseId;
-  const surveyId = +req.query.surveyId;
-  const studentId = +req.query.studentId;
+app.post('/surveys/:courseId/:surveyId/responses', async (req, res) => {
+  const _id = +req.params.surveyId;
+  const response = req.body;
   const db = await dbPromise;
   try {
-    const response = await db.collection('responses').findOne({
-      _id : { courseId, surveyId, studentId }
-    });
-    res.send(response);
-  } catch (error) {
-    res.status(500);
-    res.send({ error });
-  }
-});
-
-app.post('/response', async (req, res) => {
-  const { _id, template, responses } = req.body;
-  const db = await dbPromise;
-  try {
-    let result = await db.collection('responses').update(
+    let { responses } = await db.collection('surveys').findOne({ _id })
+    responses.forEach((responsesForQuestion, i) => {
+      responsesForQuestion.push(response[i]);
+    });  
+    await db.collection('surveys').updateOne(
       { _id },
-      { template, responses },
-      { upsert: true }
+      { $set: { responses } }
     );
-    res.send(result);
+    let survey = await db.collection('surveys').findOne({ _id })
+    res.send(survey);
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }

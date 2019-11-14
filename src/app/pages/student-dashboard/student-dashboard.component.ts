@@ -60,9 +60,6 @@ export class StudentDashboardComponent implements OnInit {
         const courseId = this.closedSurveys[courseIndex].courseId;
         const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
         const studentId = this.userService.user.id;
-        this.surveyService.fetchResponse(courseId, surveyId, studentId).subscribe(responses => {
-          console.log(responses);
-        });
       }
     }
   ];
