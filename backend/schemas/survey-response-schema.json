@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Survey Response",
+    "description": "A generic survey response",
+    "type": "object",
+
+    "properties": {
+        "surveyId": {
+            "type": "string",
+            "description": "unique id of survey"
+        },
+        "surveyName": {
+            "type":"string",
+            "description": "name of the survey"
+        },
+        "surveyTemplate": {
+            "type":"string",
+            "description": "name of the template used for the survey"
+        },
+        "responses": {
+            "type":"array",
+            "properties": {
+                "questionNumber": {
+                    "type":"integer",
+                    "description": "number of question in the survey"
+                },
+                "questionType": {
+                    "type":"string",
+                    "description": "type of the question. Ex. multiple choice, free response"
+                },
+                "text": {
+                    "type":"string",
+                    "description": "actual text of the question"
+                },
+                "studentResponse": {
+                    "type":"array",
+                    "description": "the student's response. If the question gives options for response, then the number(s) chosen is in the array. Null otherwise"
+                },
+                "responseText": {
+                    "type": "array",
+                    "description": "the text entered by the student if free response or the text of the option selected"
+                }
+            }
+
+        }
+    }
+}
