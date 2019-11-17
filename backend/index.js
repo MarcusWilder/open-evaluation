@@ -139,7 +139,7 @@ app.post('/surveys/:courseId', async (req, res) => {
       name,
       template,
       active,
-      responses: questions[template].map(() => []),
+      // responses: questions[template].map(() => []),
     });
     res.status(200);
     res.send();
@@ -179,7 +179,7 @@ app.put('/surveys/:courseId/:surveyId', async (req, res) => {
           name,
           template,
           active,
-          responses: survey.template === template ? survey.responses : questions[template].map(() => [])
+          // responses: survey.template === template ? survey.responses : questions[template].map(() => [])
         }
       }
     )
@@ -203,21 +203,32 @@ app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
   }
 });
 
-app.post('/surveys/:courseId/:surveyId/responses', async (req, res) => {
-  const _id = +req.params.surveyId;
-  const response = req.body;
+app.get('/surveys/:courseId/:surveyId/responses', async (req, res) => {
+  const surveyId = +req.params.surveyId
   const db = await dbPromise;
   try {
-    let { responses } = await db.collection('surveys').findOne({ _id })
-    responses.forEach((responsesForQuestion, i) => {
-      responsesForQuestion.push(response[i]);
-    });  
-    await db.collection('surveys').updateOne(
-      { _id },
-      { $set: { responses } }
-    );
-    let survey = await db.collection('surveys').findOne({ _id })
-    res.send(survey);
+    let result = await db.collection('responses').find({ surveyId });
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send({ error });
+  }
+});
+
+app.post('/surveys/:courseId/:surveyId/responses', async (req, res) => {
+  const response = req.body;
+  const surveyId = +req.params.surveyId
+  const db = await dbPromise;
+  try {
+    const { template }= await db.collection('surveys').findOne({ _id: surveyId });
+
+    let result = await db.collection('responses').insertOne({
+      surveyId,
+      template,
+      response
+    });
+    res.send(result);
   } catch (error) {
     console.log(error);
     res.status(500);
