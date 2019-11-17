@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "survey-response-schema",
     "title": "Survey Response",
     "description": "A generic survey response",
     "type": "object",
@@ -26,22 +27,28 @@
                 },
                 "questionType": {
                     "type":"string",
-                    "description": "type of the question. Ex. multiple choice, free response"
+                    "description": "type of the question. Ex. multiple choice, free response",
+                    "enum": ["ranking", "multipleChoice", "freeResponse"]
                 },
                 "text": {
                     "type":"string",
                     "description": "actual text of the question"
                 },
-                "studentResponse": {
-                    "type":"array",
-                    "description": "the student's response. If the question gives options for response, then the number(s) chosen is in the array. Null otherwise"
-                },
                 "responseText": {
-                    "type": "array",
+                    "type": "string",
                     "description": "the text entered by the student if free response or the text of the option selected"
                 }
+            },
+            "if": {
+                "properties": { "questionType": { "const": "freeResponse" } }
+            },
+            "then": {
+                "properties": { "studentResponse": { "type":"string" } }
+            },
+            "else": {
+                "properties": { "studentResponse": { "type":"string" } }
             }
-
         }
-    }
+    },
+    "required": ["surveyId", "surveyName", "surveyTemplate", "responses"]
 }
