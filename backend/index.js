@@ -207,7 +207,7 @@ app.get('/surveys/:courseId/:surveyId/responses', async (req, res) => {
   const surveyId = +req.params.surveyId
   const db = await dbPromise;
   try {
-    let result = await db.collection('responses').find({ surveyId });
+    let result = await db.collection('responses').find({ surveyId }).toArray();
     res.send(result);
   } catch (error) {
     console.log(error);
