@@ -7,7 +7,7 @@
 
     "properties": {
         "surveyId": {
-            "type": "string",
+            "type": "number",
             "description": "unique id of survey"
         },
         "surveyName": {
@@ -21,32 +21,20 @@
         "responses": {
             "type":"array",
             "properties": {
-                "questionNumber": {
-                    "type":"integer",
-                    "description": "number of question in the survey"
-                },
                 "questionType": {
                     "type":"string",
                     "description": "type of the question. Ex. multiple choice, free response",
-                    "enum": ["ranking", "multipleChoice", "freeResponse"]
-                },
-                "text": {
-                    "type":"string",
-                    "description": "actual text of the question"
-                },
-                "responseText": {
-                    "type": "string",
-                    "description": "the text entered by the student if free response or the text of the option selected"
+                    "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
                 }
             },
             "if": {
-                "properties": { "questionType": { "const": "freeResponse" } }
+                "properties": { "questionType": { "const": "FREE_RESPONSE" } }
             },
             "then": {
-                "properties": { "studentResponse": { "type":"string" } }
+                "properties": { "studentResponse": { "type": "string" } }
             },
             "else": {
-                "properties": { "studentResponse": { "type":"string" } }
+                "properties": { "studentResponse": { "type": "number" } }
             }
         }
     },
