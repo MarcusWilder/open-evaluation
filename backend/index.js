@@ -3,6 +3,10 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const Ajv = require('ajv');
+const ajv = new Ajv();
+const validateSurveyUpdate = ajv.compile(require('./schemas/survey-update-schema.json'));
+const validateResponse = ajv.compile(require('./schemas/survey-response-schema.json'));
 const { getCookie } = require('./get-cookie');
 const questions = require('./schemas/questions');
 
@@ -105,15 +109,18 @@ app.get('/courses', async (req, res) => {
   }
 });
 
+app.get('/question-templates', (req, res) => {
+  res.send(questions);
+})
+
+/*************************************** SURVEYS ********************************************/
+
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').find({ courseId }).toArray();
-    result.forEach(survey => {      
-      survey.questions = questions[survey.template];
-    });
-    res.send(result);
+    const surveys = await db.collection('surveys').find({ courseId }).toArray();
+    res.send(surveys);
  } catch (error) {
     console.log(error);
     res.status(500);
@@ -123,9 +130,12 @@ app.get('/surveys/:courseId', async (req, res) => {
 
 app.post('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
-  const { name, template, active } = req.body;
-  const db = await dbPromise;
   try {
+    if (!validateSurveyUpdate(req.body)) {
+      throw 'Invalid POST data!';
+    }
+    const { name, template, active } = req.body;
+    const db = await dbPromise;
     const surveys = await db.collection('surveys').find({ courseId }).toArray();
     let _id;
     if (surveys.length === 0) {
@@ -138,8 +148,8 @@ app.post('/surveys/:courseId', async (req, res) => {
       courseId,
       name,
       template,
+      questionIds: questions[template].map(q => q._id),
       active,
-      // responses: questions[template].map(() => []),
     });
     res.status(200);
     res.send();
@@ -156,7 +166,9 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
   try {
     let survey = await db.collection('surveys').findOne({ _id });
     if (survey) {
-      survey.questions = questions[survey.template];
+      survey.questions = await db.collection('questions').find({
+        _id: { $in: survey.questionIds }
+      }).toArray();
     }
     res.send(survey);
   } catch (error) {
@@ -168,9 +180,12 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
 
 app.put('/surveys/:courseId/:surveyId', async (req, res) => {
   const _id = +req.params.surveyId;
-  const { name, template, active } = req.body;
-  const db = await dbPromise;
   try {
+    if (!validateSurveyUpdate(req.body)) {
+      throw 'Invalid POST data!';
+    }
+    const { name, template, active } = req.body;
+    const db = await dbPromise;
     const survey = await db.collection('surveys').findOne({ _id });
     await db.collection('surveys').updateOne(
       { _id },
@@ -178,8 +193,8 @@ app.put('/surveys/:courseId/:surveyId', async (req, res) => {
         $set: {
           name,
           template,
+          questionIds: questions[template].map(q => q._id),
           active,
-          // responses: survey.template === template ? survey.responses : questions[template].map(() => [])
         }
       }
     )
@@ -217,17 +232,20 @@ app.get('/surveys/:courseId/:surveyId/responses', async (req, res) => {
 });
 
 app.post('/surveys/:courseId/:surveyId/responses', async (req, res) => {
-  const response = req.body;
   const surveyId = +req.params.surveyId
   const db = await dbPromise;
   try {
     const { template }= await db.collection('surveys').findOne({ _id: surveyId });
-
-    let result = await db.collection('responses').insertOne({
+    const responseRecord = {
       surveyId,
       template,
-      response
-    });
+      responses: req.body
+    }
+    if (!validateResponse(responseRecord)) {
+      console.log(responseRecord);
+      throw Error('Data format invalid');
+    }
+    let result = await db.collection('responses').insertOne(responseRecord);
     res.send(result);
   } catch (error) {
     console.log(error);

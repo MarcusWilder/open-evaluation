@@ -10,33 +10,37 @@
             "type": "number",
             "description": "unique id of survey"
         },
-        "surveyName": {
+        "template": {
             "type":"string",
-            "description": "name of the survey"
-        },
-        "surveyTemplate": {
-            "type":"string",
-            "description": "name of the template used for the survey"
+            "description": "name of the template used for the survey",
+            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
         },
         "responses": {
             "type":"array",
-            "properties": {
-                "questionType": {
-                    "type":"string",
-                    "description": "type of the question. Ex. multiple choice, free response",
-                    "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
-                }
-            },
-            "if": {
-                "properties": { "questionType": { "const": "FREE_RESPONSE" } }
-            },
-            "then": {
-                "properties": { "studentResponse": { "type": "string" } }
-            },
-            "else": {
-                "properties": { "studentResponse": { "type": "number" } }
+            "items": {
+                "type": "object",
+                "properties": {
+                    "questionId": {
+                        "type":"number"
+                    },
+                    "questionType": {
+                        "type":"string",
+                        "description": "type of the question. Ex. multiple choice, free response",
+                        "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
+                    }
+                },
+                "if": {
+                    "properties": { "questionType": { "const": "FREE_RESPONSE" } }
+                },
+                "then": {
+                    "properties": { "studentResponse": { "type": "string" } }
+                },
+                "else": {
+                    "properties": { "studentResponse": { "type": "number" } }
+                },
+                "required": ["questionId", "questionType", "studentResponse"]
             }
         }
     },
-    "required": ["surveyId", "surveyName", "surveyTemplate", "responses"]
+    "required": ["surveyId", "template", "responses"]
 }

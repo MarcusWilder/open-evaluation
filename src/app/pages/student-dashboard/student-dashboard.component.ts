@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { AccordionTab } from '@src/app/types/accordion-tab';
 import { Button } from '@src/app/types/button';
-import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 import { User, UserService } from '@src/app/services/user/user.service';
 import { SurveyService } from '@src/app/services/survey/survey.service';
 import { Router } from '@angular/router';
-import { CourseWithSurveys } from '@src/app/objects/survey';
+import { CourseWithSurveys } from '@src/app/types/survey';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -15,7 +14,6 @@ import { CourseWithSurveys } from '@src/app/objects/survey';
 export class StudentDashboardComponent implements OnInit {
 
   constructor(
-    private mockdataService: MockdataService,
     private router: Router,
     private userService: UserService,
     private surveyService: SurveyService

@@ -3,15 +3,17 @@
         <app-radio-group
             *ngSwitchCase="'MULTIPLE_CHOICE'"
             required
+            [hasError]="displayError && question.answer === undefined"
             [label]="question.baseQuestion"
             [options]="question.options"
             [(selection)]="question.answer"
-            [radioGroupID] = "'MC' + question.id"
+            [radioGroupID] = "'MC' + question._id"
             [disabled]="_disabled"
         ></app-radio-group>
         <app-input
             *ngSwitchCase="'FREE_RESPONSE'"
             required
+            [hasError]="displayError && (!question.answer || question.answer.length === 0)"
             [label]="question.baseQuestion"
             [(entry)]="question.answer"
             placeholder="Enter your response"
@@ -20,10 +22,11 @@
         <app-radio-button-group
             *ngSwitchCase="'RANKING'"
             required
+            [hasError]="displayError && question.answer === undefined"
             [label]="question.baseQuestion"
             [options]="[0,1,2,3,4,5]"
             [(selection)]="question.answer"
-            [radioButtonGroupID]="'RK' + question.id"
+            [radioButtonGroupID]="'RK' + question._id"
             [disabled]="_disabled"
         ></app-radio-button-group>
     </ng-container>

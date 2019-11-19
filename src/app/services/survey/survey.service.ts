@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Survey, CourseWithSurveys } from '@src/app/objects/survey';
-import { DEFAULT_QUESTIONS, CTL_QUESTIONS, QUESTIONS } from '@src/app/mock-data/mock-questions';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Survey } from '@src/app/types/survey';
+import { Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators'
+import { tap } from 'rxjs/operators'
 import { ResponseData } from '@src/app/types/response';
 import { TemplateType } from '@src/app/types/template-type';
 
@@ -16,6 +15,10 @@ export class SurveyService {
 
   constructor(private http: HttpClient) { }
 
+  getQuestionTemplates(): Observable<any> {
+    return this.http.get(`${API_SERVER_URL}/question-templates`);
+  }
+  
   createSurvey(courseId: number, name: string, template: TemplateType, active: boolean): Observable<any> {
     return this.http.post(`${API_SERVER_URL}/surveys/${courseId}`, { name, template, active });
   }
@@ -27,10 +30,6 @@ export class SurveyService {
   getSurveyById(courseId: number, surveyId: number): Observable<Survey> {
     return this.http.get<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`).pipe(
       tap(survey => console.log('Survey loaded:', survey)),
-      map(survey => ({
-        ...survey,
-        questionList: QUESTIONS[survey.template]        
-      }))
     );
   }
 
@@ -39,12 +38,7 @@ export class SurveyService {
   }
 
   getSurveysByCourseId(courseId: number): Observable<Survey[]> {
-    return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}`).pipe(
-      map(surveys => surveys.map(survey => ({
-        ...survey,
-        questionList: QUESTIONS[survey.template]        
-      })))
-    );
+    return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}`);
   }
 
   getSurveysByCourseIds(courseIds: number[]): Observable<Survey[][]> {

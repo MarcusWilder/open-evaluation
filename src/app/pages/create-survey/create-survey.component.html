@@ -45,6 +45,7 @@
         <app-survey-template
             *ngIf="surveyDataLoaded"
             [data]="surveyQuestions[templateSelection.data]"
+            [displayError]="false"
             disabled
         >
         </app-survey-template>

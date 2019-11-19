@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { SurveyService } from '@src/app/services/survey/survey.service';
-import { Subject } from 'rxjs';
-import { Question } from '@src/app/objects/question';
-import { Survey } from '@src/app/objects/survey';
+import { Survey } from '@src/app/types/survey';
 import { Button } from '@src/app/types/button';
 import { UserService } from '@src/app/services/user/user.service';
 import { ResponseData } from '@src/app/types/response';
@@ -31,28 +29,50 @@ export class TakeSurveyComponent implements OnInit {
 
   surveyData: Survey = null;   // `surveyData` willed be passed into `SurveyTemplateComponent` and answers will be appended in place
   surveyDataLoaded = false;
+  submissionAttempted = false;
+
+  validateResponse() {
+    return this.surveyData.questions.every(question => {
+      switch(question.type) {
+        case 'FREE_RESPONSE':
+            return question.answer && question.answer.length > 0;
+        case 'RANKING':
+        case 'MULTIPLE_CHOICE':        
+        default:
+            return question.answer !== undefined;
+      }
+    })
+  }
 
   buttons: Button[] = [{
     content: 'Submit',
     type: 'success',
     onClick: () => {
       if (!this.courseId || !this.surveyId) return;
-      this.userService.user$.subscribe(user => {
-        const responses: ResponseData = this.surveyData.questionList.map(question => question.answer);
-        this.surveyService.submitResponse(this.courseId, this.surveyId, responses).subscribe(() => {
-          this.surveyData.questionList.forEach(question => {
-            question.answer = null;
-          })
-          this.toastService.open('Submitted!', 'Your response has been recorded', 'success');
-          this.location.back();
-        }); 
-      })
+      const user = this.userService.user;
+      const responses: ResponseData = this.surveyData.questions.map(question => ({
+        questionId: question._id,
+        questionType: question.type,
+        studentResponse: question.answer
+      }));
+      this.submissionAttempted = true;        
+      if (!this.validateResponse()) {
+        this.toastService.open('Oops...', 'Please answer EVERY question!', 'warning');
+        return;
+      }
+      this.surveyService.submitResponse(this.courseId, this.surveyId, responses).subscribe(() => {
+        this.surveyData.questions.forEach(question => {
+          question.answer = null;
+        })
+        this.toastService.open('Submitted!', 'Your response has been recorded', 'success');
+        this.location.back();
+      }); 
     }
   }, {
     content: 'Cancel',
     type: 'destructive',
     onClick: () => {
-      this.surveyData.questionList.forEach(q => q.answer = null);
+      this.surveyData.questions.forEach(q => q.answer = null);
       this.location.back();
     }
   }];
