@@ -97,7 +97,7 @@ export class CreateSurveyComponent implements OnInit {
         ).subscribe(survey => {
           this.active = survey.active;
           this.surveyTitle = survey.name;
-          this.courseSelection = this.courseOptions.find(c => c['courseId'] === this.courseId) || this.courseOptions[0];
+          this.courseSelection = this.courseOptions.find(c => c['data'] === this.courseId) || this.courseOptions[0];
           this.templateSelection = this.templateOptions.find(c => c.data === survey.template) || this.templateOptions[0];
         });
     
