@@ -1,12 +1,11 @@
 import { Question } from './question';
 
-export class Survey {
+export interface Survey {
     _id: number;
     name: string;
     template: string;
-    questionList: Question[];
+    questions: Question[];
     active: boolean;
-    // other properties?
 }
 
 export interface CourseWithSurveys {

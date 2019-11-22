@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 
 import { AccordionTab } from '@src/app/types/accordion-tab';
 import { Button } from '@src/app/types/button';
-import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
-import { CourseWithSurveys } from '@src/app/objects/survey';
+import { CourseWithSurveys } from '@src/app/types/survey';
 import { SurveyService } from '@src/app/services/survey/survey.service';
 import { UserService, User } from '@src/app/services/user/user.service';
 import { ToastService } from '@src/app/services/toast/toast.service';
@@ -17,7 +16,6 @@ export class ProfessorDashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private mockdataService: MockdataService,
     private surveyService: SurveyService,
     private userService: UserService,
     private toastService: ToastService

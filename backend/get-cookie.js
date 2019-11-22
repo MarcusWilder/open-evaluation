@@ -13,7 +13,7 @@ exports.getCookie = async function(username, password) {
         const page = await browser.newPage();
         await page.goto('https://gatech.instructure.com/');
         
-        await page.waitForSelector('#password', { timeout: 5000 });
+        await page.waitForSelector('#password', { timeout: 10000 });
         await page.type('#username', username); 
         await page.type('#password', password);
         await page.click('[type="submit"]');

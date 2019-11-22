@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Survey } from '@src/app/objects/survey';
-import { Question } from '@src/app/objects/question';
+import { Survey } from '@src/app/types/survey';
+import { Question } from '@src/app/types/question';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
@@ -22,7 +22,9 @@ export class SurveyTemplateComponent {
 
   @Input() set data(survey: Survey) {
     this.surveyName = survey ? survey.name : '';
-    this.questions = survey ? survey.questionList : [];
+    this.questions = survey ? survey.questions : [];
   };
+
+  @Input() displayError: boolean = false;
 
 }

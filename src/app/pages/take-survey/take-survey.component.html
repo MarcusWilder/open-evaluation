@@ -15,7 +15,9 @@
     <div body class="slds-p-horizontal_medium slds-p-bottom_small">
         <app-survey-template
             *ngIf="surveyDataLoaded"
-            [data]="surveyData">
+            [data]="surveyData"
+            [displayError]="submissionAttempted"
+        >
         </app-survey-template>
     </div>
 </app-card>

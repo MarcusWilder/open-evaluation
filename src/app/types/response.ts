@@ -1,9 +1,6 @@
+import { QuestionType } from './question';
 export interface ResponseData {
-    _id: {
-        courseId: number;
-        surveyId: number;
-        studentId: number;    
-    },
-    template: string;
-    responses: any[];
-}
+    questionId: number,
+    questionType: QuestionType,
+    studentResponse: string | number
+};

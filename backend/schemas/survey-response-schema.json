@@ -7,48 +7,40 @@
 
     "properties": {
         "surveyId": {
-            "type": "string",
+            "type": "number",
             "description": "unique id of survey"
         },
-        "surveyName": {
+        "template": {
             "type":"string",
-            "description": "name of the survey"
-        },
-        "surveyTemplate": {
-            "type":"string",
-            "description": "name of the template used for the survey"
+            "description": "name of the template used for the survey",
+            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
         },
         "responses": {
             "type":"array",
-            "properties": {
-                "questionNumber": {
-                    "type":"integer",
-                    "description": "number of question in the survey"
+            "items": {
+                "type": "object",
+                "properties": {
+                    "questionId": {
+                        "type":"number"
+                    },
+                    "questionType": {
+                        "type":"string",
+                        "description": "type of the question. Ex. multiple choice, free response",
+                        "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
+                    }
                 },
-                "questionType": {
-                    "type":"string",
-                    "description": "type of the question. Ex. multiple choice, free response",
-                    "enum": ["ranking", "multipleChoice", "freeResponse"]
+                "if": {
+                    "properties": { "questionType": { "const": "FREE_RESPONSE" } }
                 },
-                "text": {
-                    "type":"string",
-                    "description": "actual text of the question"
+                "then": {
+                    "properties": { "studentResponse": { "type": "string" } }
                 },
-                "responseText": {
-                    "type": "string",
-                    "description": "the text entered by the student if free response or the text of the option selected"
-                }
-            },
-            "if": {
-                "properties": { "questionType": { "const": "freeResponse" } }
-            },
-            "then": {
-                "properties": { "studentResponse": { "type":"string" } }
-            },
-            "else": {
-                "properties": { "studentResponse": { "type":"string" } }
+                "else": {
+                    "properties": { "studentResponse": { "type": "number" } }
+                },
+                "required": ["questionId", "questionType", "studentResponse"]
             }
         }
     },
-    "required": ["surveyId", "surveyName", "surveyTemplate", "responses"]
+    "required": ["surveyId", "template", "responses"]
 }
