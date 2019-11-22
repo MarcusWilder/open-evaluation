@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "survey-response-schema",
+    "title": "Survey Response",
+    "description": "A generic survey response",
+    "type": "object",
+
+    "properties": {
+        "surveyId": {
+            "type": "number",
+            "description": "unique id of survey"
+        },
+        "template": {
+            "type":"string",
+            "description": "name of the template used for the survey",
+            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
+        },
+        "responses": {
+            "type":"array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "questionId": {
+                        "type":"number"
+                    },
+                    "questionType": {
+                        "type":"string",
+                        "description": "type of the question. Ex. multiple choice, free response",
+                        "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
+                    }
+                },
+                "if": {
+                    "properties": { "questionType": { "const": "FREE_RESPONSE" } }
+                },
+                "then": {
+                    "properties": { "studentResponse": { "type": "string" } }
+                },
+                "else": {
+                    "properties": { "studentResponse": { "type": "number" } }
+                },
+                "required": ["questionId", "questionType", "studentResponse"]
+            }
+        }
+    },
+    "required": ["surveyId", "template", "responses"]
+}

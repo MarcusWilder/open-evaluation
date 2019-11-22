@@ -3,7 +3,13 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const Ajv = require('ajv');
+const ajv = new Ajv();
+const validateSurveyUpdate = ajv.compile(require('./schemas/survey-update-schema.json'));
+const validateResponse = ajv.compile(require('./schemas/survey-response-schema.json'));
 const { getCookie } = require('./get-cookie');
+const questions = require('./schemas/questions');
+
 const url = 'mongodb://openeval:admin2019@ds141248.mlab.com:41248/open-evaluation';
 
 const COOKIE_NAME = 'canvas_session';
@@ -30,8 +36,14 @@ app.use((req, res, next) => {
 
 app.get('/cookie', async (req, res) => {
   const { username, password } = req.query;
-  const cookie = await getCookie(username, password);
-  res.send(cookie);
+  try {
+    const cookie = await getCookie(username, password);
+    res.send(cookie);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send({ error });  
+  }
 });
 
 app.get('/user', async (req, res) => {
@@ -68,6 +80,7 @@ app.get('/user', async (req, res) => {
 
     res.send({ id, name, role });
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });  
   }
@@ -90,18 +103,26 @@ app.get('/courses', async (req, res) => {
       courseId: id, courseName: name,
     })));
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
 });
 
+app.get('/question-templates', (req, res) => {
+  res.send(questions);
+})
+
+/*************************************** SURVEYS ********************************************/
+
 app.get('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
   const db = await dbPromise;
   try {
-    const result = await db.collection('surveys').find({ courseId }).toArray();
-    res.send(result);
+    const surveys = await db.collection('surveys').find({ courseId }).toArray();
+    res.send(surveys);
  } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }  
@@ -109,11 +130,13 @@ app.get('/surveys/:courseId', async (req, res) => {
 
 app.post('/surveys/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
-  const { name, template, active } = req.body;
-  const db = await dbPromise;
   try {
+    if (!validateSurveyUpdate(req.body)) {
+      throw 'Invalid POST data!';
+    }
+    const { name, template, active } = req.body;
+    const db = await dbPromise;
     const surveys = await db.collection('surveys').find({ courseId }).toArray();
-    console.log(surveys);
     let _id;
     if (surveys.length === 0) {
       _id = courseId * 100;
@@ -125,11 +148,13 @@ app.post('/surveys/:courseId', async (req, res) => {
       courseId,
       name,
       template,
-      active
+      questionIds: questions[template].map(q => q._id),
+      active,
     });
     res.status(200);
     res.send();
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error })
   }
@@ -139,9 +164,15 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
   const _id = +req.params.surveyId;
   const db = await dbPromise;
   try {
-    let survey = await db.collection('surveys').findOne({ _id })
+    let survey = await db.collection('surveys').findOne({ _id });
+    if (survey) {
+      survey.questions = await db.collection('questions').find({
+        _id: { $in: survey.questionIds }
+      }).toArray();
+    }
     res.send(survey);
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
@@ -149,22 +180,27 @@ app.get('/surveys/:courseId/:surveyId', async (req, res) => {
 
 app.put('/surveys/:courseId/:surveyId', async (req, res) => {
   const _id = +req.params.surveyId;
-  const { name, template, active } = req.body;
-  const db = await dbPromise;
   try {
+    if (!validateSurveyUpdate(req.body)) {
+      throw 'Invalid POST data!';
+    }
+    const { name, template, active } = req.body;
+    const db = await dbPromise;
+    const survey = await db.collection('surveys').findOne({ _id });
     await db.collection('surveys').updateOne(
       { _id },
       {
         $set: {
           name,
           template,
-          active
+          questionIds: questions[template].map(q => q._id),
+          active,
         }
       }
     )
     res.send();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
@@ -182,34 +218,37 @@ app.delete('/surveys/:courseId/:surveyId', async (req, res) => {
   }
 });
 
-
-app.get('/response', async (req, res) => {
-  const courseId = +req.query.courseId;
-  const surveyId = +req.query.surveyId;
-  const studentId = +req.query.studentId;
+app.get('/surveys/:courseId/:surveyId/responses', async (req, res) => {
+  const surveyId = +req.params.surveyId
   const db = await dbPromise;
   try {
-    const response = await db.collection('responses').findOne({
-      _id : { courseId, surveyId, studentId }
-    });
-    res.send(response);
+    let result = await db.collection('responses').find({ surveyId }).toArray();
+    res.send(result);
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }
 });
 
-app.post('/response', async (req, res) => {
-  const { _id, template, responses } = req.body;
+app.post('/surveys/:courseId/:surveyId/responses', async (req, res) => {
+  const surveyId = +req.params.surveyId
   const db = await dbPromise;
   try {
-    let result = await db.collection('responses').update(
-      { _id },
-      { template, responses },
-      { upsert: true }
-    );
+    const { template }= await db.collection('surveys').findOne({ _id: surveyId });
+    const responseRecord = {
+      surveyId,
+      template,
+      responses: req.body
+    }
+    if (!validateResponse(responseRecord)) {
+      console.log(responseRecord);
+      throw Error('Data format invalid');
+    }
+    let result = await db.collection('responses').insertOne(responseRecord);
     res.send(result);
   } catch (error) {
+    console.log(error);
     res.status(500);
     res.send({ error });
   }

@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "survey-update-schema",
+    "title": "Survey Update",
+    "description": "Data used to create or update a survey",
+    "type": "object",
+
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "new survey name"
+        },
+        "template": {
+            "type":"string",
+            "description": "name of the template used for the survey",
+            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
+        },
+        "active": {
+            "type": "boolean",
+            "description": "whether the survey is active"
+        }
+    },
+    "required": ["name", "template", "active"]
+}

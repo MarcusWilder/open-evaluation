@@ -1,0 +1,35 @@
+{
+    "surveyId": "99999",
+    "surveyName": "Test Survey",
+    "surveyTemplate": "Default Survey",
+    "responses": [
+        {
+        "questionNumber": 1, 
+        "questionType": "multipleChoice",
+        "text": "The pace of this class is",
+        "studentResponse": 0,
+        "responseText": "Very fast"
+        },
+        {
+        "questionNumber": 2, 
+        "questionType": "multipleChoice",
+        "text": "The exam",
+        "studentResponse": 1,
+        "responseText": "was too long"
+        },
+        {
+        "questionNumber": 3,
+        "questionType": "ranking",
+        "text": "The professor gave enough resources to prepare for the exam",
+        "studentResponse": 3,
+        "responseText": "True"
+        },
+        {
+        "questionNumber": 4,
+        "questionType": "freeResponse",
+        "text": "Write any comments you may have about the course so far",
+        "studentResponse": "The class is difficult but fair. I think the professor is good.",
+        "responseText": "The class is difficult but fair. I think the professor is good."
+        }
+    ]
+}

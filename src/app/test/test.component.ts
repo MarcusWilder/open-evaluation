@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap, flatMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 import { AccordionTab } from '@src/app/types/accordion-tab';
 import { Button } from '@src/app/types/button';
-import { Survey } from '@src/app/objects/survey';
-import { DEFAULT_QUESTIONS } from '@src/app/mock-data/mock-questions';
 
 
 @Component({
@@ -66,24 +63,24 @@ export class TestComponent implements OnInit {
       console.log(JSON.stringify(surveys, undefined, 2));
     };
 
-    this.http.get<Survey[]>('api/surveys')
-    .pipe(
-      tap(data => log(data, 'THIS IS MOCK DATA')),
-      flatMap(() => this.http.post<Survey>('api/surveys', {
-        id: 2,
-        name: 'New Survey With Same Questions',
-        questionList: DEFAULT_QUESTIONS
-      }, {
-        headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-        })
-      })),
-      flatMap(() => this.http.get<Survey[]>('api/surveys')),
-      tap(data => log(data, 'ADDED A NEW ITEM')),
-      flatMap(() => this.http.delete<Survey>('api/surveys/1')),
-      flatMap(() => this.http.get<Survey[]>('api/surveys')),
-      tap(data => log(data, 'DELETED THE FIRST ITEM')),
-    ).subscribe();
+    // this.http.get<Survey[]>('api/surveys')
+    // .pipe(
+    //   tap(data => log(data, 'THIS IS MOCK DATA')),
+    //   flatMap(() => this.http.post<Survey>('api/surveys', {
+    //     id: 2,
+    //     name: 'New Survey With Same Questions',
+    //     questionList: DEFAULT_QUESTIONS
+    //   }, {
+    //     headers: new HttpHeaders({
+    //       'Content-Type':  'application/json',
+    //     })
+    //   })),
+    //   flatMap(() => this.http.get<Survey[]>('api/surveys')),
+    //   tap(data => log(data, 'ADDED A NEW ITEM')),
+    //   flatMap(() => this.http.delete<Survey>('api/surveys/1')),
+    //   flatMap(() => this.http.get<Survey[]>('api/surveys')),
+    //   tap(data => log(data, 'DELETED THE FIRST ITEM')),
+    // ).subscribe();
   }
 
   // submit() {

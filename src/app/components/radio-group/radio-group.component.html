@@ -19,14 +19,14 @@
                 type="radio"
                 [id]="radioGroupID + num"
                 [name]="radioGroupID"
-                [value]="option"
+                [value]="num"
                 [(ngModel)]="selection"
             />
             <label 
                 class="slds-radio__label"
                 [for]="radioGroupID + num"
                 [title]="option"
-                (click)="makeSelection(option)"
+                (click)="makeSelection(num)"
             >
                 <li class="slds-radio_faux"></li>
                 <li class="slds-form-element__label">{{ option }}</li>

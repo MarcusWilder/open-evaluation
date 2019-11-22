@@ -54,6 +54,7 @@ export class UserService {
         return user;
       }),
       catchError((error) => {
+        window.localStorage.removeItem('cookie');
         return of(null);
       })
     );

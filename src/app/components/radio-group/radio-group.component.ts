@@ -15,7 +15,7 @@ export class RadioGroupComponent  {
   @Input() label = 'Radio Group Label';
   @Input() hasError = false;
   @Input() options: unknown[];
-  @Input() selection: unknown;
+  @Input() selection: number;
   @Input() radioGroupID: string;
 
   @Input() set disabled(value: boolean | string) {
@@ -24,12 +24,12 @@ export class RadioGroupComponent  {
   @Input() set required(value: boolean | string) {
     this.req = coerceBooleanProperty(value);
   }
-  @Output() selectionChange = new EventEmitter<unknown>();
+  @Output() selectionChange = new EventEmitter<number>();
 
   _disabled: boolean;
   req: boolean;
 
-  makeSelection(selection: unknown) {
+  makeSelection(selection: number) {
     this.selectionChange.emit(selection);
   }
 }
