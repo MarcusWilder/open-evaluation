@@ -1,6 +1,6 @@
-enum QuestionType {
+export enum QuestionType {
     RANKING = "RANKING",
-    MULTIPLE_CHOID = "MULTIPLE_CHOICE",
+    MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
     FREE_RESPONSE = "FREE_RESPONSE",
 }
 

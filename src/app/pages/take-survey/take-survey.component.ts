@@ -50,7 +50,7 @@ export class TakeSurveyComponent implements OnInit {
     onClick: () => {
       if (!this.courseId || !this.surveyId) return;
       const user = this.userService.user;
-      const responses: ResponseData = this.surveyData.questions.map(question => ({
+      const responses: ResponseData[] = this.surveyData.questions.map(question => ({
         questionId: question._id,
         questionType: question.type,
         studentResponse: question.answer

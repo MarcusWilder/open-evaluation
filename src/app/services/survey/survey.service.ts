@@ -46,7 +46,7 @@ export class SurveyService {
     return combineLatest(surveyObservables);
   }
   
-  submitResponse(courseId: number, surveyId: number, responseData: ResponseData): Observable<any[]> {
+  submitResponse(courseId: number, surveyId: number, responseData: ResponseData[]): Observable<any[]> {
     return this.http.post<any[]>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}/responses`, responseData);
   }
 }
