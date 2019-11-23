@@ -3,9 +3,19 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.0.
 
 ## Release Notes
-- New software features for this release 
-- Bug fixes made since the last release
-- Known bugs and defects
+### New software features for this release:
+  - Pages for students to
+    - View open and closed surveys
+    - Take open surveys
+  - Pages for professors to
+    - Create new surveys
+    - View, edit and delete created suveys
+    - View survey responses (in progress)
+### Bug fixes made since the last release:
+  - No known bugs. This is the first release.
+### Known bugs and defects:
+  - Still needs proper login integration
+  - No admin functionality yet
 
 ## Installation Guide  
 ### Pre-requisites
