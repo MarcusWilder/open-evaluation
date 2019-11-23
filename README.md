@@ -2,6 +2,55 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.0.
 
+## Release Notes
+- New software features for this release 
+- Bug fixes made since the last release
+- Known bugs and defects
+
+## Installation Guide  
+### Pre-requisites
+The [Node.js](https://nodejs.org/en/) JavaScript runtime and its default package manager [npm](https://www.npmjs.com/) are required to install dependencies, build the front-end Angular project and run the back-end server.
+For official Node.js and npm installation guide, refer to https://nodejs.org/en/download/. The front-end project is built using Angular CLI, which can be installed by running the following command in a terminal/console window:
+```bash
+npm install -g @angular/cli
+```
+(**Note**: This step might require administrator privelege. On Windows, open the console as administrator. On macOS/Linux, type `sudo` in front of the command)
+
+### Download instructions:
+If you have the [Git](https://git-scm.com) version control system installed, you could shallow clone this project fromt GitHub:
+```bash
+git clone --depth 1 https://github.com/MarcusWilder/open-evaluation.git
+```
+Or you can simply download the files as a ZIP archive and unarchive it.
+
+### Dependencies 
+All dependencies are managed using npm. To download and install all dependencies for a npm project, simply run `npm install` from the root directory of the project.
+There are two npm projects with separate `package.json` files: One on the root level of this repository, the other in the `backend` directory.
+Make sure to run `npm install` from both directories:
+```bash
+npm install # Front end
+cd backend && npm install # Back end
+```
+### Build instructions
+The front-end Angular app needs to be built from source files. To build and serve the app on the development server, run
+```bash
+ng serve
+```
+(**Note**: Run this command at the project *root* directory)
+
+### Run instructions
+The above `ng serve` command will not only build the Angulr app but also start a development server that listens on port 4200. The backend API server still nees to be started manually. From the project root, run
+```bash
+cd backend && npm start
+```
+This will start the API server, which listens on port 4201.
+
+Now you can visit `http://localhost:4200` to start using the app.
+
+### Troubleshooting
+1. Have you tried turning it off and on again?
+2. If you have tried the above solution and the problem still persists, we advise you to purchase a new computer.
+
 ## Procedure for Completing Issues
 
 1) Create a branch from the remote repo by navigating to the repo's homepage, and clicking on the 'Branch' button near the top left. Title the branch .
