@@ -18,19 +18,35 @@ export class HomeComponent {
   tabs = ['Home', 'Features', 'Resources'];
   activeTab: string;
 
-  login() {
+  username: string = '';
+  password: string = '';
+  showLogin = false;
+
+  displayLogin() {
     if (window.localStorage.getItem('cookie')) {
       this.userService.user$.subscribe((user) => {
         if (!user) {
           window.localStorage.removeItem('cookie');
-          this.router.navigateByUrl('/login');
+          // this.router.navigateByUrl('/login');
+          this.showLogin = true;
         } else {
           this.router.navigateByUrl(`/${user.role}-dashboard`);
         }
       })
     } else {
-      this.router.navigateByUrl('/login');
+      // this.router.navigateByUrl('/login');
+      this.showLogin = true;
     }
+  }
+
+  login() {
+    this.userService.login(this.username, this.password).subscribe((user) => {
+      this.router.navigateByUrl(`/${user.role}-dashboard`);
+    })
+  }
+
+  cancel() {
+    this.showLogin = false;
   }
 
 }

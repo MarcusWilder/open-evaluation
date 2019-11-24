@@ -1,16 +1,6 @@
-h1.gtHeader {
-    margin-top: 1.5625rem;
+h1.header {
     color:white;
-    font-size:300%;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-}
-
-h1.surveyHeader {
-    color:white;
-    font-size:300%;
-    font-weight: bold;
+    font-weight: bolder;
     width: 100%;
     text-align: center;
 }
@@ -23,36 +13,12 @@ div.navBackground {
     padding-top: 1.125rem;
 }
 
-h1.welcomeText {
-    margin-top: 1.875rem;
-    margin-left: 0.9375rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 75%;
-    text-align: left;
-}
-
-h1.loginText {
-    margin-top: 0.9375rem;
-    margin-left: 0.9375rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 75%;
-    text-align: left;
-}
-
-h1.openEvalText {
-    margin-top: 1.875rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-}
-
 iframe.videoPlayer {
     display: block;
     margin: 0 auto;
+}
+.center {
+    width: 720px;
+    margin-left: auto;
+    margin-right: auto;
 }

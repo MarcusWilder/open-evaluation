@@ -1,16 +1,66 @@
 <app-brand-band type="medium"></app-brand-band>
-<h1 class="gtHeader">Georgia Tech</h1>
-<h1 class="surveyHeader">Online Survey System</h1>
+<h1 style="margin-top:50px;margin-bottom:40px;" class="header slds-text-heading_large">
+  Georgia Tech<br>Online Survey System
+</h1>
 <div class="navBackground">
   <app-global-navigation
     name="OpenEval"
     buttonText="Login"
-    [callback]="login"
+    [callback]="displayLogin.bind(this)"
     [tabs]="tabs"
     (activeTab)="activeTab = $event"
   ></app-global-navigation>
 </div>
-<h1 class="welcomeText">Welcome to the Georgia Tech Course Evaluation System.</h1>
-<h1 class="loginText">Please log in using your GT credentials to gain access.</h1>
-<h1 class="openEvalText">What is OpenEval?</h1>
-<iframe class="videoPlayer" width="720" height="480" src="https://www.youtube.com/embed/6vRlt0Rjf0A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h1 class="slds-text-heading_large slds-p-around_medium">
+  <strong>Welcome to the Georgia Tech Course Evaluation System.</strong>
+  <br> Please log in using your GT credentials to gain access.
+</h1>
+
+<section *ngIf="!showLogin">
+  <article class="slds-card slds-m-bottom_xx-large center">
+    <div class="slds-card__body slds-card__body_inner">
+      <iframe class="videoPlayer" width="100%" height="480" src="https://www.youtube.com/embed/6vRlt0Rjf0A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </article>
+</section>
+
+<app-card
+  *ngIf="showLogin"
+  title="Login"
+  icon="user"
+  class="slds-m-bottom_xx-large center">
+  <div body class="slds-p-around_medium">
+      <div class="slds-form-element">
+          <label class="slds-form-element__label" for="text-input-id-1">
+              <abbr class="slds-required" title="required">* </abbr>Username</label>
+          <div class="slds-form-element__control">
+              <input type="text" class="slds-input" [(ngModel)]="username"/>
+    
+          </div>
+      </div>
+      <div class="slds-form-element">
+          <label class="slds-form-element__label" for="text-input-id-1">
+              <abbr class="slds-required" title="required">* </abbr>Password</label>
+          <div class="slds-form-element__control">
+              <input type="password" class="slds-input" [(ngModel)]="password"/>
+          </div>
+      </div>
+      <ul class="slds-m-vertical_small slds-button-group-row">
+        <li class="slds-button-group-item">
+          <app-button
+            content="Login"
+            type="success"
+            (click)="login()"
+          ></app-button>
+        </li>
+        <li class="slds-button-group-item">
+          <app-button
+            content="cancel"
+            type="destructive"
+            (click)="cancel()"
+          ></app-button>
+        </li>
+      </ul>
+  </div>
+</app-card>
