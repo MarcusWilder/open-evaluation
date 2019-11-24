@@ -17,7 +17,7 @@ router.get('/:courseId', async (req, res) => {
 });
 
 router.post('/:courseId', async (req, res) => {
-  const courseId = req.params.courseId;
+  const courseId = +req.params.courseId;
   try {
     if (!validateSurveyUpdate(req.body)) {
       throw 'Invalid POST data!';
@@ -43,7 +43,7 @@ router.get('/:courseId/:surveyId', async (req, res) => {
   const _id = ObjectId(req.params.surveyId);
   const db = await dbPromise;
   try {
-    let survey = await db.collection('surveys').aggregate([
+    let result = await db.collection('surveys').aggregate([
         {
             $match: { _id }
         },
@@ -52,25 +52,29 @@ router.get('/:courseId/:surveyId', async (req, res) => {
                 from: 'templates',
                 localField: 'template',
                 foreignField: 'type',
-                as: 'template'
+                as: '_template'
             }
         },
         {
             $lookup: {
                 from: 'questions',
-                localField: 'template.questionIds',
+                localField: '_template.questionIds',
                 foreignField: '_id',
                 as: 'questions'
             }
         }
     ]).toArray();
-    res.send(survey);
+    if (result.length > 0) {
+      res.send(result[0]);
+    } else {
+      res.send(result);
+    }
   } catch (error) {
     console.log(error);
     res.status(500);
     res.send({ error });
   }
-});
+}); 
 
 router.put('/:courseId/:surveyId', async (req, res) => {
   const _id = ObjectId(req.params.surveyId);

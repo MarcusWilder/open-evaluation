@@ -1,7 +1,7 @@
 import { Question } from './question';
 
 export interface Survey {
-    _id: number;
+    _id?: string,
     name: string;
     template: string;
     questions: Question[];

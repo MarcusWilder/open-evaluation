@@ -12,8 +12,7 @@
         },
         "template": {
             "type":"string",
-            "description": "name of the template used for the survey",
-            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
+            "description": "name of the template used for the survey"
         },
         "responses": {
             "type":"array",
