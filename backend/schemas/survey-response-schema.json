@@ -7,7 +7,7 @@
 
     "properties": {
         "surveyId": {
-            "type": "number",
+            "type": "object",
             "description": "unique id of survey"
         },
         "template": {
@@ -21,10 +21,10 @@
                 "type": "object",
                 "properties": {
                     "questionId": {
-                        "type":"number"
+                        "type": "object"
                     },
                     "questionType": {
-                        "type":"string",
+                        "type": "string",
                         "description": "type of the question. Ex. multiple choice, free response",
                         "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
                     }
