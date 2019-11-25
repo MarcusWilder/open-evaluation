@@ -25,7 +25,7 @@ export class TakeSurveyComponent implements OnInit {
   ) { }
 
   private courseId: number;
-  private surveyId: number;
+  private surveyId: string;
 
   surveyData: Survey = null;   // `surveyData` willed be passed into `SurveyTemplateComponent` and answers will be appended in place
   surveyDataLoaded = false;
@@ -81,7 +81,7 @@ export class TakeSurveyComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.courseId = +params.get('courseId')
-        this.surveyId = +params.get('surveyId')        
+        this.surveyId = params.get('surveyId')        
         return this.surveyService.getSurveyById(this.courseId, this.surveyId);
       })
     ).subscribe(survey => {
