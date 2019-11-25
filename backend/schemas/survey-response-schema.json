@@ -7,13 +7,12 @@
 
     "properties": {
         "surveyId": {
-            "type": "number",
+            "type": "object",
             "description": "unique id of survey"
         },
         "template": {
             "type":"string",
-            "description": "name of the template used for the survey",
-            "enum": ["DEFAULT", "CTL", "CIOS", "GENERAL", "LAB_PROBLEM_SOLVE", "DISCUSSION", "TEAM"]
+            "description": "name of the template used for the survey"
         },
         "responses": {
             "type":"array",
@@ -21,10 +20,10 @@
                 "type": "object",
                 "properties": {
                     "questionId": {
-                        "type":"number"
+                        "type": "object"
                     },
                     "questionType": {
-                        "type":"string",
+                        "type": "string",
                         "description": "type of the question. Ex. multiple choice, free response",
                         "enum": ["RANKING", "MULTIPLE_CHOICE", "FREE_RESPONSE"]
                     }

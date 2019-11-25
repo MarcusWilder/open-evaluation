@@ -5,7 +5,6 @@ import { Survey } from '@src/app/types/survey';
 import { ToastService } from '@src/app/services/toast/toast.service';
 import { UserService } from '@src/app/services/user/user.service';
 import { SurveyService } from '@src/app/services/survey/survey.service';
-import { TemplateType, toDisplayString } from '@src/app/types/template-type';
 import { switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -25,7 +24,7 @@ export class CreateSurveyComponent implements OnInit {
   ) { }
 
   courseId?: number;
-  surveyId?: number;
+  surveyId?: string;
   editing: boolean = false;
   active: boolean = true;
   surveyTitle: string;
@@ -33,10 +32,8 @@ export class CreateSurveyComponent implements OnInit {
   courseSelection: object;
   surveyDataLoaded = false;
   surveyQuestions: { [option: string]: Survey } = {};
-  templateOptions = Object.values(TemplateType).map(type => {
-    return { name: toDisplayString(type), data: type }
-  })
-  templateSelection = this.templateOptions[0];
+  templateOptions: { [key: string]: string } [] = [];
+  templateSelection: { [key: string]: string } = null;
 
   buttons: Button[] = [
     {
@@ -64,49 +61,54 @@ export class CreateSurveyComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.surveyQuestions = {};
-    this.surveyService.getQuestionTemplates().subscribe(templates => {
-      Object.keys(templates).forEach(type => {
-        this.surveyQuestions[type] = {
-          _id: 0,
-          name: `${type} Survey Template`,
-          template: type,
-          questions: templates[type],
-          active: true
-        }
+    this.surveyQuestions = {}; // Set up question bank dictionary
+
+    this.userService.user$.subscribe(user => {
+      this.courseOptions = user.courses.map(c => {
+        return { name: c.courseName, data: c.courseId };
       });
-      this.surveyDataLoaded = true;
-    });
-
-
-    const user = this.userService.user;
-    this.courseOptions = user.courses.map(c => {
-      return { name: c.courseName, data: c.courseId };
-    });
-    this.route.url.subscribe(segments => {
-      if (segments[0].path === 'edit-survey') {
-        // Editing mode
-        this.editing = true;
-        // Load data
-        this.route.paramMap.pipe(
-          switchMap((params: ParamMap) => {
-            this.courseId = +params.get('courseId')
-            this.surveyId = +params.get('surveyId')        
-            return this.surveyService.getSurveyById(this.courseId, this.surveyId);
-          })
-        ).subscribe(survey => {
-          this.active = survey.active;
-          this.surveyTitle = survey.name;
-          this.courseSelection = this.courseOptions.find(c => c['data'] === this.courseId) || this.courseOptions[0];
-          this.templateSelection = this.templateOptions.find(c => c.data === survey.template) || this.templateOptions[0];
-        });
+      this.route.url.subscribe(segments => {
+        this.surveyService.getQuestionTemplates().subscribe(templates => {
+          this.templateOptions = templates.map(t => ({
+            name: t.type.replace(/_/g, ' '),
+            data: t.type
+          }))
+          templates.forEach(({type, questions}) => {
+            this.surveyQuestions[type] = {
+              name: `${type} Survey Template`,
+              template: type,
+              questions,
+              active: true
+            }
+          });
+          if (segments[0].path === 'edit-survey') {
+            // Editing mode
+            this.editing = true;
+            // Load data
+            this.route.paramMap.pipe(
+              switchMap((params: ParamMap) => {
+                this.courseId = +params.get('courseId')
+                this.surveyId = params.get('surveyId')        
+                return this.surveyService.getSurveyById(this.courseId, this.surveyId);
+              })
+            ).subscribe(survey => {
+              this.active = survey.active;
+              this.surveyTitle = survey.name;
+              this.courseSelection = this.courseOptions.find(c => c['data'] === this.courseId) || this.courseOptions[0];
+              this.templateSelection = this.templateOptions.find(c => c.data === survey.template) || this.templateOptions[0];
+            });
     
-      }
+          } else {
+            this.templateSelection = this.templateOptions[0];
+          }
+          });
+          this.surveyDataLoaded = true;
+      });
     });
   }
 
   updateSurvey() {
-    const template: TemplateType = this.templateSelection['data'];
+    const template = this.templateSelection['data'];
     const name = this.surveyTitle || 'Untitled';
     const active = this.active;
     this.surveyService.updateSurvey(this.courseId, this.surveyId, name, template, active).subscribe(() => {
@@ -124,7 +126,7 @@ export class CreateSurveyComponent implements OnInit {
       return;
     }
     const courseId = this.courseSelection['data'];
-    const template: TemplateType = this.templateSelection['data'];
+    const template = this.templateSelection['data'];
     const name = this.surveyTitle || 'Untitled';
     const active = this.active
     this.surveyService.createSurvey(courseId, name, template, active).subscribe(() => {

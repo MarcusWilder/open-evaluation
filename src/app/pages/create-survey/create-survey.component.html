@@ -39,12 +39,12 @@
 </section>
 
 <app-card
-    title="Survey Template Preview: {{templateSelection.name}}"
+    title="Survey Template Preview: {{templateSelection ? templateSelection.name : ''}}"
     class="slds-m-around_large">
     <div body class="slds-p-horizontal_medium slds-p-bottom_small">
         <app-survey-template
             *ngIf="surveyDataLoaded"
-            [data]="surveyQuestions[templateSelection.data]"
+            [data]="surveyQuestions[templateSelection? templateSelection.data : null]"
             [displayError]="false"
             disabled
         >

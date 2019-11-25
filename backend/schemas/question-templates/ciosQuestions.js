@@ -1,6 +1,6 @@
 module.exports = [
     {
-        _id: 14,
+        // _id: 14,
         type: 'RANKING',
         baseQuestion: 'Instructor’s clarity in discussing or presenting course material:',
         options: [
@@ -12,7 +12,7 @@ module.exports = [
         ],
     },
     {
-        _id: 15,
+        // _id: 15,
         type: 'RANKING',
         baseQuestion: 'Helpfulness of feedback on assignments:',
         options: [
