@@ -1,8 +1,29 @@
 h1.header {
     color:white;
     font-weight: bolder;
-    width: 100%;
+    font-size: 2rem;
     text-align: center;
+    margin: 3rem 1rem 2rem;
+}
+
+@media only screen and (max-width: 900px) {
+    h1.header {
+        font-size: 1.75rem;
+        margin-left: 12rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    h1.header {
+        margin-left: 12rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    h1.header {
+        font-size: 1.2rem;
+    }
 }
 
 div.navBackground {
@@ -16,10 +37,11 @@ div.navBackground {
 iframe.videoPlayer {
     display: block;
     margin: 0 auto;
+    max-height: 60vw;
 }
 .center {
     width: 40rem;
-    max-width: 90%;
+    max-width: 90vw;
     margin-left: auto;
     margin-right: auto;
 }
