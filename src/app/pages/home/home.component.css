@@ -18,7 +18,8 @@ iframe.videoPlayer {
     margin: 0 auto;
 }
 .center {
-    width: 720px;
+    width: 40rem;
+    max-width: 90%;
     margin-left: auto;
     margin-right: auto;
 }

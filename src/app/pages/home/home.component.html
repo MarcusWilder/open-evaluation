@@ -6,7 +6,7 @@
   <app-global-navigation
     name="OpenEval"
     buttonText="Login"
-    [callback]="displayLogin.bind(this)"
+    [callback]="displayLogin"
     [tabs]="tabs"
     (activeTab)="activeTab = $event"
   ></app-global-navigation>
@@ -31,21 +31,17 @@
   icon="user"
   class="slds-m-bottom_xx-large center">
   <div body class="slds-p-around_medium">
-      <div class="slds-form-element">
-          <label class="slds-form-element__label" for="text-input-id-1">
-              <abbr class="slds-required" title="required">* </abbr>Username</label>
-          <div class="slds-form-element__control">
-              <input type="text" class="slds-input" [(ngModel)]="username"/>
-    
-          </div>
-      </div>
-      <div class="slds-form-element">
-          <label class="slds-form-element__label" for="text-input-id-1">
-              <abbr class="slds-required" title="required">* </abbr>Password</label>
-          <div class="slds-form-element__control">
-              <input type="password" class="slds-input" [(ngModel)]="password"/>
-          </div>
-      </div>
+    <app-input
+      [(entry)]="username"
+      label="Username"
+      placeholder="Enter Username"
+    ></app-input>
+    <app-input
+      [(entry)]="password"
+      label="Password"
+      type="password"
+      placeholder="Enter Password"
+    ></app-input>
       <ul class="slds-m-vertical_small slds-button-group-row">
         <li class="slds-button-group-item">
           <app-button
@@ -56,7 +52,7 @@
         </li>
         <li class="slds-button-group-item">
           <app-button
-            content="cancel"
+            content="Cancel"
             type="destructive"
             (click)="cancel()"
           ></app-button>
@@ -64,3 +60,14 @@
       </ul>
   </div>
 </app-card>
+
+<!-- Spinner -->
+<div *ngIf="loading" class="demo-only" style="height:6rem">
+  <div class="slds-spinner_container">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+      <span class="slds-assistive-text">Loading</span>
+      <div class="slds-spinner__dot-a"></div>
+      <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+</div>

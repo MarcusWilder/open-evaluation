@@ -68,7 +68,7 @@ export class CreateSurveyComponent implements OnInit {
     this.surveyService.getQuestionTemplates().subscribe(templates => {
       Object.keys(templates).forEach(type => {
         this.surveyQuestions[type] = {
-          _id: 0,
+          _id: '',
           name: `${type} Survey Template`,
           template: type,
           questions: templates[type],
