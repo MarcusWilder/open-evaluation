@@ -39,4 +39,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['professor-dashboard']);
   }
 
+  onSurveyTap(args: EventData) {
+    this.router.navigate(['create-survey']);
+  }
+
 }

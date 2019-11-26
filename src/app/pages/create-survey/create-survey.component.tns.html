@@ -1,1 +1,50 @@
-<Button text="create-survey works!" class="btn btn-primary"></Button>
+<ActionBar style="background-color: white;">
+    <Label text="Exam 1 Survey" style="font-family: 'Roboto'; font-size: 25; color: black;"></Label>
+    <ActionItem (tap)="logoutTest()" ios.position=right>
+        <StackLayout>
+            <Image height=25 width=25 src="~/assets/img/LogoutButton.png" ></Image>
+            <Label text="Logout" style="font-size: 10; color: black;"></Label>
+        </StackLayout>
+    </ActionItem>
+</ActionBar>
+   
+<AbsoluteLayout>
+    <ScrollView [isUserInteractionEnabled]="!submitConfirmationVisible" width=100% height=100% style="background-color: #f3f6fa;">
+        <StackLayout id="surveyView">
+            <StackLayout *ngFor="let question of hardCodedQuestion let questionIndex=index">
+                <StackLayout orientation="horizontal">
+                    <Label text="{{ questionIndex + 1 + '.'}}" style="color: black; font-size: 20; margin: 10;"></Label>
+                    <Label [text]="question.question" textWrap="true" style="color: black; font-size: 20; margin: 10;"></Label>
+                </StackLayout>
+                    <StackLayout>
+                        <StackLayout orientation="horizontal" horizontalAlignment="center">
+                            <Button *ngFor="let option of question.options; let optionIndex=index" (tap)="optionTapped(questionIndex, optionIndex)" [class]="option.selected ? 'optionSelected' : 'option'" [text]="option.value" width=50 height=50></Button>
+                        </StackLayout>
+                        <Label height=1; width=100% style="background-color: darkgray; margin: 20;"></Label>
+                    </StackLayout>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal">
+                <Label text="1." style="color: black; font-size: 20; margin: 10;"></Label>
+                <Label text="Please provide any additional feedback below:" textWrap="true" style="color: black; font-size: 20; margin: 10;"></Label>
+            </StackLayout>
+
+            <TextView id="feedbackBox" [editable]="!submitConfirmationVisible" height=150 style="background-color: white; padding: 5; margin-left: 30; margin-right: 30; color: black; border-color: darkgray; border-width: 1; border-radius: 5; font-size: 15;">
+
+            </TextView>
+
+            <Button text="Submit" (tap)="showSubmitConfirmation()" horizontalAlignment="center" style="background-color: white; margin-top: 20; margin-bottom: 20; border-width: 3; border-color: limegreen; border-radius: 10; padding-left: 40; padding-right: 40; padding-top: 15; padding-bottom: 15; color: limegreen; font-weight: bold; font-size: 25;"></Button>
+        </StackLayout>
+    </ScrollView>
+
+    <FlexboxLayout id="confirmationScreen" opacity="0" height=100% width=100% alignItems="center" justifyContent="center" visibility="{{ submitConfirmationVisible ? 'visible' : 'collapsed' }}" style="background-color: rgba(0,0,0,0.5)">
+        <StackLayout width=100% opacity="1.0" style="background-color: white; border-radius: 10; margin: 10;">
+            <Label text="Submit your responses?" style="font-weight: bold; font-size: 25; text-align: center; color: #47525E; margin-top: 50; margin-bottom: 25;"></Label>
+            <GridLayout rows="auto" columns="*">
+                <Button text="Submit" (tap)="hideSubmitConfirmation()" horizontalAlignment="left" style="margin: 20; border-width: 3; border-color: limegreen; border-radius: 10; padding-left: 40; padding-right: 40; padding-top: 15; padding-bottom: 15; color: limegreen; font-weight: bold; font-size: 20;"></Button>
+                <Button text="Cancel" (tap)="hideSubmitConfirmation()" horizontalAlignment="right" style=" margin: 20; border-width: 3; border-color: #f95f62; border-radius: 10; padding-left: 40; padding-right: 40; padding-top: 15; padding-bottom: 15; color: #f95f62; font-weight: bold; font-size: 20;"></Button>
+            </GridLayout>
+        </StackLayout>
+    </FlexboxLayout>
+
+</AbsoluteLayout>

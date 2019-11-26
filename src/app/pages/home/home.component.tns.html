@@ -1,4 +1,10 @@
-<StackLayout>
-    <Button text="Fake Student Login" (tap)="studentOnTap($event)"></Button>
-    <Button text="Fake Professor Login" (tap)="professorOnTap($event)"></Button>
+<ActionBar style="background-color: white;">
+    <Label text="OpenEval" style="font-family: 'Roboto'; font-size: 25; color: black;"></Label>
+</ActionBar>
+
+<StackLayout style="background-color: #f3f6fa;">
+    <Label text="-Put real GT Login here-" style="text-align: center; color: black;"></Label>
+    <Button text="Fake Student Login" (tap)="studentOnTap($event)" style="font-size: 35;"></Button>
+    <Button text="Fake Professor Login" (tap)="professorOnTap($event)" style="font-size: 35;"></Button>
+    <Button text="Fake Survey" (tap)="onSurveyTap($event)" style="font-size: 35;"></Button>
 </StackLayout>

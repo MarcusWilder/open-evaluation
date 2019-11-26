@@ -4,6 +4,10 @@ import { AccordionTab } from '@src/app/types/accordion-tab';
 import { Button } from '@src/app/types/button';
 import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 
+import { ItemEventData } from 'tns-core-modules/ui/list-view';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-student-dashboard',
   templateUrl: './student-dashboard.component.html'
@@ -11,7 +15,8 @@ import { MockdataService } from '@src/app/services/mockdata/mockdata.service';
 export class StudentDashboardComponent implements OnInit {
 
   constructor(
-    private mockdataService: MockdataService
+    private mockdataService: MockdataService,
+    private router: Router
   ) { }
 
   activeButtons: Button[] = [
@@ -33,12 +38,28 @@ export class StudentDashboardComponent implements OnInit {
   profName: string;
   academicField: string;
 
+  modalOpen = false;
+
   public hardCodedCourses: any[] = [
-    {title: 'CS 1100', subtitle: '2 Surveys to Complete'},
-    {title: 'CS 1331', subtitle: 'No Active Surveys'},
-    {title: 'MATH 1552', subtitle: 'No Active Surveys'},
-    {title: 'EAS 1600', subtitle: 'No Active Surveys'}
+    {title: 'CS 1100', subtitle: '2 Surveys to Complete', surveys: ['Test Survey 1', 'Test Survey 2', 'Test Survey 3'], selected: false},
+    {title: 'CS 1331', subtitle: 'No Active Surveys', surveys: ['Test Survey 1', 'Test Survey 2', 'Test Survey 3'], selected: false},
+    {title: 'MATH 1552', subtitle: 'No Active Surveys', surveys: ['Test Survey 1', 'Test Survey 2', 'Test Survey 3'], selected: false},
+    {title: 'EAS 1600', subtitle: 'No Active Surveys', surveys: ['Test Survey 1', 'Test Survey 2', 'Test Survey 3'], selected: false}
   ];
+
+  toggleAccordion(index: number) {
+    console.log('!@$#@!$#@!$#@ Logout Test');
+    this.hardCodedCourses[index].selected = !this.hardCodedCourses[index].selected;
+  }
+
+  tappedSurvey() {
+    this.router.navigate(['create-survey']);
+  }
+
+  logoutTest() {
+    console.log('!@$#@!$#@!$#@ Logout Test');
+    this.modalOpen = !this.modalOpen;
+  }
 
   ngOnInit() {
     this.mockdataService.getProfessor().subscribe(professor => {
@@ -53,4 +74,9 @@ export class StudentDashboardComponent implements OnInit {
   takeSurvey() {
     alert('Coming Soon :O');
   }
+}
+
+export function onItemTap(args: ItemEventData) {
+  const index = args.index;
+  console.log(`Second ListView item tap ${index}`);
 }

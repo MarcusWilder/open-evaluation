@@ -28,6 +28,7 @@ import { CreateSurveyComponent } from '@src/app/pages/create-survey/create-surve
 import { StudentDashboardComponent } from '@src/app/pages/student-dashboard/student-dashboard.component';
 import { SurveyTemplateComponent } from './components/survey-template/survey-template.component';
 
+import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -63,6 +64,7 @@ import { SurveyTemplateComponent } from './components/survey-template/survey-tem
     FormsModule,
     NativeScriptModule,
     OverlayModule,
+    NativeScriptUIListViewModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
