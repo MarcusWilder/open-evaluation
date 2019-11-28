@@ -49,11 +49,12 @@ export class TakeSurveyComponent implements OnInit {
     type: 'success',
     onClick: () => {
       if (!this.courseId || !this.surveyId) return;
-      const user = this.userService.user;
+      const id = this.userService.user.id;
       const responses: ResponseData[] = this.surveyData.questions.map(question => ({
         questionId: question._id,
         questionType: question.type,
-        studentResponse: question.answer
+        studentResponse: question.answer,
+        userId: id
       }));
       this.submissionAttempted = true;        
       if (!this.validateResponse()) {
@@ -81,7 +82,7 @@ export class TakeSurveyComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.courseId = +params.get('courseId')
-        this.surveyId = params.get('surveyId')        
+        this.surveyId = params.get('surveyId')
         return this.surveyService.getSurveyById(this.courseId, this.surveyId);
       })
     ).subscribe(survey => {

@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { ObjectId } = require('mongodb');
 const dbPromise = require('../dbConnection');
 const { validateResponse, validateSurveyUpdate } = require('../validators');
+const crypto = require('crypto');
 
 router.get('/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
@@ -119,14 +120,17 @@ router.post('/:courseId/:surveyId/responses', async (req, res) => {
   try {
     const db = await dbPromise;
     const { template } = await db.collection('surveys').findOne({ _id: surveyId });
+    const hashedId = crypto.createHash('sha256').update(String(req.body.userId)).digest('hex');
     const responses = req.body.map(response => ({
-        ...response,
-        questionId: ObjectId(response.questionId)
+        questionId: ObjectId(response.questionId),
+        questionType: response.questionType,
+        studentResponse: response.studentResponse
     }))
     const responseRecord = {
       surveyId,
       template,
-      responses 
+      hashedId,
+      responses
     }
     if (!validateResponse(responseRecord)) {
       console.log(responseRecord);

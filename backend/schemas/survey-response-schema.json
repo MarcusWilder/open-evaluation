@@ -14,6 +14,10 @@
             "type":"string",
             "description": "name of the template used for the survey"
         },
+        "hashedId": {
+            "type": "string",
+            "description": "hashed id (internal Canvas id)"
+        },
         "responses": {
             "type":"array",
             "items": {
@@ -41,5 +45,5 @@
             }
         }
     },
-    "required": ["surveyId", "template", "responses"]
+    "required": ["surveyId", "template", "hashedId", "responses"]
 }
