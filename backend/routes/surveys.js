@@ -84,6 +84,7 @@ router.put('/:courseId/:surveyId', async (req, res) => {
       throw 'Invalid POST data!';
     }
     const { name, template, active } = req.body;
+    // query for hash. if hashedId is in responses then set to inactive
     const db = await dbPromise;
     const result = await db.collection('surveys').updateOne(
       { _id },

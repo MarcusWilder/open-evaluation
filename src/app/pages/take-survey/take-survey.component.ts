@@ -56,11 +56,12 @@ export class TakeSurveyComponent implements OnInit {
         studentResponse: question.answer,
         userId: id
       }));
-      this.submissionAttempted = true;        
+      this.submissionAttempted = true;
       if (!this.validateResponse()) {
         this.toastService.open('Oops...', 'Please answer EVERY question!', 'warning');
         return;
       }
+      // this.surveyData.active = false; // update active to false
       this.surveyService.submitResponse(this.courseId, this.surveyId, responses).subscribe(() => {
         this.surveyData.questions.forEach(question => {
           question.answer = null;
