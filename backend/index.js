@@ -1,11 +1,8 @@
 const fetch = require('node-fetch');
-const { MongoClient, ObjectId } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const { getCookie } = require('./get-cookie');
-// const questions = require('./schemas/questions');
-const dbPromise = require('./dbConnection');
 const COOKIE_NAME = 'canvas_session';
 
 
