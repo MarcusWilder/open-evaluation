@@ -69,12 +69,12 @@ export class StudentDashboardComponent implements OnInit {
       this.surveyService.getSurveysByCourseIds(courseIds, user.id).subscribe(surveysForEachCourse => { 
         this.activeSurveys = surveysForEachCourse.map((surveys, i) => {
           let course = user.courses[i];
-          return { ...course, surveys: surveys.filter(s => !s.completed) };
+          return { ...course, surveys: surveys.filter(s => s.active && !s.completed) };
         });
 
         this.closedSurveys = surveysForEachCourse.map((surveys, i) => {
           let course = user.courses[i];
-          return { ...course, surveys: surveys.filter(s => s.completed) };
+          return { ...course, surveys: surveys.filter(s => !s.active || s.completed) };
         });   
 
       })

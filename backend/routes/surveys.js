@@ -87,19 +87,15 @@ router.get('/:courseId/:surveyId', async (req, res) => {
 router.put('/:courseId/:surveyId', async (req, res) => {
   const _id = ObjectId(req.params.surveyId);
   try {
-    if (!validateSurveyUpdate(req.body)) {
-      throw 'Invalid POST data!';
-    }
-    const { name, template, active } = req.body;
+    // if (!validateSurveyUpdate(req.body)) {
+    //   throw 'Invalid POST data!';
+    // }
+    // const { name, template, active } = req.body;
     const db = await dbPromise;
     const result = await db.collection('surveys').updateOne(
       { _id },
       {
-        $set: {
-          name,
-          template,
-          active,
-        }
+        $set: req.body
       }
     )
     res.send(result);

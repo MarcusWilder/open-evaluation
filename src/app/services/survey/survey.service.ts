@@ -32,6 +32,10 @@ export class SurveyService {
     );
   }
 
+  closeSurveyById(courseId: number, surveyId: string): Observable<any> {
+    return this.http.put(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`, { active: false });
+  }
+
   deleteSurveyById(courseId: number, surveyId: string): Observable<Survey> {
     return this.http.delete<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`)
   }

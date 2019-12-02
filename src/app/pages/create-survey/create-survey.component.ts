@@ -26,7 +26,6 @@ export class CreateSurveyComponent implements OnInit {
   courseId?: number;
   surveyId?: string;
   editing: boolean = false;
-  active: boolean = true;
   surveyTitle: string;
   courseOptions: object[] = [];
   courseSelection: object;
@@ -92,7 +91,6 @@ export class CreateSurveyComponent implements OnInit {
                 return this.surveyService.getSurveyById(this.courseId, this.surveyId);
               })
             ).subscribe(survey => {
-              this.active = survey.active;
               this.surveyTitle = survey.name;
               this.courseSelection = this.courseOptions.find(c => c['data'] === this.courseId) || this.courseOptions[0];
               this.templateSelection = this.templateOptions.find(c => c.data === survey.template) || this.templateOptions[0];
@@ -110,8 +108,7 @@ export class CreateSurveyComponent implements OnInit {
   updateSurvey() {
     const template = this.templateSelection['data'];
     const name = this.surveyTitle || 'Untitled';
-    const active = this.active;
-    this.surveyService.updateSurvey(this.courseId, this.surveyId, name, template, active).subscribe(() => {
+    this.surveyService.updateSurvey(this.courseId, this.surveyId, name, template, true).subscribe(() => {
       this.toastService.open('Survey Updated!','', 'success');
       this.router.navigateByUrl('/professor-dashboard');
     }, () => {
@@ -128,8 +125,7 @@ export class CreateSurveyComponent implements OnInit {
     const courseId = this.courseSelection['data'];
     const template = this.templateSelection['data'];
     const name = this.surveyTitle || 'Untitled';
-    const active = this.active
-    this.surveyService.createSurvey(courseId, name, template, active).subscribe(() => {
+    this.surveyService.createSurvey(courseId, name, template, true).subscribe(() => {
       this.toastService.open('Survey Created!', this.surveyTitle + ' is now accessible to students.', 'success');
       this.router.navigateByUrl('/professor-dashboard');
     }, () => {

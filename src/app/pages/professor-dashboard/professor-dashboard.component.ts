@@ -47,13 +47,26 @@ export class ProfessorDashboardComponent implements OnInit {
   
   activeButtons: Button[] = [
     {
-      type: 'brand',
+      type: 'neutral',
       content: 'Edit',
       onClick: (courseIndex: number, surveyIndex: number) => {
         const courseId = this.activeSurveys[courseIndex].courseId;
         const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
         console.log(courseId, surveyId)
         this.router.navigateByUrl(`/edit-survey/${courseId}/${surveyId}`);
+      }
+    },
+    {
+      type: 'brand',
+      content: 'Close',
+      onClick: (courseIndex: number, surveyIndex: number) => {
+        const courseId = this.activeSurveys[courseIndex].courseId;
+        const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
+        const surveyTitle = this.activeSurveys[courseIndex].surveys[surveyIndex].name;
+        this.surveyService.closeSurveyById(courseId, surveyId).subscribe(() => {
+          this.toastService.open('Survey Closed', 'Students can no longer submit responses to' + surveyTitle, 'warning');
+          this.loadData();
+        });
       }
     },
     {
@@ -64,11 +77,11 @@ export class ProfessorDashboardComponent implements OnInit {
         const surveyId = this.activeSurveys[courseIndex].surveys[surveyIndex]._id;
         const surveyTitle = this.activeSurveys[courseIndex].surveys[surveyIndex].name;
         this.surveyService.deleteSurveyById(courseId, surveyId).subscribe(() => {
-          this.toastService.open('Survey Deleted', surveyTitle + ' was discarded.', 'info');
+          this.toastService.open('Survey Deleted', surveyTitle + ' was discarded.', 'warning');
           this.loadData();
         });
       }
-    }
+    },
   ];
 
   closedButtons = [
