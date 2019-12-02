@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Survey } from '@src/app/types/survey';
+import { Survey, SurveyResults } from '@src/app/types/survey';
 import { Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators'
@@ -32,6 +32,10 @@ export class SurveyService {
     );
   }
 
+  getSurveyResultsById(courseId: number, surveyId: string): Observable<SurveyResults> {
+    return this.http.get<SurveyResults>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}/responses`)
+  }
+
   closeSurveyById(courseId: number, surveyId: string): Observable<any> {
     return this.http.put(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`, { active: false });
   }
@@ -51,7 +55,7 @@ export class SurveyService {
     let surveyObservables: Observable<Survey[]>[] = courseIds.map(id => this.getSurveysByCourseId(id, userId));
     return combineLatest(surveyObservables);
   }
-  
+
   submitResponse(courseId: number, surveyId: string, hashedUserId: string, responses: ResponseData[]): Observable<any[]> {
     return this.http.post<any[]>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}/responses`, {
       hashedUserId,

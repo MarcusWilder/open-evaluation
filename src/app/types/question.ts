@@ -11,3 +11,10 @@ export interface Question {
     options?: unknown[];
     answer?: any;
 }
+export interface QuestionWithResponses {
+    _id: number;
+    type: QuestionType;
+    baseQuestion: string;
+    options?: unknown[];
+    responses: number[] | string[];
+}

@@ -1,0 +1,6 @@
+.chart {
+  --margin: 20px;
+  width: calc(100% - 2 * var(--margin));
+  height: 180px;
+  margin: var(--margin);
+}

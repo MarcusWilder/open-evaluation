@@ -51,15 +51,15 @@ export class StudentDashboardComponent implements OnInit {
   ];
 
   closedButtons = [
-    {
-      type: 'brand',
-      content: 'View Response',
-      onClick: (courseIndex: number, surveyIndex: number) => {
-        const courseId = this.closedSurveys[courseIndex].courseId;
-        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
-        const studentId = this.userService.user.id;
-      }
-    }
+    // {
+    //   type: 'brand',
+    //   content: 'View Response',
+    //   onClick: (courseIndex: number, surveyIndex: number) => {
+    //     const courseId = this.closedSurveys[courseIndex].courseId;
+    //     const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
+    //     const studentId = this.userService.user.id;
+    //   }
+    // }
   ];
 
   ngOnInit() {

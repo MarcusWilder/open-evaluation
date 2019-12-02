@@ -6,6 +6,7 @@ import { ProfessorDashboardComponent } from '@src/app/pages/professor-dashboard/
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { TestComponent } from '@src/app/test/test.component';
 import { TakeSurveyComponent } from '@src/app/pages/take-survey/take-survey.component';
+import { ViewResultsComponent } from '@src/app/pages/view-results/view-results.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'take-survey/:courseId/:surveyId',
     component: TakeSurveyComponent,
+  },
+  {
+    path: 'view-results/:courseId/:surveyId',
+    component: ViewResultsComponent,
   },
   {
     path: '**',

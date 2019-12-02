@@ -148,11 +148,57 @@ router.post('/:courseId/:surveyId/responses', async (req, res) => {
 });
 
 router.get('/:courseId/:surveyId/responses', async (req, res) => {
-  const surveyId = ObjectId(req.params.surveyId);
+  const _id = ObjectId(req.params.surveyId);
   try {
     const db = await dbPromise;
-    let result = await db.collection('responses').find({ surveyId }).toArray();
-    res.send(result);
+    let result = await db.collection('surveys').aggregate([
+        {
+            $match: { _id }
+        },
+        {
+            $lookup: {
+                from: 'templates',
+                localField: 'template',
+                foreignField: 'type',
+                as: '_template'
+            }
+        },
+        {
+            $lookup: {
+                from: 'questions',
+                localField: '_template.questionIds',
+                foreignField: '_id',
+                as: 'questions'
+            }
+        }
+    ]).toArray();
+    let survey = result[0];
+    for (let [i, question] of survey.questions.entries()) {
+      if (question.type === 'FREE_RESPONSE') {
+        let responses = (await db.collection('responses').aggregate([
+          { $match: { surveyId: _id } },
+          { $project: { response: { $arrayElemAt: [ "$responses", i ] } } },
+        ]).toArray()).map(o => o.response.studentResponse);
+        question.responses = responses;
+        continue;
+      }
+      let counter = (survey.questions[i].options || [0,1,2,3,4,5]).map(_ => 0);
+      let responses = await db.collection('responses').aggregate([
+        { $match: { surveyId: _id } },
+        { $project: { response: { $arrayElemAt: [ "$responses", i ] } } },
+        {
+          $group: {
+            _id: `$response.studentResponse`,
+            count: { $sum: 1 }
+          }
+        },
+      ]).toArray()
+      for (let { _id: option, count } of responses) {
+        counter[option] = count;
+      }
+      question.responses = counter;
+    }
+    res.send(survey);
   } catch (error) {
     console.log(error);
     res.status(500);

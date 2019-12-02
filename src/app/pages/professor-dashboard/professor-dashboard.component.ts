@@ -88,7 +88,11 @@ export class ProfessorDashboardComponent implements OnInit {
     {
       type: 'brand',
       content: 'View Results',
-      onClick: () => console.log('Viewing Results')
+      onClick: (courseIndex: number, surveyIndex: number) => {
+        const courseId = this.closedSurveys[courseIndex].courseId;
+        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
+        this.router.navigateByUrl(`/view-results/${courseId}/${surveyId}`);
+      }
     },
   ];
 
