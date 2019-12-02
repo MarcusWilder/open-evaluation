@@ -1,18 +1,29 @@
-h1.gtHeader {
-    margin-top: 1.5625rem;
+h1.header {
     color:white;
-    font-size:300%;
-    font-weight: bold;
-    width: 100%;
+    font-weight: bolder;
+    font-size: 2rem;
     text-align: center;
+    margin: 3rem 1rem 2rem;
 }
 
-h1.surveyHeader {
-    color:white;
-    font-size:300%;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
+@media only screen and (max-width: 900px) {
+    h1.header {
+        font-size: 1.75rem;
+        margin-left: 12rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    h1.header {
+        margin-left: 12rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    h1.header {
+        font-size: 1.2rem;
+    }
 }
 
 div.navBackground {
@@ -23,36 +34,14 @@ div.navBackground {
     padding-top: 1.125rem;
 }
 
-h1.welcomeText {
-    margin-top: 1.875rem;
-    margin-left: 0.9375rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 75%;
-    text-align: left;
-}
-
-h1.loginText {
-    margin-top: 0.9375rem;
-    margin-left: 0.9375rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 75%;
-    text-align: left;
-}
-
-h1.openEvalText {
-    margin-top: 1.875rem;
-    color: #333333;
-    font-size: calc(1.2vw + 1.2vh);
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-}
-
 iframe.videoPlayer {
     display: block;
     margin: 0 auto;
+    max-height: 60vw;
+}
+.center {
+    width: 40rem;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -15,6 +15,7 @@ export class InputComponent { // Add field level help functionality
   @Input() hasError = false;
   @Input() label = 'Input';
   @Input() placeholder = 'Enter Input';
+  @Input() type = 'text';
 
   @Input() set disabled(value: boolean | string) {
     this.dis = coerceBooleanProperty(value);

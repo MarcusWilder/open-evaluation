@@ -1,5 +1,6 @@
 .slds-context-bar {
     border-color: black;
+    overflow-x: hidden;
 }
 
 .slds-button_brand {
