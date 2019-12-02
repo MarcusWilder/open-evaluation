@@ -8,6 +8,7 @@ import { Button } from '@src/app/types/button';
 import { UserService } from '@src/app/services/user/user.service';
 import { ResponseData } from '@src/app/types/response';
 import { ToastService } from '@src/app/services/toast/toast.service';
+import * as hash from 'hash.js';
 
 @Component({
   selector: 'app-take-survey',
@@ -60,7 +61,8 @@ export class TakeSurveyComponent implements OnInit {
         this.toastService.open('Oops...', 'Please answer EVERY question!', 'warning');
         return;
       }
-      this.surveyService.submitResponse(this.courseId, this.surveyId, responses).subscribe(() => {
+      const hashedUserId = hash.sha256().update(this.userService.user.id).digest('hex');
+      this.surveyService.submitResponse(this.courseId, this.surveyId, hashedUserId, responses).subscribe(() => {
         this.surveyData.questions.forEach(question => {
           question.answer = null;
         })

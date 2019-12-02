@@ -36,16 +36,22 @@ export class SurveyService {
     return this.http.delete<Survey>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}`)
   }
 
-  getSurveysByCourseId(courseId: number): Observable<Survey[]> {
+  getSurveysByCourseId(courseId: number, userId?: number): Observable<Survey[]> {
+    if (userId) {
+      return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}?userId=${userId}`);
+    }
     return this.http.get<Survey[]>(`${API_SERVER_URL}/surveys/${courseId}`);
   }
 
-  getSurveysByCourseIds(courseIds: number[]): Observable<Survey[][]> {
-    let surveyObservables: Observable<Survey[]>[] = courseIds.map(id => this.getSurveysByCourseId(id));
+  getSurveysByCourseIds(courseIds: number[], userId?: number): Observable<Survey[][]> {
+    let surveyObservables: Observable<Survey[]>[] = courseIds.map(id => this.getSurveysByCourseId(id, userId));
     return combineLatest(surveyObservables);
   }
   
-  submitResponse(courseId: number, surveyId: string, responseData: ResponseData[]): Observable<any[]> {
-    return this.http.post<any[]>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}/responses`, responseData);
+  submitResponse(courseId: number, surveyId: string, hashedUserId: string, responses: ResponseData[]): Observable<any[]> {
+    return this.http.post<any[]>(`${API_SERVER_URL}/surveys/${courseId}/${surveyId}/responses`, {
+      hashedUserId,
+      responses
+    });
   }
 }

@@ -2,15 +2,23 @@ const router = require('express').Router()
 const { ObjectId } = require('mongodb');
 const dbPromise = require('../dbConnection');
 const { validateResponse, validateSurveyUpdate } = require('../validators');
+const hash = require('hash.js');
 
 router.get('/:courseId', async (req, res) => {
   const courseId = +req.params.courseId;
+  const hashedUserId = hash.sha256().update(+req.query.userId).digest('hex');
   const db = await dbPromise;
   try {
     const surveys = await db.collection('surveys').find({ courseId }).toArray();
+    for (let s of surveys) {
+      s.completed = !!await db.collection('responses').findOne({
+        surveyId: s._id,
+        hashedUserId
+      })
+    }
     res.send(surveys);
   } catch (error) {
-    console.log(error);
+    console.log(errror);
     res.status(500);
     res.send({ error });
   }  
@@ -119,12 +127,14 @@ router.post('/:courseId/:surveyId/responses', async (req, res) => {
   try {
     const db = await dbPromise;
     const { template } = await db.collection('surveys').findOne({ _id: surveyId });
-    const responses = req.body.map(response => ({
+    const hashedUserId = req.body.hashedUserId;
+    const responses = req.body.responses.map(response => ({
         ...response,
         questionId: ObjectId(response.questionId)
     }))
     const responseRecord = {
       surveyId,
+      hashedUserId,
       template,
       responses 
     }
