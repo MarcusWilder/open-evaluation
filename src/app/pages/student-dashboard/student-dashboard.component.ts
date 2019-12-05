@@ -51,30 +51,30 @@ export class StudentDashboardComponent implements OnInit {
   ];
 
   closedButtons = [
-    {
-      type: 'brand',
-      content: 'View Response',
-      onClick: (courseIndex: number, surveyIndex: number) => {
-        const courseId = this.closedSurveys[courseIndex].courseId;
-        const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
-        const studentId = this.userService.user.id;
-      }
-    }
+    // {
+    //   type: 'brand',
+    //   content: 'View Response',
+    //   onClick: (courseIndex: number, surveyIndex: number) => {
+    //     const courseId = this.closedSurveys[courseIndex].courseId;
+    //     const surveyId = this.closedSurveys[courseIndex].surveys[surveyIndex]._id;
+    //     const studentId = this.userService.user.id;
+    //   }
+    // }
   ];
 
   ngOnInit() {
     this.userService.user$.subscribe((user: User) => {
       this.name = user.name;
       let courseIds = user.courses.map(c => c.courseId);
-      this.surveyService.getSurveysByCourseIds(courseIds).subscribe(surveysForEachCourse => { 
+      this.surveyService.getSurveysByCourseIds(courseIds, user.id).subscribe(surveysForEachCourse => { 
         this.activeSurveys = surveysForEachCourse.map((surveys, i) => {
           let course = user.courses[i];
-          return { ...course, surveys: surveys.filter(s => s.active) };
+          return { ...course, surveys: surveys.filter(s => s.active && !s.completed) };
         });
 
         this.closedSurveys = surveysForEachCourse.map((surveys, i) => {
           let course = user.courses[i];
-          return { ...course, surveys: surveys.filter(s => !s.active) };
+          return { ...course, surveys: surveys.filter(s => !s.active || s.completed) };
         });   
 
       })

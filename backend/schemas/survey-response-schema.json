@@ -10,6 +10,9 @@
             "type": "object",
             "description": "unique id of survey"
         },
+        "hashedUserId": {
+            "type": "string"
+        },
         "template": {
             "type":"string",
             "description": "name of the template used for the survey"

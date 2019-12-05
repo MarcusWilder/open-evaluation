@@ -9,6 +9,7 @@
     icon="calibration"
 ></app-page-header>
 
+<div class="centered">
 <app-card
     [title]="surveyData ? surveyData.template : ''"
     class="slds-m-around_large">
@@ -22,7 +23,7 @@
     </div>
 </app-card>
 
-<section class="slds-m-around_large">
+<section>
   <ul class="slds-m-vertical_small slds-button-group-row">
     <li *ngFor="let button of buttons" class="slds-button-group-item">
       <app-button
@@ -33,3 +34,4 @@
     </li>
   </ul>
 </section>
+</div>

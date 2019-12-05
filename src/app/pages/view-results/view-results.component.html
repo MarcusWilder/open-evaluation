@@ -1,0 +1,30 @@
+<app-brand-band type="medium"></app-brand-band>
+<div class="row-2">
+    <ul>
+        <li><a href="index.html" class="active"><p style="margin-top: 185px;"></p></a></li>
+    </ul>
+</div>
+<app-page-header
+    [title]="'Results: ' + (surveyResults ? surveyResults.name : '')"
+    icon="calibration"
+></app-page-header>
+
+<app-card
+    [title]="surveyResults ? surveyResults.template : ''"
+    class="slds-m-around_large">
+    <div body *ngIf="dataLoaded">
+      <section *ngFor="let question of surveyResults.questions; index as i">
+        <h3 class="slds-text-heading_medium">{{question.baseQuestion}}</h3>
+        <svg *ngIf="question.type !== 'FREE_RESPONSE'" class="chart" [id]="'chart-' + i"></svg>
+        <ul
+          class="slds-list_dotted slds-m-around_large"
+          *ngIf="question.type === 'FREE_RESPONSE'"
+         >
+          <li *ngFor="let response of question.responses">
+            {{response}}
+          </li>
+        </ul>
+      </section>
+    </div>
+</app-card>
+
