@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "hash.js": "^1.1.7",
     "mongodb": "^3.3.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "puppeteer": "^2.0.0"
   },
   "devDependencies": {
